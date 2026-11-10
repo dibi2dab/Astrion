@@ -2,7 +2,7 @@
   "schema": "astrion.queue/v1",
   "queue_id": "2026-11-10-s2-why-the-sky-is-blue-rayleigh-scattering-explained",
   "topic_id": "physics.rayleigh-scattering-sky",
-  "status": "queued",
+  "status": "published",
   "created_at": "2026-11-10T06:20:16+00:00",
   "publish_date": "2026-11-10",
   "publish_after": "2026-11-10T15:30:00-05:00",
@@ -112,5 +112,33 @@
       "published_at": null,
       "accessed_at": "2026-11-10"
     }
-  ]
+  ],
+  "publication": {
+    "queue_id": "2026-11-10-s2-why-the-sky-is-blue-rayleigh-scattering-explained",
+    "topic_id": "physics.rayleigh-scattering-sky",
+    "title": "Why Is the Sky Blue? Rayleigh Scattering Explained",
+    "main_category": "Physics",
+    "content_type": "science-explained",
+    "publish_date": "2026-11-10",
+    "slot": 1,
+    "blogger_post_id": "427473430573109335",
+    "url": "https://sciencew1thoutlimits.blogspot.com/",
+    "blogger_status": "DRAFT",
+    "published_at": "2026-11-10T13:46:52-08:00",
+    "quality_score": 98.0,
+    "labels": [
+      "Physics",
+      "Atmospheric Optics",
+      "Light and Optics",
+      "Rayleigh Scattering"
+    ],
+    "signature": "Why does a clear sky appear blue, and why does the same scattering process make a setting Sun look red or orange? The wavelength dependence of Rayleigh scattering, how it redistributes sunlight across the sky, and why the long path through the atmosphere near the horizon removes blue light from the direct solar beam. Air molecules scatter short visible wavelengths much more efficiently than long ones, roughly as the inverse fourth power of wavelength, so scattered blue light dominates the sky while transmitted red light dominates the low Sun.",
+    "fingerprint": "8c72ae4eeb1cc9223031ee381c370999364b02ab3ffc9f04d6bba221f23076c6",
+    "primary_keyword": "why is the sky blue",
+    "aliases": [
+      "blue sky",
+      "rayleigh scattering",
+      "sky color"
+    ]
+  }
 }

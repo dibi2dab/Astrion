@@ -1,0 +1,223 @@
+<div class="astrion-post" data-astrion-topic="physics.rayleigh-scattering-sky" data-astrion-queue="2026-11-10-s2-why-the-sky-is-blue-rayleigh-scattering-explained">
+<style>
+.astrion-post {
+  --a-ink: #16202b;
+  --a-muted: #5b6875;
+  --a-line: #dfe5ec;
+  --a-accent: #1f6feb;
+  --a-bg: #f6f9fd;
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--a-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.06rem;
+  line-height: 1.75;
+  overflow-wrap: break-word;
+}
+.astrion-post p { margin: 0 0 1.15em; }
+.astrion-kicker { margin: 0 0 0.6em; color: var(--a-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.astrion-lead { color: #25313d; font-size: 1.17rem; line-height: 1.7; }
+.astrion-reading-time { margin: 0 0 1.9em; color: var(--a-muted); font-size: 0.86rem; }
+.astrion-key-takeaways { margin: 1.9em 0; padding: 1.1rem 1.25rem; background: var(--a-bg); border-left: 4px solid var(--a-accent); border-radius: 0 8px 8px 0; }
+.astrion-key-takeaways h2 { margin: 0 0 0.45rem; font-size: 1rem; letter-spacing: 0.02em; }
+.astrion-key-takeaways ul { margin: 0; padding-left: 1.25rem; }
+.astrion-key-takeaways li { margin: 0.3rem 0; }
+.astrion-section h2 { margin: 2.1em 0 0.7em; font-size: 1.45rem; line-height: 1.3; }
+.astrion-section h3 { margin: 1.6em 0 0.5em; font-size: 1.14rem; line-height: 1.4; }
+.astrion-math { padding: 0.35rem 0; overflow-x: auto; overflow-y: hidden; text-align: center; }
+.astrion-math-inline { text-align: left; }
+.astrion-figure { margin: 1.5em 0; }
+.astrion-figure figcaption, .astrion-equation-caption { margin-top: 0.45rem; color: var(--a-muted); font-size: 0.86rem; text-align: center; }
+.astrion-equation { margin: 1.5em 0; padding: 1rem 1.1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-equation .astrion-math { font-size: 1.08rem; }
+.astrion-vars { display: grid; grid-template-columns: minmax(2.5rem, auto) 1fr; gap: 0.35rem 0.8rem; margin: 0.85rem 0 0; font-size: 0.93rem; }
+.astrion-vars dt { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; font-weight: 700; }
+.astrion-vars dd { margin: 0; color: var(--a-muted); }
+.astrion-table-wrap { margin: 1.5em 0; overflow-x: auto; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 0.95rem; }
+.astrion-table caption { padding: 0.75rem 0.9rem; color: var(--a-ink); font-size: 0.88rem; font-weight: 700; text-align: left; }
+.astrion-table th, .astrion-table td { padding: 0.6rem 0.85rem; border-top: 1px solid var(--a-line); text-align: left; vertical-align: top; }
+.astrion-table thead th { background: #f7f9fc; font-size: 0.8rem; letter-spacing: 0.03em; text-transform: uppercase; }
+.astrion-list { margin: 0 0 1.25em; padding-left: 1.35rem; }
+.astrion-list li { margin: 0.35rem 0; }
+.astrion-callout { margin: 1.5em 0; padding: 0.9rem 1.1rem; background: #f8fafc; border-left: 4px solid #8a94a6; border-radius: 0 6px 6px 0; }
+.astrion-callout--key { background: #f2f7ff; border-color: var(--a-accent); }
+.astrion-callout--warning { background: #fff9ec; border-color: #c47f17; }
+.astrion-callout-title { margin: 0 0 0.35rem; font-weight: 700; }
+.astrion-callout p:last-child { margin-bottom: 0; }
+.astrion-example { margin: 1.5em 0; padding: 1rem 1.1rem; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-example h3 { margin-top: 0; }
+.astrion-example ol { margin-bottom: 0; padding-left: 1.35rem; }
+.astrion-misconceptions, .astrion-sources, .astrion-related { margin-top: 2.3em; }
+.astrion-misconceptions h2, .astrion-sources h2, .astrion-related h2 { margin: 0 0 0.7em; font-size: 1.3rem; line-height: 1.35; }
+.astrion-misconception { margin: 0 0 1.1em; padding: 0.85rem 1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-misconception p { margin: 0; }
+.astrion-misconception-claim { margin-bottom: 0.35rem !important; font-weight: 700; }
+.astrion-sources ol { margin: 0; padding-left: 1.35rem; }
+.astrion-sources li { margin: 0.55em 0; font-size: 0.94rem; }
+.astrion-sources a, .astrion-related a { color: var(--a-accent); text-decoration: none; }
+.astrion-source-meta { display: block; color: var(--a-muted); font-size: 0.84rem; }
+.astrion-related ul { margin: 0; padding-left: 1.25rem; }
+.astrion-related li { margin: 0.4em 0; }
+.astrion-post-meta { margin: 2.4em 0 0; padding-top: 1rem; border-top: 1px solid var(--a-line); color: var(--a-muted); font-size: 0.84rem; }
+@media (max-width: 600px) {
+  .astrion-post { font-size: 1rem; }
+  .astrion-section h2 { font-size: 1.3rem; }
+  .astrion-table { min-width: 360px; }
+  .astrion-vars { grid-template-columns: 1fr; gap: 0.1rem; }
+  .astrion-vars dd { margin-bottom: 0.5rem; }
+}
+</style>
+
+<p class="astrion-kicker">Physics</p>
+<p>On a clear day the sky is blue, yet the air itself is colorless. The color is not painted on the atmosphere and it is not a reflection of the ocean. It comes from the way sunlight interacts with molecules far smaller than any wavelength of visible light, and the effect is strong enough to turn a dark sky into a bright blue dome.</p>
+<p class="astrion-reading-time">7 min read</p>
+
+<aside class="astrion-key-takeaways">
+  <h2>Key takeaways</h2>
+  <ul>
+    <li>Sunlight is a mixture of wavelengths, and air molecules redirect it without absorbing it.</li>
+    <li>Rayleigh scattering grows roughly as 1 divided by wavelength to the fourth power, so blue light is scattered several times more than red.</li>
+    <li>The sky is blue rather than violet because the solar spectrum, atmospheric absorption, and human vision all favor blue.</li>
+    <li>A low Sun sends light through more air, so blue is scattered out of the direct beam and red reaches the eye.</li>
+  </ul>
+</aside>
+
+<section class="astrion-section">
+  <h2 id="astrion-section-1-sunlight-contains-every-visible-color">Sunlight Contains Every Visible Color</h2>
+  <p>White sunlight is a mixture of wavelengths. A prism separates that mixture into a spectrum, and each color corresponds to a different range of wavelengths. Red light sits near 700 nanometers, green near 520 nanometers, and blue near 450 nanometers. Ultraviolet light has even shorter wavelengths than violet, while infrared light has longer wavelengths than red.</p>
+<p>When sunlight enters the atmosphere, most of it continues toward the ground. A small fraction interacts with the electric field of air molecules such as nitrogen and oxygen. Those molecules are only about 0.3 nanometers across, far smaller than the wavelength of visible light, which places the interaction in the Rayleigh scattering regime.</p>
+<p>Scattering here means redirection, not absorption. The molecule oscillates in the passing light and reradiates energy in many directions at essentially the same wavelength. Sunlight that would otherwise travel past an observer is therefore sent toward the eye from every part of the sky.</p>
+<aside class="astrion-callout astrion-callout--note">
+  <p class="astrion-callout-title">Color is not a substance</p>
+<p>The blue of the sky is not a blue gas. It is the result of how strongly each wavelength is redirected by colorless molecules.</p>
+</aside>
+</section>
+<section class="astrion-section">
+  <h2 id="astrion-section-2-air-molecules-favor-short-wavelengths">Air Molecules Favor Short Wavelengths</h2>
+  <p>Rayleigh scattering is strongly wavelength dependent. For particles much smaller than the wavelength, the scattered intensity is proportional to one divided by the fourth power of wavelength. Halving the wavelength increases the scattering by a factor of sixteen. That steep relationship is the core of the explanation.</p>
+<div class="astrion-equation">
+  <div class="astrion-math">\[I_{\mathrm{scattered}} \propto \frac{1}{\lambda^{4}}\]</div>
+  <dl class="astrion-vars">
+      <dt>I_scattered</dt>
+      <dd>intensity of light redirected by the molecule</dd>
+      <dt>\lambda</dt>
+      <dd>wavelength of the incident light (nanometers)</dd>
+  </dl>
+  <figcaption class="astrion-equation-caption">The inverse fourth-power law for particles much smaller than the wavelength.</figcaption>
+</div>
+<p>Blue light near 450 nanometers therefore scatters roughly five to six times more strongly than red light near 700 nanometers. Green light falls between the two. Because the effect applies to every air molecule along the line of sight, the cumulative result is a sky filled with redirected short-wavelength light.</p>
+<p>The scattering is not perfectly uniform in direction. Rayleigh scattering is roughly symmetric for unpolarized sunlight, with a slight preference for forward and backward directions. That detail matters for polarized sunglasses and for atmospheric measurements, but the dominant effect for color is the wavelength dependence.</p>
+<div class="astrion-table-wrap" role="region" tabindex="0" aria-label="Relative Rayleigh scattering strength by wavelength, normalized to red">
+  <table class="astrion-table">
+    <caption>Relative Rayleigh scattering strength by wavelength, normalized to red</caption>
+    <thead><tr><th scope="col">Color</th><th scope="col">Wavelength</th><th scope="col">Relative scattering</th><th scope="col">Visible effect</th></tr></thead>
+    <tbody>
+      <tr><td>Violet</td><td>400 nm</td><td>9.4</td><td>Strongly scattered but partly absorbed and weakly seen</td></tr>
+      <tr><td>Blue</td><td>450 nm</td><td>5.8</td><td>Dominates the clear daytime sky</td></tr>
+      <tr><td>Green</td><td>520 nm</td><td>3.3</td><td>Scattered moderately</td></tr>
+      <tr><td>Orange</td><td>600 nm</td><td>1.9</td><td>Mostly transmitted</td></tr>
+      <tr><td>Red</td><td>700 nm</td><td>1.0</td><td>Least scattered, reaches the eye directly</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+<section class="astrion-section">
+  <h2 id="astrion-section-3-why-not-violet">Why Not Violet?</h2>
+  <p>Violet light has a shorter wavelength than blue light, so the inverse fourth-power law predicts that it should scatter even more strongly. A naive calculation would make the sky violet. The resolution lies partly outside the scattering formula.</p>
+<p>The Sun emits less violet light than blue light, and the upper atmosphere absorbs a portion of the violet and ultraviolet bands. The human eye also responds less strongly to violet than to blue. The mixture reaching an observer is therefore weighted toward blue, even though violet photons are scattered more efficiently one by one.</p>
+<ul class="astrion-list">
+  <li>The solar spectrum peaks in the visible range but declines toward violet.</li>
+  <li>Ozone and other atmospheric constituents absorb some short-wavelength light.</li>
+  <li>Cone cells in the human retina are less sensitive to violet than to blue.</li>
+  <li>The scattered spectrum is broad, so the perceived color is a mixture rather than a single wavelength.</li>
+</ul>
+<aside class="astrion-callout astrion-callout--key">
+  <p class="astrion-callout-title">Perception is part of the measurement</p>
+<p>The sky&#x27;s color is the result of a physical spectrum reaching the eye and the response of that eye. Both parts of the chain matter.</p>
+</aside>
+</section>
+<section class="astrion-section">
+  <h2 id="astrion-section-4-why-sunsets-turn-red">Why Sunsets Turn Red</h2>
+  <p>At noon the Sun is high and its light crosses a relatively short path through the atmosphere. Near sunset the Sun is low, and the line of sight to it passes through a much longer column of air. Path length through the atmosphere can increase by a factor of ten or more between noon and the horizon.</p>
+<p>A longer path gives molecules more opportunities to scatter short wavelengths out of the direct beam. By the time the remaining light reaches an observer, much of the blue and green has been redirected elsewhere. Red and orange wavelengths survive the journey more often because they scatter least. The direct solar disk therefore looks redder, and the surrounding sky may glow with the colors that were removed from the beam.</p>
+<figure class="astrion-figure">
+  <div class="astrion-math">\[A_{\mathrm{path}} = \frac{A_{0}}{\cos z}\]</div>
+<figcaption>Air mass grows as the zenith angle grows, so low Sunlight crosses more atmosphere.</figcaption>
+</figure>
+<p>This is also why the sky opposite the sunset can show a blue-pink gradient. The scattered blue light does not disappear. It is redirected across the sky, where it mixes with light that took other paths through the atmosphere.</p>
+<div class="astrion-example">
+  <h3>A short calculation</h3>
+  <ol>
+    <li>Compare blue at 450 nanometers with red at 700 nanometers using the inverse fourth-power law.</li>
+    <li>Compute the ratio as 700 divided by 450, then raise that ratio to the fourth power.</li>
+    <li>The result is about 5.8, so blue is scattered roughly six times as strongly as red.</li>
+    <li>Multiply by a longer sunset path, and the cumulative advantage of scattering blue becomes large.</li>
+  </ol>
+  <p>The same ratio that makes the daytime sky blue removes blue from the direct beam at sunset.</p>
+</div>
+</section>
+<section class="astrion-section">
+  <h2 id="astrion-section-5-what-scattering-does-not-explain">What Scattering Does Not Explain</h2>
+  <p>Rayleigh scattering is not the whole story of atmospheric color. Larger particles such as dust, smoke, and water droplets scatter light differently. Their sizes are comparable to or larger than visible wavelengths, so their scattering depends less strongly on wavelength. That is why hazy skies look pale and why clouds look white or gray rather than blue.</p>
+<p>Absorption is a separate process. Ozone absorbs ultraviolet light, water vapor absorbs infrared light, and certain pollutants absorb specific visible bands. Those effects change the spectrum that reaches the ground, but they are not the same as the wavelength-selective redirection that produces the blue sky.</p>
+<aside class="astrion-callout astrion-callout--warning">
+  <p class="astrion-callout-title">A common shortcut that fails</p>
+<p>The ocean cannot be the cause: the sky is blue over deserts and continents too, and reflection does not explain red sunsets. The color comes from scattering by air molecules, not from the surface below.</p>
+</aside>
+<p>Nor is the sky blue because of the ozone layer. Ozone absorbs some ultraviolet light and can add a faint blue tint near twilight, but the dominant daytime color is produced by Rayleigh scattering from nitrogen and oxygen molecules throughout the troposphere and stratosphere.</p>
+</section>
+<section class="astrion-section">
+  <h2 id="astrion-section-6-the-sky-as-a-wavelength-filter">The Sky as a Wavelength Filter</h2>
+  <p>The atmosphere acts like a selective filter that works in all directions. It removes short wavelengths from the direct solar beam and sends them across the sky. An observer looking away from the Sun sees that scattered light, while an observer looking toward a low Sun sees what survived the longer path.</p>
+<p>The inverse fourth-power law makes the effect easy to reason about. Shorter wavelengths are redirected much more strongly, and longer wavelengths pass through more readily. Everything else, from the violet question to the color of sunset, follows from that asymmetry plus the spectrum of the Sun and the response of the human eye.</p>
+<p>The next time the sky looks especially deep blue after a rainstorm, the clean air is part of the reason. Fewer large particles mean less wavelength-independent scattering and less white haze. What remains is the molecular scattering that favors blue, operating over the entire visible sky.</p>
+</section>
+
+<section class="astrion-misconceptions">
+  <h2>Common misconceptions</h2>
+  <div class="astrion-misconception">
+    <p class="astrion-misconception-claim">The sky is blue because sunlight reflects off the oceans.</p>
+    <p>The effect appears over land and ocean alike and does not explain red sunsets. Rayleigh scattering by nitrogen and oxygen molecules redirection short wavelengths across the sky, independent of the surface below.</p>
+  </div>
+  <div class="astrion-misconception">
+    <p class="astrion-misconception-claim">Violet scatters most, so the sky should be violet.</p>
+    <p>Violet does scatter more strongly per photon, but the Sun emits less violet, the atmosphere absorbs some of it, and human vision is less sensitive to violet. The perceived color is a weighted mixture that favors blue.</p>
+  </div>
+  <div class="astrion-misconception">
+    <p class="astrion-misconception-claim">The sky is blue because of the ozone layer.</p>
+    <p>Ozone absorbs ultraviolet radiation and can slightly affect twilight colors, but the main blue color comes from Rayleigh scattering by air molecules at all altitudes, not from ozone absorption.</p>
+  </div>
+</section>
+
+<section class="astrion-sources">
+  <h2>Sources</h2>
+  <ol>
+    <li>
+      <a href="https://spaceplace.nasa.gov/blue-sky/en/" target="_blank" rel="noopener noreferrer">Why Is the Sky Blue?</a>
+      <span class="astrion-source-meta">NASA Space Place, n.d.</span>
+    </li>
+    <li>
+      <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/atmos/blusky.html" target="_blank" rel="noopener noreferrer">Blue Sky and Rayleigh Scattering</a>
+      <span class="astrion-source-meta">HyperPhysics, Georgia State University, n.d.</span>
+    </li>
+    <li>
+      <a href="https://www.britannica.com/science/Rayleigh-scattering" target="_blank" rel="noopener noreferrer">Rayleigh scattering</a>
+      <span class="astrion-source-meta">Encyclopaedia Britannica, n.d.</span>
+    </li>
+  </ol>
+</section>
+
+
+
+<p class="astrion-post-meta">Physics · Atmospheric Optics · Light and Optics · Rayleigh Scattering · Reviewed November 2026</p>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</div>
