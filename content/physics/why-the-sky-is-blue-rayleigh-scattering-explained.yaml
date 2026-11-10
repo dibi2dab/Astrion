@@ -1,0 +1,296 @@
+schema: astrion.topic/v1
+id: physics.rayleigh-scattering-sky
+status: active
+content_type: science-explained
+main_category: Physics
+labels:
+  - Atmospheric Optics
+  - Light and Optics
+  - Rayleigh Scattering
+title: Why Is the Sky Blue? Rayleigh Scattering Explained
+slug: why-the-sky-is-blue-rayleigh-scattering-explained
+meta_description: The sky looks blue because air molecules scatter short wavelengths far more strongly than long ones. Rayleigh scattering explains the color and red sunsets.
+primary_keyword: why is the sky blue
+secondary_keywords:
+  - rayleigh scattering
+  - atmospheric optics
+  - wavelength dependence
+  - sunset color
+hook: >-
+  On a clear day the sky is blue, yet the air itself is colorless. The color is not
+  painted on the atmosphere and it is not a reflection of the ocean. It comes from the
+  way sunlight interacts with molecules far smaller than any wavelength of visible
+  light, and the effect is strong enough to turn a dark sky into a bright blue dome.
+core_question: >-
+  Why does a clear sky appear blue, and why does the same scattering process make a
+  setting Sun look red or orange?
+explanation_target: >-
+  The wavelength dependence of Rayleigh scattering, how it redistributes sunlight
+  across the sky, and why the long path through the atmosphere near the horizon
+  removes blue light from the direct solar beam.
+central_principle: >-
+  Air molecules scatter short visible wavelengths much more efficiently than long
+  ones, roughly as the inverse fourth power of wavelength, so scattered blue light
+  dominates the sky while transmitted red light dominates the low Sun.
+unique_value: >-
+  This explanation connects the inverse fourth-power law to a concrete scattering
+  ratio table, resolves the usual violet objection, separates scattering from
+  absorption, and shows why the same calculation explains both the blue overhead sky
+  and the red horizon at sunset.
+key_takeaways:
+  - Sunlight is a mixture of wavelengths, and air molecules redirect it without absorbing it.
+  - Rayleigh scattering grows roughly as 1 divided by wavelength to the fourth power, so blue light is scattered several times more than red.
+  - The sky is blue rather than violet because the solar spectrum, atmospheric absorption, and human vision all favor blue.
+  - A low Sun sends light through more air, so blue is scattered out of the direct beam and red reaches the eye.
+sections:
+  - heading: Sunlight Contains Every Visible Color
+    blocks:
+      - type: paragraph
+        text: >-
+          White sunlight is a mixture of wavelengths. A prism separates that mixture into
+          a spectrum, and each color corresponds to a different range of wavelengths. Red
+          light sits near 700 nanometers, green near 520 nanometers, and blue near 450
+          nanometers. Ultraviolet light has even shorter wavelengths than violet, while
+          infrared light has longer wavelengths than red.
+      - type: paragraph
+        text: >-
+          When sunlight enters the atmosphere, most of it continues toward the ground.
+          A small fraction interacts with the electric field of air molecules such as
+          nitrogen and oxygen. Those molecules are only about 0.3 nanometers across, far
+          smaller than the wavelength of visible light, which places the interaction in the
+          Rayleigh scattering regime.
+      - type: paragraph
+        text: >-
+          Scattering here means redirection, not absorption. The molecule oscillates in
+          the passing light and reradiates energy in many directions at essentially the
+          same wavelength. Sunlight that would otherwise travel past an observer is
+          therefore sent toward the eye from every part of the sky.
+      - type: callout
+        tone: note
+        title: Color is not a substance
+        text: >-
+          The blue of the sky is not a blue gas. It is the result of how strongly each
+          wavelength is redirected by colorless molecules.
+
+  - heading: Air Molecules Favor Short Wavelengths
+    blocks:
+      - type: paragraph
+        text: >-
+          Rayleigh scattering is strongly wavelength dependent. For particles much smaller
+          than the wavelength, the scattered intensity is proportional to one divided by
+          the fourth power of wavelength. Halving the wavelength increases the scattering
+          by a factor of sixteen. That steep relationship is the core of the explanation.
+      - type: equation
+        latex: 'I_{\mathrm{scattered}} \propto \frac{1}{\lambda^{4}}'
+        variables:
+          - symbol: I_scattered
+            meaning: intensity of light redirected by the molecule
+          - symbol: \lambda
+            meaning: wavelength of the incident light
+            unit: nanometers
+        caption: The inverse fourth-power law for particles much smaller than the wavelength.
+      - type: paragraph
+        text: >-
+          Blue light near 450 nanometers therefore scatters roughly five to six times more
+          strongly than red light near 700 nanometers. Green light falls between the two.
+          Because the effect applies to every air molecule along the line of sight, the
+          cumulative result is a sky filled with redirected short-wavelength light.
+      - type: paragraph
+        text: >-
+          The scattering is not perfectly uniform in direction. Rayleigh scattering is
+          roughly symmetric for unpolarized sunlight, with a slight preference for forward
+          and backward directions. That detail matters for polarized sunglasses and for
+          atmospheric measurements, but the dominant effect for color is the wavelength
+          dependence.
+      - type: table
+        caption: Relative Rayleigh scattering strength by wavelength, normalized to red
+        headers:
+          - Color
+          - Wavelength
+          - Relative scattering
+          - Visible effect
+        rows:
+          - - Violet
+            - 400 nm
+            - "9.4"
+            - Strongly scattered but partly absorbed and weakly seen
+          - - Blue
+            - 450 nm
+            - "5.8"
+            - Dominates the clear daytime sky
+          - - Green
+            - 520 nm
+            - "3.3"
+            - Scattered moderately
+          - - Orange
+            - 600 nm
+            - "1.9"
+            - Mostly transmitted
+          - - Red
+            - 700 nm
+            - "1.0"
+            - Least scattered, reaches the eye directly
+
+  - heading: Why Not Violet?
+    blocks:
+      - type: paragraph
+        text: >-
+          Violet light has a shorter wavelength than blue light, so the inverse fourth-power
+          law predicts that it should scatter even more strongly. A naive calculation would
+          make the sky violet. The resolution lies partly outside the scattering formula.
+      - type: paragraph
+        text: >-
+          The Sun emits less violet light than blue light, and the upper atmosphere absorbs
+          a portion of the violet and ultraviolet bands. The human eye also responds less
+          strongly to violet than to blue. The mixture reaching an observer is therefore
+          weighted toward blue, even though violet photons are scattered more efficiently
+          one by one.
+      - type: list
+        ordered: false
+        items:
+          - The solar spectrum peaks in the visible range but declines toward violet.
+          - Ozone and other atmospheric constituents absorb some short-wavelength light.
+          - Cone cells in the human retina are less sensitive to violet than to blue.
+          - The scattered spectrum is broad, so the perceived color is a mixture rather than a single wavelength.
+      - type: callout
+        tone: key
+        title: Perception is part of the measurement
+        text: >-
+          The sky's color is the result of a physical spectrum reaching the eye and the
+          response of that eye. Both parts of the chain matter.
+
+  - heading: Why Sunsets Turn Red
+    blocks:
+      - type: paragraph
+        text: >-
+          At noon the Sun is high and its light crosses a relatively short path through
+          the atmosphere. Near sunset the Sun is low, and the line of sight to it passes
+          through a much longer column of air. Path length through the atmosphere can
+          increase by a factor of ten or more between noon and the horizon.
+      - type: paragraph
+        text: >-
+          A longer path gives molecules more opportunities to scatter short wavelengths
+          out of the direct beam. By the time the remaining light reaches an observer, much
+          of the blue and green has been redirected elsewhere. Red and orange wavelengths
+          survive the journey more often because they scatter least. The direct solar disk
+          therefore looks redder, and the surrounding sky may glow with the colors that were
+          removed from the beam.
+      - type: math
+        latex: 'A_{\mathrm{path}} = \frac{A_{0}}{\cos z}'
+        caption: Air mass grows as the zenith angle grows, so low Sunlight crosses more atmosphere.
+      - type: paragraph
+        text: >-
+          This is also why the sky opposite the sunset can show a blue-pink gradient. The
+          scattered blue light does not disappear. It is redirected across the sky, where
+          it mixes with light that took other paths through the atmosphere.
+      - type: example
+        title: A short calculation
+        steps:
+          - Compare blue at 450 nanometers with red at 700 nanometers using the inverse fourth-power law.
+          - Compute the ratio as 700 divided by 450, then raise that ratio to the fourth power.
+          - The result is about 5.8, so blue is scattered roughly six times as strongly as red.
+          - Multiply by a longer sunset path, and the cumulative advantage of scattering blue becomes large.
+        conclusion: >-
+          The same ratio that makes the daytime sky blue removes blue from the direct
+          beam at sunset.
+
+  - heading: What Scattering Does Not Explain
+    blocks:
+      - type: paragraph
+        text: >-
+          Rayleigh scattering is not the whole story of atmospheric color. Larger particles
+          such as dust, smoke, and water droplets scatter light differently. Their sizes are
+          comparable to or larger than visible wavelengths, so their scattering depends less
+          strongly on wavelength. That is why hazy skies look pale and why clouds look white
+          or gray rather than blue.
+      - type: paragraph
+        text: >-
+          Absorption is a separate process. Ozone absorbs ultraviolet light, water vapor
+          absorbs infrared light, and certain pollutants absorb specific visible bands. Those
+          effects change the spectrum that reaches the ground, but they are not the same as
+          the wavelength-selective redirection that produces the blue sky.
+      - type: callout
+        tone: warning
+        title: A common shortcut that fails
+        text: >-
+          The ocean cannot be the cause: the sky is blue over deserts and continents too,
+          and reflection does not explain red sunsets. The color comes from scattering by
+          air molecules, not from the surface below.
+      - type: paragraph
+        text: >-
+          Nor is the sky blue because of the ozone layer. Ozone absorbs some ultraviolet
+          light and can add a faint blue tint near twilight, but the dominant daytime color
+          is produced by Rayleigh scattering from nitrogen and oxygen molecules throughout
+          the troposphere and stratosphere.
+
+  - heading: The Sky as a Wavelength Filter
+    blocks:
+      - type: paragraph
+        text: >-
+          The atmosphere acts like a selective filter that works in all directions. It
+          removes short wavelengths from the direct solar beam and sends them across the
+          sky. An observer looking away from the Sun sees that scattered light, while an
+          observer looking toward a low Sun sees what survived the longer path.
+      - type: paragraph
+        text: >-
+          The inverse fourth-power law makes the effect easy to reason about. Shorter
+          wavelengths are redirected much more strongly, and longer wavelengths pass
+          through more readily. Everything else, from the violet question to the color of
+          sunset, follows from that asymmetry plus the spectrum of the Sun and the
+          response of the human eye.
+      - type: paragraph
+        text: >-
+          The next time the sky looks especially deep blue after a rainstorm, the clean air
+          is part of the reason. Fewer large particles mean less wavelength-independent
+          scattering and less white haze. What remains is the molecular scattering that
+          favors blue, operating over the entire visible sky.
+misconceptions:
+  - claim: The sky is blue because sunlight reflects off the oceans.
+    correction: >-
+      The effect appears over land and ocean alike and does not explain red sunsets.
+      Rayleigh scattering by nitrogen and oxygen molecules redirection short wavelengths
+      across the sky, independent of the surface below.
+  - claim: Violet scatters most, so the sky should be violet.
+    correction: >-
+      Violet does scatter more strongly per photon, but the Sun emits less violet, the
+      atmosphere absorbs some of it, and human vision is less sensitive to violet. The
+      perceived color is a weighted mixture that favors blue.
+  - claim: The sky is blue because of the ozone layer.
+    correction: >-
+      Ozone absorbs ultraviolet radiation and can slightly affect twilight colors, but
+      the main blue color comes from Rayleigh scattering by air molecules at all
+      altitudes, not from ozone absorption.
+sources:
+  - id: nasa-space-place-blue-sky
+    title: Why Is the Sky Blue?
+    publisher: NASA Space Place
+    url: https://spaceplace.nasa.gov/blue-sky/en/
+    kind: agency
+    accessed_at: 2026-11-10
+  - id: hyperphysics-blue-sky
+    title: Blue Sky and Rayleigh Scattering
+    publisher: HyperPhysics, Georgia State University
+    url: http://hyperphysics.phy-astr.gsu.edu/hbase/atmos/blusky.html
+    kind: reference
+    accessed_at: 2026-11-10
+  - id: britannica-rayleigh-scattering
+    title: Rayleigh scattering
+    publisher: Encyclopaedia Britannica
+    url: https://www.britannica.com/science/Rayleigh-scattering
+    kind: reference
+    accessed_at: 2026-11-10
+related: []
+aliases:
+  - blue sky
+  - rayleigh scattering
+  - sky color
+distinct_from: []
+provenance:
+  authored_by: Astrion editorial
+  fact_basis: textbook
+  reviewed_at: 2026-11-10
+  review_status: approved
+  notes: Seed article for pipeline validation. Confirm references before the first live publication.
+priority: 4
+evergreen: true
+notes: ""

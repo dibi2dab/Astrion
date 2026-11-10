@@ -1,0 +1,81 @@
+{
+  "schema": "astrion.blogger-contract/v1",
+  "fetched_at": "2026-11-10T04:45:37+00:00",
+  "revision": "20261108",
+  "title": "Blogger API",
+  "methods": {
+    "delete": [
+      "blogId",
+      "postId",
+      "useTrash"
+    ],
+    "get": [
+      "blogId",
+      "fetchBody",
+      "fetchImages",
+      "maxComments",
+      "postId",
+      "view"
+    ],
+    "getByPath": [
+      "blogId",
+      "maxComments",
+      "path",
+      "view"
+    ],
+    "insert": [
+      "blogId",
+      "fetchBody",
+      "fetchImages",
+      "isDraft"
+    ],
+    "list": [
+      "blogId",
+      "endDate",
+      "fetchBodies",
+      "fetchImages",
+      "labels",
+      "maxResults",
+      "orderBy",
+      "pageToken",
+      "sortOption",
+      "startDate",
+      "status",
+      "view"
+    ],
+    "patch": [
+      "blogId",
+      "fetchBody",
+      "fetchImages",
+      "maxComments",
+      "postId",
+      "publish",
+      "revert"
+    ],
+    "publish": [
+      "blogId",
+      "postId",
+      "publishDate"
+    ],
+    "revert": [
+      "blogId",
+      "postId"
+    ],
+    "search": [
+      "blogId",
+      "fetchBodies",
+      "orderBy",
+      "q"
+    ],
+    "update": [
+      "blogId",
+      "fetchBody",
+      "fetchImages",
+      "maxComments",
+      "postId",
+      "publish",
+      "revert"
+    ]
+  },
+  "sha256": "1d7285e6ac1f01acafcbd5e7d85b154241d39245e5782ff3c8128a52bb46caf5"
+}

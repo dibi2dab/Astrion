@@ -1,0 +1,125 @@
+name: Publish due posts
+
+on:
+  schedule:
+    # Hourly. The queue stores an absolute publish_after timestamp, so a run
+    # publishes only items whose slot has arrived. This survives DST changes
+    # without maintaining two separate cron schedules.
+    - cron: "7 * * * *"
+  workflow_dispatch:
+    inputs:
+      queue_id:
+        description: "Publish one specific queue id instead of everything due."
+        required: false
+        default: ""
+      dry_run:
+        description: "Validate only; do not call Blogger."
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: astrion-state
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      TZ: America/New_York
+      BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+      BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+      BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+      BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Verify credentials, blog, and API contract
+        run: |
+          set -o pipefail
+          mkdir -p dist
+          python -m astrion healthcheck --strict-contract --json 2>&1 \
+            | tee dist/healthcheck.log
+
+      - name: Publish due posts
+        if: success()
+        env:
+          INPUT_QUEUE_ID: ${{ inputs.queue_id }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -o pipefail
+          mkdir -p dist
+          ARGS="--due"
+          if [ -n "$INPUT_QUEUE_ID" ]; then
+            ARGS="--queue-id $INPUT_QUEUE_ID"
+          fi
+          if [ "$INPUT_DRY_RUN" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          python -m astrion publish $ARGS 2>&1 | tee dist/publish.log
+
+      - name: Commit state, queue, and archive
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/state.json data/queue data/archive
+          if git diff --cached --quiet; then
+            echo "No state, queue, or archive changes to commit."
+            exit 0
+          fi
+          git commit -m "chore(publish): $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-diagnostics-${{ github.run_id }}
+          path: dist/
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Open an issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          {
+            echo "The scheduled publish workflow failed."
+            echo ""
+            echo "- Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo "- Commit: \`${GITHUB_SHA}\`"
+            echo "- UTC time: \`$(date -u +%Y-%m-%dT%H:%M:%SZ)\`"
+            echo ""
+            echo "### Healthcheck"
+            echo '```'
+            tail -n 80 dist/healthcheck.log 2>/dev/null || echo "(no healthcheck log)"
+            echo '```'
+            echo "### Publish"
+            echo '```'
+            tail -n 80 dist/publish.log 2>/dev/null || echo "(publish did not run)"
+            echo '```'
+            echo ""
+            echo "Failed payloads, if any, are preserved under \`data/archive/failed/\`."
+            echo "State and queue changes are committed even when publishing fails."
+          } > issue.md
+          gh issue create \
+            --title "Publish failed: $(date -u +%Y-%m-%dT%H:%MZ)" \
+            --body-file issue.md

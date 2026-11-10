@@ -1,0 +1,70 @@
+name: Build queue
+
+on:
+  schedule:
+    # 00:10 America/New_York. The runner is UTC; this is 05:10 UTC in EST and
+    # 04:10 UTC in EDT, both comfortably before the 08:30 local slot.
+    - cron: "10 5 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Publish date in America/New_York (YYYY-MM-DD). Empty means today."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  # Build and publish mutate the same queue/state files. Never run them together.
+  group: astrion-state
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TZ: America/New_York
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Validate content
+        run: python -m astrion validate --strict
+
+      - name: Build today's queue
+        env:
+          INPUT_DATE: ${{ inputs.date }}
+        run: |
+          if [ -n "$INPUT_DATE" ]; then
+            python -m astrion build --date "$INPUT_DATE"
+          else
+            python -m astrion build
+          fi
+
+      - name: Show queue status
+        run: python -m astrion status
+
+      - name: Commit queue and state
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/state.json data/queue data/archive
+          if git diff --cached --quiet; then
+            echo "No queue or state changes to commit."
+            exit 0
+          fi
+          git commit -m "chore(queue): build $(date +%F)"
+          git push

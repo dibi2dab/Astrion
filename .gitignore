@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Build output and local caches
+dist/
+*.egg-info/
+.env
+
+# Google credentials
+credentials/
+secrets/
+*.service-account.json
+token.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/

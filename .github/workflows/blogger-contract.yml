@@ -1,0 +1,111 @@
+name: Blogger contract refresh
+
+on:
+  schedule:
+    # Weekly, Monday 06:17 UTC.
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: blogger-contract
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Refresh and validate the contract snapshot
+        run: |
+          set -o pipefail
+          mkdir -p dist
+          python -m astrion contract --refresh 2>&1 | tee dist/contract.log
+
+      - name: Open a pull request when the contract changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/blogger_contract.json
+          if git diff --cached --quiet; then
+            echo "Contract is unchanged."
+            exit 0
+          fi
+
+          BRANCH="chore/blogger-contract-${GITHUB_RUN_ID}"
+          git checkout -b "$BRANCH"
+          git commit -m "chore(blogger): refresh API contract snapshot"
+          git push origin "$BRANCH"
+
+          {
+            echo "Google changed the Blogger API discovery document."
+            echo ""
+            echo "This PR only updates \`config/blogger_contract.json\`. Review the removed"
+            echo "or renamed methods and parameters before merging."
+            echo ""
+            echo "- Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo ""
+            echo "### Contract log"
+            echo '```'
+            cat dist/contract.log
+            echo '```'
+            echo ""
+            echo "The publish workflow runs \`astrion healthcheck --strict-contract\` and"
+            echo "will stop before publishing while this snapshot is stale."
+          } > pr-body.md
+
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "chore(blogger): refresh API contract snapshot" \
+            --body-file pr-body.md
+
+      - name: Open an issue when the contract violates Astrion's assumptions
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          {
+            echo "The weekly Blogger contract check failed."
+            echo ""
+            echo "- Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            echo ""
+            echo "Either the discovery document is unreachable, or it no longer exposes"
+            echo "a method or parameter Astrion requires. Publishing is blocked until this"
+            echo "is fixed."
+            echo ""
+            echo '```'
+            tail -n 120 dist/contract.log 2>/dev/null || echo "(no contract log)"
+            echo '```'
+          } > issue.md
+          gh issue create \
+            --title "Blogger API contract check failed: $(date -u +%Y-%m-%d)" \
+            --body-file issue.md
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-diagnostics-${{ github.run_id }}
+          path: dist/
+          if-no-files-found: ignore
+          retention-days: 14

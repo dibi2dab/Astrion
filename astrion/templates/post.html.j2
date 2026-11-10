@@ -1,0 +1,152 @@
+<div class="astrion-post" data-astrion-topic="{{ topic.id }}">
+<style>
+.astrion-post {
+  --a-ink: #16202b;
+  --a-muted: #5b6875;
+  --a-line: #dfe5ec;
+  --a-accent: #1f6feb;
+  --a-bg: #f6f9fd;
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--a-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.06rem;
+  line-height: 1.75;
+  overflow-wrap: break-word;
+}
+.astrion-post p { margin: 0 0 1.15em; }
+.astrion-kicker { margin: 0 0 0.6em; color: var(--a-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.astrion-lead { color: #25313d; font-size: 1.17rem; line-height: 1.7; }
+.astrion-reading-time { margin: 0 0 1.9em; color: var(--a-muted); font-size: 0.86rem; }
+.astrion-key-takeaways { margin: 1.9em 0; padding: 1.1rem 1.25rem; background: var(--a-bg); border-left: 4px solid var(--a-accent); border-radius: 0 8px 8px 0; }
+.astrion-key-takeaways h2 { margin: 0 0 0.45rem; font-size: 1rem; letter-spacing: 0.02em; }
+.astrion-key-takeaways ul { margin: 0; padding-left: 1.25rem; }
+.astrion-key-takeaways li { margin: 0.3rem 0; }
+.astrion-section h2 { margin: 2.1em 0 0.7em; font-size: 1.45rem; line-height: 1.3; }
+.astrion-section h3 { margin: 1.6em 0 0.5em; font-size: 1.14rem; line-height: 1.4; }
+.astrion-math { padding: 0.35rem 0; overflow-x: auto; overflow-y: hidden; text-align: center; }
+.astrion-math-inline { text-align: left; }
+.astrion-figure { margin: 1.5em 0; }
+.astrion-figure figcaption, .astrion-equation-caption { margin-top: 0.45rem; color: var(--a-muted); font-size: 0.86rem; text-align: center; }
+.astrion-equation { margin: 1.5em 0; padding: 1rem 1.1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-equation .astrion-math { font-size: 1.08rem; }
+.astrion-vars { display: grid; grid-template-columns: minmax(2.5rem, auto) 1fr; gap: 0.35rem 0.8rem; margin: 0.85rem 0 0; font-size: 0.93rem; }
+.astrion-vars dt { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; font-weight: 700; }
+.astrion-vars dd { margin: 0; color: var(--a-muted); }
+.astrion-table-wrap { margin: 1.5em 0; overflow-x: auto; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 0.95rem; }
+.astrion-table caption { padding: 0.75rem 0.9rem; color: var(--a-ink); font-size: 0.88rem; font-weight: 700; text-align: left; }
+.astrion-table th, .astrion-table td { padding: 0.6rem 0.85rem; border-top: 1px solid var(--a-line); text-align: left; vertical-align: top; }
+.astrion-table thead th { background: #f7f9fc; font-size: 0.8rem; letter-spacing: 0.03em; text-transform: uppercase; }
+.astrion-list { margin: 0 0 1.25em; padding-left: 1.35rem; }
+.astrion-list li { margin: 0.35rem 0; }
+.astrion-callout { margin: 1.5em 0; padding: 0.9rem 1.1rem; background: #f8fafc; border-left: 4px solid #8a94a6; border-radius: 0 6px 6px 0; }
+.astrion-callout--key { background: #f2f7ff; border-color: var(--a-accent); }
+.astrion-callout--warning { background: #fff9ec; border-color: #c47f17; }
+.astrion-callout-title { margin: 0 0 0.35rem; font-weight: 700; }
+.astrion-callout p:last-child { margin-bottom: 0; }
+.astrion-example { margin: 1.5em 0; padding: 1rem 1.1rem; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-example h3 { margin-top: 0; }
+.astrion-example ol { margin-bottom: 0; padding-left: 1.35rem; }
+.astrion-misconceptions, .astrion-sources, .astrion-related { margin-top: 2.3em; }
+.astrion-misconceptions h2, .astrion-sources h2, .astrion-related h2 { margin: 0 0 0.7em; font-size: 1.3rem; line-height: 1.35; }
+.astrion-misconception { margin: 0 0 1.1em; padding: 0.85rem 1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-misconception p { margin: 0; }
+.astrion-misconception-claim { margin-bottom: 0.35rem !important; font-weight: 700; }
+.astrion-sources ol { margin: 0; padding-left: 1.35rem; }
+.astrion-sources li { margin: 0.55em 0; font-size: 0.94rem; }
+.astrion-sources a, .astrion-related a { color: var(--a-accent); text-decoration: none; }
+.astrion-source-meta { display: block; color: var(--a-muted); font-size: 0.84rem; }
+.astrion-related ul { margin: 0; padding-left: 1.25rem; }
+.astrion-related li { margin: 0.4em 0; }
+.astrion-post-meta { margin: 2.4em 0 0; padding-top: 1rem; border-top: 1px solid var(--a-line); color: var(--a-muted); font-size: 0.84rem; }
+@media (max-width: 600px) {
+  .astrion-post { font-size: 1rem; }
+  .astrion-section h2 { font-size: 1.3rem; }
+  .astrion-table { min-width: 360px; }
+  .astrion-vars { grid-template-columns: 1fr; gap: 0.1rem; }
+  .astrion-vars dd { margin-bottom: 0.5rem; }
+}
+</style>
+
+<p class="astrion-kicker">{{ topic.main_category.value }}</p>
+{{ lead }}
+<p class="astrion-reading-time">{{ reading_minutes }} min read</p>
+
+{% if takeaways %}
+<aside class="astrion-key-takeaways">
+  <h2>Key takeaways</h2>
+  <ul>
+    {% for item in takeaways %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</aside>
+{% endif %}
+
+{{ sections_html }}
+
+{% if misconceptions %}
+<section class="astrion-misconceptions">
+  <h2>Common misconceptions</h2>
+  {% for item in misconceptions %}
+  <div class="astrion-misconception">
+    <p class="astrion-misconception-claim">{{ item.claim }}</p>
+    <p>{{ item.correction }}</p>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if sources %}
+<section class="astrion-sources">
+  <h2>Sources</h2>
+  <ol>
+    {% for source in sources %}
+    <li>
+      <a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }}</a>
+      <span class="astrion-source-meta">{{ source.meta }}{% if source.note %} · {{ source.note }}{% endif %}</span>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}
+
+{% if further_reading %}
+<section class="astrion-sources">
+  <h2>Further reading</h2>
+  <ul>
+    {% for source in further_reading %}
+    <li>
+      <a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }}</a>
+      <span class="astrion-source-meta">{{ source.meta }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+{% if related %}
+<section class="astrion-related">
+  <h2>Related reading</h2>
+  <ul>
+    {% for item in related %}
+    <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<p class="astrion-post-meta">{{ meta }}</p>
+
+{% if has_math %}
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+{% endif %}
+</div>

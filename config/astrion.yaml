@@ -1,0 +1,49 @@
+site:
+  name: Astrion
+  language: en-US
+  timezone: America/New_York
+  posts_per_day: 2
+  # Two publication windows in America/New_York. The publish workflow only
+  # posts a due item when the daily quota is not exhausted.
+  publish_slots: ["08:30", "15:30"]
+
+quality:
+  publish_threshold: 85
+  revise_threshold: 70
+  min_words_default: 600
+  min_words:
+    latest-discovery: 700
+    scientific-breakthrough: 700
+    unsolved-problem: 700
+    mathematics-explained: 700
+    science-explained: 700
+    research-analysis: 800
+    experiments-data-modeling: 700
+    emerging-science: 700
+    basic-knowledge: 600
+  max_keyword_density: 0.025
+  require_primary_source_for:
+    - latest-discovery
+    - scientific-breakthrough
+    - research-analysis
+
+duplicates:
+  token_threshold: 0.70
+  sequence_threshold: 0.85
+  title_threshold: 0.92
+
+blogger:
+  # Keep drafts until the publish workflow has been verified end to end.
+  # Flip to false only after a manual live publish test succeeds.
+  is_draft: true
+  max_secondary_labels: 4
+  max_per_run: 1
+  max_attempts: 3
+  timeout_seconds: 30
+
+paths:
+  content: content
+  queue: data/queue
+  archive: data/archive
+  state: data/state.json
+  dist: dist
