@@ -2,7 +2,7 @@
   "schema": "astrion.queue/v1",
   "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
   "topic_id": "math.division-by-zero",
-  "status": "queued",
+  "status": "published",
   "created_at": "2026-11-10T06:20:16+00:00",
   "publish_date": "2026-11-10",
   "publish_after": "2026-11-10T08:30:00-05:00",
@@ -110,5 +110,32 @@
       "published_at": null,
       "accessed_at": "2026-11-10"
     }
-  ]
+  ],
+  "publication": {
+    "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
+    "topic_id": "math.division-by-zero",
+    "title": "Why Dividing by Zero Is Undefined",
+    "main_category": "Mathematics",
+    "content_type": "mathematics-explained",
+    "publish_date": "2026-11-10",
+    "slot": 0,
+    "blogger_post_id": "4293092910592619318",
+    "url": "https://sciencew1thoutlimits.blogspot.com/",
+    "blogger_status": "DRAFT",
+    "published_at": "2026-11-09T22:20:49-08:00",
+    "quality_score": 98.0,
+    "labels": [
+      "Mathematics",
+      "Arithmetic",
+      "Foundations of Mathematics"
+    ],
+    "signature": "Why is division by zero undefined in ordinary arithmetic, and why do some number systems assign it a meaning anyway? The operation a divided by 0, its relation to multiplicative inverses, and the difference between a limit that approaches a value and a value that is actually assigned. Division by b is multiplication by the reciprocal of b, and zero has no reciprocal in the real numbers; limits describe approach, not the value at the forbidden point.",
+    "fingerprint": "b1b597e5ff5c91c0419474d2cae90daf894516e147bbfb6c5506914ce1f3a2d1",
+    "primary_keyword": "dividing by zero",
+    "aliases": [
+      "division by zero",
+      "divide by zero",
+      "1/0"
+    ]
+  }
 }
