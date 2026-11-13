@@ -205,6 +205,11 @@ def validate_topics(
             continue
         conflicts = unresolved(find_conflicts(item.topic, published_records, settings.duplicates))
         for conflict in conflicts:
+            # A module that has already been published is the same post, not a
+            # duplicate of itself. Re-publishing is blocked by the planner and
+            # the state ledger instead.
+            if conflict.record.topic_id == item.topic.id:
+                continue
             issues.append(
                 _issue(
                     "error",

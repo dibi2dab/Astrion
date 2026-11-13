@@ -96,6 +96,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          EXISTING=$(gh issue list --state open --search 'Blogger browser session expired in:title' \
+            --limit 1 --json number -q '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            echo "An open session-expired issue already exists (#$EXISTING)."
+            exit 0
+          fi
           gh issue create \
             --title "Blogger browser session expired: $(date -u +%Y-%m-%d)" \
             --body "The saved Google session could not open the Blogger editor.

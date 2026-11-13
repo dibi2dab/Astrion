@@ -108,3 +108,16 @@ def test_published_duplicate_is_an_error(loaded, settings):
     issues = validate_topics(loaded, settings, [record])
     assert "published_duplicate" in _codes(issues)
     assert counts(issues)[0] >= 1
+
+
+def test_already_published_module_is_not_a_duplicate_of_itself(loaded, settings):
+    original = loaded[0]
+    record = {
+        "topic_id": original.topic.id,
+        "title": original.topic.title,
+        "signature": original.topic.signature_text,
+        "primary_keyword": original.topic.primary_keyword,
+        "aliases": list(original.topic.aliases),
+    }
+    issues = validate_topics(loaded, settings, [record])
+    assert "published_duplicate" not in _codes(issues)

@@ -149,6 +149,14 @@ jobs:
             echo "Failed payloads, if any, are preserved under \`data/archive/failed/\`."
             echo "State and queue changes are committed even when publishing fails."
           } > issue.md
+          # Scheduled runs repeat hourly. Keep at most one open failure issue so
+          # a missing session does not create 24 issues per day.
+          EXISTING=$(gh issue list --state open --search 'Publish failed in:title' \
+            --limit 1 --json number -q '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            echo "An open publish failure issue already exists (#$EXISTING); not creating another."
+            exit 0
+          fi
           gh issue create \
             --title "Publish failed: $(date -u +%Y-%m-%dT%H:%MZ)" \
             --body-file issue.md
