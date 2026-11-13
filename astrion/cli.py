@@ -531,6 +531,20 @@ def _login(settings: Settings, *, timeout: int) -> int:
             print("FAIL npm install failed.", file=sys.stderr)
             return 2
 
+    print("Ensuring the Chromium browser is installed...")
+    browser_install = subprocess.run(
+        [npm, "exec", "--", "playwright", "install", "chromium"],
+        cwd=str(settings.root),
+        check=False,
+    )
+    if browser_install.returncode != 0:
+        print(
+            "FAIL Playwright could not install Chromium. Run "
+            "`npx playwright install chromium` manually.",
+            file=sys.stderr,
+        )
+        return 2
+
     print("Opening a browser window. Sign in to Google, then leave it open.")
     completed = subprocess.run(
         [npm, "run", "login", "--", "--timeout", str(timeout)],

@@ -68,6 +68,7 @@ python -m venv .venv
 
 pip install -r requirements-dev.txt
 npm install
+npx playwright install chromium
 python -m pytest
 python -m astrion validate
 python -m astrion plan
