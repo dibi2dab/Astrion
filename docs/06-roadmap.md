@@ -4,7 +4,7 @@
 
 ## 1. 현재 상태
 
-**마일스톤: 설계 문서 + 최소 CLI (완료)**
+**마일스톤: 웹 에디터 발행 (완료) + 실제 세션 검증 대기**
 
 | 영역 | 상태 | 비고 |
 | --- | --- | --- |
@@ -16,15 +16,20 @@
 | 플래너/빌더 | 완료 | 슬롯 배정, 카테고리 균형, 큐 예약 |
 | 큐 계약 | 완료 | `astrion.queue/v1`, 체크섬, due 필터 |
 | 상태 원장 | 완료 | `astrion.state/v1`, 발행/대기/실패/빌드 |
-| Blogger 클라이언트 | 완료 | OAuth refresh, 재시도, 응답 형태 검증 |
-| 발행기 | 완료 | 멱등 발행, in-flight 조정, 중복 방어 |
-| CLI | 완료 | validate, list, plan, build, publish, healthcheck, contract, auth, status |
-| 테스트 | 완료 | 163개 통과 |
-| GitHub Actions | 완료 | CI, build, publish, contract |
-| 문서 | 완료 | 이 문서 포함 7개 |
-| 저장소 초기화 | 대기 | `git init`/원격/Secret 설정은 사용자 확인 후 |
-| 실제 OAuth 검증 | 대기 | 초안 발행 테스트 필요 |
-| 라이브 발행 | 대기 | 초안 검증 후 전환 |
+| 웹 발행 엔진 | 완료 | Playwright, 제목/본문/라벨 입력, 초안 저장, 라이브 발행 |
+| 세션 관리 | 완료 | `npm run login` → Base64 → `BLOGGER_STORAGE_STATE` |
+| 선택자 자동화 | 완료 | `web/selectors.json`, 일일 검사/추론/PR |
+| 웹 브리지 | 완료 | `astrion/web_publisher.py`, 오류 코드 매핑 |
+| API 클라이언트 | 완료 | 선택 fallback (`blogger.backend: api`) |
+| 발행기 | 완료 | 멱등 발행, in-flight 조정, 제목 기반 재조정 |
+| CLI | 완료 | validate, list, plan, build, publish, healthcheck, session, login, contract, auth, status |
+| 테스트 | 완료 | 195개 통과 |
+| GitHub Actions | 완료 | CI, build, publish, web-health, contract |
+| 문서 | 완료 | 이 문서 포함 8개 |
+| 저장소 초기화 | 완료 | `dibi2dab/Astrion`, `main` 푸시 완료 |
+| 실제 발행 검증 | 완료 | API 초안 발행 성공(`4293092910592619318`) |
+| 웹 세션 검증 | 대기 | 사용자의 `npm run login` + Secret 등록 필요 |
+| 라이브 발행 | 대기 | 웹 초안 검증 후 전환 |
 
 ## 2. 마일스톤
 
@@ -40,39 +45,41 @@
 - [x] 큐 페이로드가 계약대로 생성되고 재검증된다.
 - [x] 상태 원장이 예약/발행/실패를 기록한다.
 - [x] 발행기가 fake client로 멱등성과 재시도를 증명한다.
-- [x] `publish --dry-run`이 자격 증명 없이 동작한다.
-- [x] GitHub Actions 4개가 정의되어 있다.
-- [x] 테스트 163개가 통과한다.
+- [x] `publish --dry-run`이 세션/자격 증명 없이 동작한다.
+- [x] GitHub Actions 워크플로가 정의되어 있다.
+- [x] 테스트 195개가 통과한다.
 - [x] 설계/운영 문서가 있다.
 
-### M1 — 저장소 + OAuth + 초안 검증
+### M1 — 저장소 + 웹 세션 + 초안 검증
 
-목표: 실제 Blogger에 **초안**을 만들고, 파이프라인 전체를 한 번 통과시킨다.
+목표: 저장된 Google 세션으로 실제 Blogger에 **초안**을 만들고, 파이프라인 전체를 한 번 통과시킨다.
 
 작업:
 
-1. `git init`, 원격 저장소 생성, 초기 커밋.
-2. GitHub Secrets 4개 등록.
-3. Actions 워크플로 권한을 Read and write로 설정.
-4. `astrion auth`로 refresh token 발급.
-5. `healthcheck --strict-contract` 통과.
-6. `build`로 큐 생성.
-7. `publish --due --max 1`로 초안 1개 생성.
-8. Blogger Drafts에서 제목/라벨/HTML/수식/표 확인.
-9. `data/state.json`과 `data/archive/published/` 확인.
-10. 워크플로 수동 실행으로 같은 흐름 재현.
+1. ✅ 저장소 생성, 초기 커밋, `main` 푸시.
+2. ✅ 웹 발행 엔진과 선택자 맵 구현.
+3. ✅ API fallback 초안 발행 검증(`4293092910592619318`).
+4. GitHub Secrets 등록: `BLOGGER_BLOG_ID`, `BLOGGER_STORAGE_STATE`.
+5. Actions 워크플로 권한을 Read and write로 설정.
+6. `npm run login`으로 브라우저 세션 저장 후 Base64 값 등록.
+7. `python -m astrion session` / `npm run selectors:check` 통과.
+8. `publish --due --max 1`로 웹 초안 1개 생성.
+9. Blogger Drafts에서 제목/라벨/HTML/수식/표 확인.
+10. `data/state.json`과 `data/archive/published/` 확인.
+11. 워크플로 수동 실행으로 같은 흐름 재현.
 
 완료 기준:
 
-- [ ] `publish.yml`이 healthcheck를 통과한다.
-- [ ] 초안 게시물이 생성되고 마커가 포함되어 있다.
+- [ ] `publish.yml`이 웹 세션 healthcheck를 통과한다.
+- [ ] 웹 초안 게시물이 생성되고 제목/본문이 일치한다.
 - [ ] 상태 원장에 `blogger_post_id`와 `url`이 기록된다.
 - [ ] 실패 시 Issue가 열린다.
 - [ ] `is_draft: true` 상태에서 재실행해도 중복 게시물이 생기지 않는다.
 
 위험:
 
-- External + Testing 앱의 7일 토큰 만료.
+- Google 세션 만료 또는 자동화 차단.
+- Blogger 에디터 DOM 변경으로 선택자 깨짐.
 - Blogger 블로그 ID/권한 오설정.
 - 저장소 권한 부족으로 상태 커밋 실패.
 
@@ -162,10 +169,12 @@
 
 1. ✅ 계약 스냅샷 누락 메서드/파라미터 테스트(추가 완료).
 2. ✅ CLI auth 자격 증명 누락/성공 메시지 테스트(추가 완료).
-3. 재시도 폭주/쿼터 초과/대용량 HTML 경계 테스트.
-4. Issue 템플릿과 알림 채널(Slack/Discord) 선택.
-5. 상태 파일 백업/복구 자동화.
-6. 의존성 고정과 정기 업데이트.
+3. ✅ 웹 브리지 오류 매핑/세션/드라이런 테스트(추가 완료).
+4. 재시도 폭주/세션 만료/대용량 HTML 경계 테스트.
+5. Issue 템플릿과 알림 채널(Slack/Discord) 선택.
+6. 상태 파일 백업/복구 자동화.
+7. 선택자 변경 시뮬레이션(가짜 DOM) 테스트.
+8. 의존성 고정과 정기 업데이트.
 
 완료 기준:
 
@@ -179,8 +188,8 @@
 | --- | --- |
 | AI API로 본문 생성 | 품질·사실·저작권 리스크. 사람이 검수한 모듈만 사용 |
 | AI로 품질 자기 평가 | 재현 불가능한 판단. 결정론적 루브릭 사용 |
-| Google Apps Script | GitHub Actions → Blogger API 직접 호출로 대체 |
-| API 변경 시 코드 자기 재작성 | 잘못된 자동 수정이 조용한 오발행을 만들 수 있음. 감지·중단·PR로 대응 |
+| Google Apps Script | GitHub Actions → Playwright 웹 에디터 (fallback: Blogger API v3) |
+| API/UI 변경 시 코드 자기 재작성 | 잘못된 자동 수정이 조용한 오발행을 만들 수 있음. 감지·중단·PR로 대응 |
 | 사회과학/정치/종교/의학 조언 | 범위 밖 |
 | 다국어 자동 번역 | 영어 전용 원칙 |
 | 제목만 바꾼 재게시 | 중복 판정으로 차단 |
@@ -189,20 +198,24 @@
 
 ## 4. 알려진 격차
 
-1. **메타 설명**: Blogger API v3가 게시물 메타 설명 필드를 제공하지 않는다.
+1. **메타 설명**: Blogger 웹 에디터/API 모두 게시물 메타 설명 필드를 안정적으로 제공하지 않는다.
 2. **이미지**: 블록 타입과 업로드 경로가 없다.
 3. **관련 글 자동 갱신**: 대상 발행 후 기존 글을 수정하지 않는다.
 4. **동기화**: `astrion sync`가 없다.
-5. **계약 변경 자동 수정**: 감지 후 사람이 코드를 고쳐야 한다.
-6. **OAuth 7일 만료**: External + Testing 앱의 제약.
-7. **단일 블로그/단일 언어**: 다중 블로그나 다국어는 지원하지 않는다.
-8. **Blogger 예약 발행 미사용**: Astrion이 자체 스케줄러 역할을 한다.
+5. **UI 변경 자동 수정**: 선택자는 감지·추론·PR까지만 자동화하고, 병합은 사람이 한다.
+6. **세션 만료**: Google 정책/보안 이벤트로 세션이 만료될 수 있다. 비밀번호/2FA 자동화는 하지 않는다.
+7. **API fallback OAuth 7일 만료**: External + Testing 앱의 제약.
+8. **단일 블로그/단일 언어**: 다중 블로그나 다국어는 지원하지 않는다.
+9. **Blogger 예약 발행 미사용**: Astrion이 자체 스케줄러 역할을 한다.
+10. **웹 에디터는 공식 API가 아님**: UI 변경에 취약하며, 100% 자동 복구를 보장하지 않는다.
 
 ## 5. 의사결정 기록
 
 | 결정 | 대안 | 선택 이유 |
 | --- | --- | --- |
-| GitHub Actions → Blogger API | GAS, 수동 발행 | 이식성, 가시성, 버전 관리 |
+| 저장된 세션 + Playwright 웹 발행 | OAuth API, GAS, 수동 발행 | Testing 앱의 7일 토큰 만료 회피, 장기 무인 운영 |
+| 웹 선택자 중앙화 + 일일 검사 | 코드에 선택자 하드코딩 | UI 변경 감지와 PR 기반 복구 |
+| API 클라이언트 유지(fallback) | 완전 제거 | 웹 경로 장애 시 대안 확보 |
 | 사용자 OAuth refresh token | 서비스 계정 | Blogger 쓰기는 사용자 동의 필요 |
 | YAML 모듈 + 결정론 렌더링 | AI 생성 | 품질/사실/중복 통제 |
 | 100점 루브릭 | 모델 판단 | 재현성, 감사 가능성 |
@@ -215,12 +228,11 @@
 
 가장 가까운 순서:
 
-1. 문서/테스트/코드 상태를 최종 확인한다.
-2. 로컬 `data/queue`, `data/state.json`, `dist/`를 초기 상태로 되돌린다.
-3. 저장소를 초기화하고 첫 커밋을 만든다(사용자 승인 후).
-4. GitHub Secrets와 Actions 권한을 설정한다.
-5. `astrion auth` → `healthcheck` → 초안 발행(M1).
-6. 초안 검증 후 라이브 전환(M2).
+1. GitHub Secrets에 `BLOGGER_BLOG_ID`, `BLOGGER_STORAGE_STATE`를 등록한다.
+2. 로컬에서 `npm run login` → `npm run session:check` → `npm run selectors:check`.
+3. `publish.yml`을 수동 실행해 웹 초안 1개를 생성하고 Blogger에서 확인한다(M1).
+4. 초안 검증 후 `is_draft: false`로 전환한다(M2).
+5. 콘텐츠 모듈을 9개 카테고리로 확장한다(M3).
 
 ## 7. 성공 지표
 

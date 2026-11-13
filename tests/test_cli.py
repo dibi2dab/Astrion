@@ -133,32 +133,54 @@ def test_build_dry_run_output(tmp_path, capsys):
     assert list_queue(settings) == []
 
 
-def test_publish_without_credentials_fails(tmp_path, capsys, monkeypatch):
+def test_publish_without_web_session_fails(tmp_path, capsys, monkeypatch):
     project = make_project(tmp_path)
     for name in (
         "BLOGGER_BLOG_ID",
         "BLOGGER_CLIENT_ID",
         "BLOGGER_CLIENT_SECRET",
         "BLOGGER_REFRESH_TOKEN",
+        "BLOGGER_STORAGE_STATE",
     ):
         monkeypatch.delenv(name, raising=False)
     settings = load_settings(root=project)
     settings.queue_dir.mkdir(parents=True, exist_ok=True)
     assert main(["--root", str(project), "publish"]) == 2
-    assert "missing Blogger credentials" in capsys.readouterr().err
+    assert "browser session not found" in capsys.readouterr().err
 
 
-def test_healthcheck_without_credentials_fails(tmp_path, capsys, monkeypatch):
+def test_healthcheck_without_web_session_fails(tmp_path, capsys, monkeypatch):
     project = make_project(tmp_path)
     for name in (
         "BLOGGER_BLOG_ID",
         "BLOGGER_CLIENT_ID",
         "BLOGGER_CLIENT_SECRET",
         "BLOGGER_REFRESH_TOKEN",
+        "BLOGGER_STORAGE_STATE",
     ):
         monkeypatch.delenv(name, raising=False)
-    assert main(["--root", str(project), "healthcheck"]) == 1
-    assert "missing Blogger credentials" in capsys.readouterr().err
+    assert main(["--root", str(project), "healthcheck"]) == 2
+    assert "browser session not found" in capsys.readouterr().err
+
+
+def test_session_without_web_session_returns_three(tmp_path, capsys, monkeypatch):
+    project = make_project(tmp_path)
+    monkeypatch.delenv("BLOGGER_STORAGE_STATE", raising=False)
+    assert main(["--root", str(project), "session"]) == 3
+    err = capsys.readouterr().err
+    assert "browser session not found" in err
+    assert "BLOGGER_STORAGE_STATE" in err
+
+
+def test_session_with_the_api_backend_is_rejected(tmp_path, capsys):
+    project = make_project(tmp_path)
+    config = project / "config" / "astrion.yaml"
+    config.write_text(
+        config.read_text(encoding="utf-8").replace("backend: web", "backend: api"),
+        encoding="utf-8",
+    )
+    assert main(["--root", str(project), "session"]) == 2
+    assert "web backend" in capsys.readouterr().err
 
 
 def test_bad_config_returns_two(tmp_path, capsys):

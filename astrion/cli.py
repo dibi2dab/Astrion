@@ -5,16 +5,16 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 
 from . import __version__
 from .blogger import (
     BloggerAuthError,
-    BloggerClient,
     BloggerDriftError,
     BloggerError,
-    discovery_snapshot,
     fetch_contract_snapshot,
     validate_contract_snapshot,
 )
@@ -29,6 +29,7 @@ from .render import render_post
 from .state import StateStore
 from .text import iso_now
 from .validate import counts, validate_topics
+from .web_publisher import WebBloggerClient, make_client
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -65,15 +66,25 @@ def main(argv: list[str] | None = None) -> int:
     _add_plan_args(build_cmd)
     build_cmd.add_argument("--dry-run", action="store_true")
 
-    publish_cmd = subparsers.add_parser("publish", help="publish queued payloads via Blogger API")
+    publish_cmd = subparsers.add_parser("publish", help="publish queued payloads via the configured backend")
     publish_cmd.add_argument("--due", action="store_true", help="publish every due payload")
     publish_cmd.add_argument("--queue-id", default="", help="publish one specific queue item")
     publish_cmd.add_argument("--max", type=int, default=None, help="maximum posts in this run")
     publish_cmd.add_argument("--dry-run", action="store_true")
 
-    health_cmd = subparsers.add_parser("healthcheck", help="check credentials, blog and API contract")
+    health_cmd = subparsers.add_parser("healthcheck", help="check the configured Blogger backend")
     health_cmd.add_argument("--strict-contract", action="store_true")
     health_cmd.add_argument("--json", action="store_true")
+
+    session_cmd = subparsers.add_parser(
+        "session", help="verify the saved Google browser session (web backend)"
+    )
+    session_cmd.add_argument("--json", action="store_true")
+
+    login_cmd = subparsers.add_parser(
+        "login", help="save a Blogger browser session with `npm run login`"
+    )
+    login_cmd.add_argument("--timeout", type=int, default=600, help="seconds to wait for sign-in")
 
     contract_cmd = subparsers.add_parser("contract", help="inspect or refresh the Blogger discovery contract")
     contract_cmd.add_argument("--refresh", action="store_true", help="write the current snapshot")
@@ -113,6 +124,10 @@ def main(argv: list[str] | None = None) -> int:
             return _publish(settings, args)
         if args.command == "healthcheck":
             return _healthcheck(settings, strict=args.strict_contract, as_json=args.json)
+        if args.command == "session":
+            return _session(settings, as_json=args.json)
+        if args.command == "login":
+            return _login(settings, timeout=args.timeout)
         if args.command == "contract":
             return _contract(settings, refresh=args.refresh, check=args.check, as_json=args.json)
         if args.command == "auth":
@@ -138,6 +153,16 @@ def _load(settings: Settings) -> tuple[list[LoadedTopic], StateStore]:
     loaded = load_topics(settings.content_dir)
     state = StateStore(settings.state_path)
     return loaded, state
+
+
+class _DryRunClient:
+    """A client that refuses to publish; dry runs never call it."""
+
+    def insert_post(self, **_kwargs):
+        raise BloggerError("a dry run must not publish", reason="DRY_RUN")
+
+    def find_recent_by_marker(self, *_args, **_kwargs):
+        return None
 
 
 def _validate(settings: Settings, *, strict: bool, as_json: bool) -> int:
@@ -324,20 +349,14 @@ def _publish(settings: Settings, args) -> int:
     _loaded, state = _load(settings)
     if args.dry_run:
         # A dry run validates and reserves nothing; it never touches the network,
-        # so credentials are not required.
-        client = BloggerClient(
-            blog_id="dry-run",
-            client_id="",
-            client_secret="",
-            refresh_token="",
-            timeout=settings.blogger.timeout_seconds,
-        )
+        # so credentials and a browser session are not required.
+        client: object = _DryRunClient()
     else:
         try:
-            client = BloggerClient.from_env(
-                timeout=settings.blogger.timeout_seconds,
-                max_retries=4,
-            )
+            client = make_client(settings)
+            # Fail early when the web session is missing, even if nothing is due.
+            if isinstance(client, WebBloggerClient):
+                client.materialize_session()
         except BloggerAuthError as exc:
             print(f"FAIL {exc}", file=sys.stderr)
             return 2
@@ -380,10 +399,12 @@ def _publish(settings: Settings, args) -> int:
 
 def _healthcheck(settings: Settings, *, strict: bool, as_json: bool) -> int:
     try:
-        client = BloggerClient.from_env(
-            timeout=settings.blogger.timeout_seconds,
-            max_retries=2,
-        )
+        client = make_client(settings, max_retries=2)
+    except BloggerAuthError as exc:
+        print(f"FAIL {exc}", file=sys.stderr)
+        return 2
+
+    try:
         report = client.healthcheck(
             contract_path=settings.root / "config" / "blogger_contract.json"
         )
@@ -393,11 +414,31 @@ def _healthcheck(settings: Settings, *, strict: bool, as_json: bool) -> int:
         print(f"FAIL {exc}", file=sys.stderr)
         return 1
 
+    backend = settings.blogger.backend
+    report["backend"] = backend
     contract_status = (report.get("contract") or {}).get("status")
     report["contract_status"] = contract_status
     _write_report(settings, "healthcheck", report)
+
     if as_json:
         print(json.dumps(report, ensure_ascii=False, indent=2))
+    elif backend == "web":
+        if report.get("ok"):
+            print(
+                f"OK backend web; session {report.get('session', 'ok')}; "
+                f"blog {report.get('blogId') or settings.blogger.blog_id}"
+            )
+            print(f"editor: {report.get('url', settings.blogger.blog_url)}")
+            broken = report.get("broken") or []
+            if broken:
+                print("required controls missing: " + ", ".join(broken))
+            optional = report.get("optionalMissing") or []
+            if optional:
+                print("optional controls missing: " + ", ".join(optional))
+            print("Run `npm run selectors:check` for a full selector report.")
+        else:
+            error = report.get("error") or {}
+            print(f"FAIL {error.get('message') or 'web session check failed'}", file=sys.stderr)
     else:
         blog = report["blog"]
         print(f"OK blog {blog['id']} {blog['name']} ({blog['url']})")
@@ -405,8 +446,104 @@ def _healthcheck(settings: Settings, *, strict: bool, as_json: bool) -> int:
         print(f"contract: {contract_status}")
         if contract_status in {"changed", "missing"}:
             print("Warning: the API contract differs from config/blogger_contract.json.")
-    if contract_status in {"changed", "missing"} and strict:
+
+    if not report.get("ok", True):
+        return 2 if backend == "web" else 1
+    if backend == "api" and contract_status in {"changed", "missing"} and strict:
         return 1
+    return 0
+
+
+def _session(settings: Settings, *, as_json: bool) -> int:
+    """Exit codes: 0 = usable, 2 = editor drift, 3 = session missing/expired."""
+
+    if settings.blogger.backend != "web":
+        print(
+            "FAIL the session command only applies to the web backend "
+            "(blogger.backend: web).",
+            file=sys.stderr,
+        )
+        return 2
+
+    client = WebBloggerClient(settings)
+    try:
+        report = client.session_check()
+    except BloggerAuthError as exc:
+        payload = {"ok": False, "backend": "web", "error": str(exc), "code": exc.reason}
+        _write_report(settings, "session", payload)
+        if as_json:
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            print(f"FAIL {exc}", file=sys.stderr)
+            print("Run `python -m astrion login` (or `npm run login`) and update ")
+            print("the BLOGGER_STORAGE_STATE secret.")
+        return 3
+    except BloggerDriftError as exc:
+        payload = {"ok": False, "backend": "web", "error": str(exc), "code": exc.reason}
+        _write_report(settings, "session", payload)
+        if as_json:
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            print(f"FAIL {exc}", file=sys.stderr)
+            print("The editor UI may have changed. Run `npm run selectors:fix`.")
+        return 2
+    except BloggerError as exc:
+        payload = {"ok": False, "backend": "web", "error": str(exc), "code": exc.reason}
+        _write_report(settings, "session", payload)
+        if as_json:
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            print(f"FAIL {exc}", file=sys.stderr)
+        return 1
+
+    _write_report(settings, "session", report)
+    if as_json:
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+    else:
+        print(f"OK session; blog {report.get('blogId') or settings.blogger.blog_id}")
+        print(f"editor: {report.get('url', '')}")
+        broken = report.get("broken") or []
+        if broken:
+            print("Missing required controls: " + ", ".join(broken))
+        else:
+            print("All required editor controls were found.")
+    return 0 if report.get("ok") else 2
+
+
+def _login(settings: Settings, *, timeout: int) -> int:
+    """Save a browser session locally by delegating to `npm run login`."""
+
+    npm = shutil.which("npm")
+    if not npm:
+        print(
+            "FAIL npm was not found. Install Node.js 20+ and run `npm install` first.",
+            file=sys.stderr,
+        )
+        return 2
+    if not (settings.root / "node_modules" / "playwright").exists():
+        print("Installing Node dependencies (npm install)...")
+        install = subprocess.run(
+            [npm, "install", "--no-audit", "--no-fund"],
+            cwd=str(settings.root),
+            check=False,
+        )
+        if install.returncode != 0:
+            print("FAIL npm install failed.", file=sys.stderr)
+            return 2
+
+    print("Opening a browser window. Sign in to Google, then leave it open.")
+    completed = subprocess.run(
+        [npm, "run", "login", "--", "--timeout", str(timeout)],
+        cwd=str(settings.root),
+        check=False,
+    )
+    if completed.returncode != 0:
+        print("FAIL the login helper did not save a session.", file=sys.stderr)
+        return completed.returncode or 1
+    print(
+        "\nCopy the printed Base64 value into the BLOGGER_STORAGE_STATE secret, "
+        "then run `python -m astrion session`."
+    )
     return 0
 
 

@@ -9,9 +9,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
-from typing import Any
+from typing import Any, Protocol
 
-from .blogger import BloggerAuthError, BloggerClient, BloggerDriftError, BloggerError
+from .blogger import BloggerAuthError, BloggerDriftError, BloggerError
 from .config import Settings
 from .queue import (
     archive_failure,
@@ -23,6 +23,27 @@ from .queue import (
 )
 from .state import StateStore
 from .text import iso_now, normalize_signature
+
+
+class PublisherClient(Protocol):
+    """The small surface the publish loop needs from a Blogger backend."""
+
+    def insert_post(
+        self,
+        *,
+        title: str,
+        content: str,
+        labels: list[str],
+        is_draft: bool,
+    ) -> dict[str, Any]: ...
+
+    def find_recent_by_marker(
+        self,
+        topic_id: str,
+        *,
+        title: str = "",
+        limit: int = 50,
+    ) -> dict[str, Any] | None: ...
 
 
 @dataclass
@@ -69,7 +90,7 @@ class PublishResult:
 def publish_due(
     settings: Settings,
     state: StateStore,
-    client: BloggerClient,
+    client: PublisherClient,
     *,
     now: datetime | None = None,
     max_posts: int | None = None,
@@ -79,12 +100,14 @@ def publish_due(
     moment = now or datetime.now(timezone.utc)
     result = PublishResult()
 
-    try:
-        _reconcile_inflight(settings, state, client, result, moment)
-    except BloggerError as exc:
-        result.stopped = True
-        result.error = f"could not reconcile in-flight posts: {exc}"
-        return result
+    # A dry run must not touch the network or mutate in-flight state.
+    if not dry_run:
+        try:
+            _reconcile_inflight(settings, state, client, result, moment)
+        except BloggerError as exc:
+            result.stopped = True
+            result.error = f"could not reconcile in-flight posts: {exc}"
+            return result
 
     if only_queue_id:
         items = []
@@ -176,7 +199,9 @@ def publish_due(
         prior_attempts = int(pending.get("attempts") or 0)
         if prior_attempts:
             try:
-                existing = client.find_recent_by_marker(topic_id)
+                existing = client.find_recent_by_marker(
+                    topic_id, title=str((payload.get("post") or {}).get("title") or "")
+                )
             except BloggerError as exc:
                 result.stopped = True
                 result.error = f"could not check for an earlier partial publish: {exc}"
@@ -365,7 +390,7 @@ def _publication_record(
 def _reconcile_inflight(
     settings: Settings,
     state: StateStore,
-    client: BloggerClient,
+    client: PublisherClient,
     result: PublishResult,
     moment: datetime,
 ) -> None:
@@ -375,9 +400,14 @@ def _reconcile_inflight(
     for item in items:
         queue_id = str(item.get("queue_id") or "")
         topic_id = str(item.get("topic_id") or "")
-        existing = client.find_recent_by_marker(topic_id)
         path = payload_path(settings, queue_id)
         payload = load_payload(path) if path.exists() else None
+        title = (
+            str((payload.get("post") or {}).get("title") or "")
+            if payload
+            else str(item.get("title") or "")
+        )
+        existing = client.find_recent_by_marker(topic_id, title=title)
         if existing:
             outcome = (
                 _record_existing(settings, state, payload, existing, result)

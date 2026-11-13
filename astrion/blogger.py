@@ -315,7 +315,14 @@ class BloggerClient:
     def delete_post(self, post_id: str) -> None:
         self._request("DELETE", f"/blogs/{self.blog_id}/posts/{post_id}")
 
-    def find_recent_by_marker(self, topic_id: str, *, limit: int = 50) -> dict[str, Any] | None:
+    def find_recent_by_marker(
+        self,
+        topic_id: str,
+        *,
+        title: str = "",
+        limit: int = 50,
+    ) -> dict[str, Any] | None:
+        del title  # the API can search by HTML marker; the web backend cannot
         marker = f'data-astrion-topic="{topic_id}"'
         seen: set[str] = set()
         # Blogger treats an unspecified status filter as live posts in some

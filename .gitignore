@@ -4,16 +4,27 @@ __pycache__/
 .venv/
 .pytest_cache/
 
+# Node
+node_modules/
+npm-debug.log*
+
 # Build output and local caches
 dist/
 *.egg-info/
 .env
 
-# Google credentials
+# Google credentials and saved browser sessions
 credentials/
 secrets/
 *.service-account.json
 token.json
+.state/
+storage_state.json
+*_storage_state.json
+
+# Web publishing artifacts may contain page HTML; never commit them
+artifacts/
+web-artifacts/
 
 # OS / editor
 .DS_Store

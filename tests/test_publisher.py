@@ -41,7 +41,7 @@ class FakeClient:
         )
         return post
 
-    def find_recent_by_marker(self, topic_id):
+    def find_recent_by_marker(self, topic_id, *, title="", limit=50):
         self.marker_queries.append(topic_id)
         return self.existing
 

@@ -1,0 +1,121 @@
+name: Blogger editor health
+
+# The Blogger web editor changes without notice. This workflow opens the real
+# editor with the saved session, checks every selector in web/selectors.json,
+# and opens a pull request with inferred replacements when a primary selector
+# stops matching. A missing or expired session produces an issue instead.
+
+on:
+  schedule:
+    # Daily at 09:00 UTC (early morning in America/New_York).
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+  # Run immediately after a failed publish: editor drift is the usual cause.
+  workflow_run:
+    workflows: ["Publish due posts"]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: blogger-editor-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    env:
+      BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+      BLOGGER_STORAGE_STATE: ${{ secrets.BLOGGER_STORAGE_STATE }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Check editor selectors
+        id: check
+        run: |
+          mkdir -p dist
+          set +e
+          npm run selectors:check 2>&1 | tee dist/selectors-check.log
+          CODE=${PIPESTATUS[0]}
+          set -e
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
+          if [ "$CODE" -eq 3 ]; then
+            echo "The saved Google session is missing or expired."
+          elif [ "$CODE" -eq 2 ]; then
+            echo "Required selectors are missing; attempting inference."
+            set +e
+            npm run selectors:fix 2>&1 | tee dist/selectors-fix.log
+            echo "fix_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+            set -e
+          elif [ "$CODE" -ne 0 ]; then
+            echo "Selector health failed unexpectedly."
+            exit 1
+          fi
+
+      - name: Open a selector pull request
+        if: steps.check.outputs.code == '2'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- web/selectors.json; then
+            echo "Selectors could not be inferred; no file change to propose."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BRANCH="chore/selector-health-$(date -u +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
+          git add web/selectors.json
+          git commit -m "chore(web): refresh Blogger editor selectors"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "chore(web): refresh Blogger editor selectors" \
+            --body "The daily editor health check could not match one or more primary selectors. This pull request contains the selectors inferred from the live Blogger editor. Review the diff and merge to restore publishing." \
+            --base main \
+            --head "$BRANCH"
+
+      - name: Open a session-expired issue
+        if: steps.check.outputs.code == '3'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "Blogger browser session expired: $(date -u +%Y-%m-%d)" \
+            --body "The saved Google session could not open the Blogger editor.
+
+            1. On a machine with a browser, run \`npm ci\` once and then \`npm run login\`.
+            2. Sign in to the Google account that owns the blog.
+            3. Copy the printed Base64 value into the \`BLOGGER_STORAGE_STATE\` repository secret.
+            4. Re-run this workflow to confirm.
+
+            The session is a normal browser login; Astrion never stores a password or automates 2FA."
+
+      - name: Upload the selector report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selector-health-${{ github.run_id }}
+          # JSON/TXT only. Never upload page HTML or screenshots to a public repo.
+          path: |
+            dist/**/*.json
+            dist/**/*.log
+            dist/**/*.txt
+          if-no-files-found: ignore
+          retention-days: 14

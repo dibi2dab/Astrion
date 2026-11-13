@@ -1,6 +1,6 @@
 # 아키텍처
 
-Astrion은 **사람이 작성·검수한 YAML 콘텐츠 모듈**을 결정론적으로 Blogger HTML로 변환하고, GitHub Actions에서 Blogger API v3로 발행하는 파이프라인입니다. 콘텐츠 생성, 품질 판단, 발행 판단 어디에도 외부 AI API를 사용하지 않습니다.
+Astrion은 **사람이 작성·검수한 YAML 콘텐츠 모듈**을 결정론적으로 Blogger HTML로 변환하고, GitHub Actions에서 **저장된 Google 브라우저 세션으로 Blogger 웹 에디터를 조작해** 발행하는 파이프라인입니다. 콘텐츠 생성, 품질 판단, 발행 판단 어디에도 외부 AI API를 사용하지 않습니다.
 
 ## 1. 설계 원칙
 
@@ -8,8 +8,9 @@ Astrion은 **사람이 작성·검수한 YAML 콘텐츠 모듈**을 결정론적
 2. **결정론**: 같은 모듈, 같은 설정, 같은 상태라면 같은 HTML, 같은 품질 점수, 같은 큐 페이로드가 나옵니다. 난수, 시각 의존 로직, 네트워크 의존 로직을 렌더링 경로에서 배제합니다.
 3. **단일 책임 모듈**: 로딩, 검증, 중복 판정, 품질, 렌더링, 계획, 빌드, 큐, 발행, 상태를 별도 파일로 분리합니다.
 4. **실패는 시끄럽게**: 실패한 페이로드는 삭제하지 않고 `data/archive/failed/`에 보존하며, GitHub Actions는 Issue를 엽니다.
-5. **멱등 발행**: 같은 큐 항목을 두 번 발행하지 않습니다. Blogger 게시물 본문의 마커와 로컬 상태 원장을 함께 사용합니다.
-6. **API 변경 격리**: Blogger discovery 문서의 계약 스냅샷을 커밋하고, 발행 전 healthcheck로 변경을 감지합니다.
+5. **멱등 발행**: 같은 큐 항목을 두 번 발행하지 않습니다. 로컬 상태 원장과 제목/마커 기반 재조정을 함께 사용합니다.
+6. **UI 변경 격리**: 웹 에디터 선택자를 `web/selectors.json`에 모으고, 매일 자동 검사·추론해 PR로 반영합니다.
+7. **API fallback**: OAuth 경로는 `blogger.backend: api`로 명시할 때만 사용합니다.
 
 ## 2. 전체 흐름
 
@@ -32,10 +33,13 @@ content/**/*.yaml
  data/queue/*.json           발행 대기 계약(astrion.queue/v1)
       │
       ▼
- publisher.publish_due       재검증 → 예약 → API 호출 → 기록 → 아카이브
+ publisher.publish_due       재검증 → 예약 → 발행 → 기록 → 아카이브
       │
       ▼
- Blogger API v3              posts.insert (draft 또는 live)
+ web_publisher.py            Node 브리지 + 오류 매핑
+      │
+      ▼
+ web/*.mjs (Playwright)      Blogger 웹 에디터 (draft 또는 live)
 ```
 
 ### 단계별 책임
@@ -51,7 +55,9 @@ content/**/*.yaml
 | 빌드 | `astrion/builder.py` | 큐 페이로드 저장, 미리보기, 상태 예약 | Blogger 호출 |
 | 큐 | `astrion/queue.py` | 페이로드 계약, 검증, due 필터, 아카이브 | 품질 판정 |
 | 발행 | `astrion/publisher.py` | 멱등 발행, 재시도, in-flight 조정, 중복 방어 | HTML 생성 |
-| API | `astrion/blogger.py` | OAuth refresh, 재시도, 응답 형태 검증, 계약 비교 | 발행 정책 결정 |
+| 웹 브리지 | `astrion/web_publisher.py` | 세션 복원, Node 실행, sentinel 파싱, 오류 매핑 | DOM 조작 |
+| 웹 엔진 | `web/*.mjs` | 제목/본문/라벨 입력, 초안 저장, 라이브 발행, 선택자 검사 | 품질/중복 판단 |
+| API fallback | `astrion/blogger.py` | OAuth refresh, 재시도, 응답 형태 검증, 계약 비교 | 발행 정책 결정 |
 | 상태 | `astrion/state.py` | 대기/발행/실패 원장, 슬롯/쿼터 조회 | Blogger 상태 조회 |
 | CLI | `astrion/cli.py` | 명령 파싱, 오케스트레이션, 종료 코드 | 비즈니스 규칙 구현 |
 
@@ -129,26 +135,36 @@ data/archive/
 
 성공/실패 모두 큐에서 제거되지만, 실패 파일은 절대 조용히 사라지지 않습니다. `__path` 같은 내부 키는 아카이브에서 제거됩니다.
 
-## 8. API 변경 대응
+## 8. 웹 에디터 변경 대응
 
-Blogger API가 바뀌어도 코드가 스스로 재작성되지는 않습니다. 대신 **감지 → 격리 → 알림 → PR** 순서로 대응합니다.
+Blogger 에디터 DOM이 바뀌어도 코드가 스스로 재작성되지는 않습니다. 대신 **감지 → 추론 → PR/Issue** 순서로 대응합니다.
 
-1. **계약 스냅샷**: `config/blogger_contract.json`에 discovery 문서의 `posts` 메서드와 파라미터 목록, SHA-256을 저장합니다.
-2. **필수 표면 검증**: `posts.get`, `posts.insert`, `posts.list`, `posts.patch`, `posts.publish`와 `insert`의 `blogId`, `isDraft` 파라미터가 없으면 `BloggerDriftError`로 중단합니다.
-3. **발행 전 healthcheck**: `publish.yml`이 `astrion healthcheck --strict-contract`를 먼저 실행합니다. 계약이 `changed` 또는 `missing`이면 발행하지 않습니다.
-4. **주간 갱신 PR**: `blogger-contract.yml`이 매주 discovery를 다시 읽고, SHA가 달라졌을 때만 PR을 만듭니다. 변경이 없으면 파일을 건드리지 않아 PR 소음이 없습니다.
-5. **실패 Issue**: healthcheck 실패, 발행 실패, 계약 위반은 GitHub Issue로 열립니다.
+1. **중앙 선택자 맵**: `web/selectors.json`에 각 컨트롤의 `primary`와 `candidates`를 저장합니다.
+2. **발행 전 healthcheck**: `publish.yml`이 `astrion healthcheck`로 세션과 필수 컨트롤을 먼저 확인합니다.
+3. **일일 건강검진**: `web-health.yml`이 `npm run selectors:check`를 실행하고, 깨진 항목은 `npm run selectors:fix`로 라이브 DOM에서 추론합니다.
+4. **자동 PR**: 추론 결과가 `web/selectors.json`을 바꾸면 PR을 만듭니다.
+5. **세션 만료 Issue**: 세션이 만료되었으면(종료 코드 3) Issue를 열고 복구 절차를 안내합니다.
+6. **실패 Issue**: 발행 실패도 Issue로 열리며, 워크플로가 실패하면 `web-health.yml`이 즉시 후속 실행됩니다.
 
-> "알아서 코드를 고치는" 자기 수정은 구현하지 않았습니다. 대신 변경을 **자동으로 감지하고 발행을 안전하게 멈추는** 방식입니다. 근거 없는 자동 재작성은 잘못된 게시물을 조용히 발행할 위험이 더 큽니다.
+> "알아서 코드를 고치는" 자기 수정은 하지 않습니다. 변경을 **자동으로 감지하고, 근거가 있을 때만 선택자 PR을 제안하며, 확신이 없으면 발행을 안전하게 멈추는** 방식입니다.
+
+### API fallback의 계약 감시
+
+`blogger.backend: api`를 사용할 때는 기존 discovery 계약 감시가 그대로 동작합니다.
+
+1. `config/blogger_contract.json`에 `posts` 메서드/파라미터와 SHA-256을 저장합니다.
+2. `healthcheck --strict-contract`가 계약 변경을 감지하면 발행을 중단합니다.
+3. `blogger-contract.yml`이 매주 변경 시에만 PR을 만듭니다.
 
 ## 9. GitHub Actions
 
 | 워크플로 | 트리거 | 역할 | 권한 |
 | --- | --- | --- | --- |
-| `ci.yml` | push/PR/manual | 테스트, `validate --strict`, `build --dry-run` | `contents: read` |
+| `ci.yml` | push/PR/manual | Python 테스트, Node 문법 검사, `validate --strict`, `build --dry-run` | `contents: read` |
 | `build.yml` | 매일 05:10 UTC, manual | 다음 슬롯 큐 생성, 상태/큐 커밋 | `contents: write` |
-| `publish.yml` | 매시간 7분, manual | healthcheck 후 due 항목 발행, 커밋, 실패 Issue | `contents: write`, `issues: write` |
-| `blogger-contract.yml` | 매주 월 06:17 UTC, manual | 계약 갱신 PR, 위반 시 Issue | `contents: write`, `pull-requests: write`, `issues: write` |
+| `publish.yml` | 매시간 7분, manual | Playwright 설치, 세션 healthcheck, due 항목 발행, 커밋, 실패 Issue | `contents: write`, `issues: write` |
+| `web-health.yml` | 매일 09:00 UTC, manual, publish 실패 후 | 에디터 선택자 검사/추론, PR 또는 세션 Issue | `contents: write`, `pull-requests: write`, `issues: write` |
+| `blogger-contract.yml` | 매주 월 06:17 UTC, manual | (API fallback) 계약 갱신 PR, 위반 시 Issue | `contents: write`, `pull-requests: write`, `issues: write` |
 
 `build.yml`과 `publish.yml`은 같은 큐/상태 파일을 수정하므로 `concurrency.group: astrion-state`를 공유합니다. 두 워크플로가 동시에 실행되지 않습니다.
 
@@ -160,11 +176,14 @@ Blogger API가 바뀌어도 코드가 스스로 재작성되지는 않습니다.
 
 ## 10. 보안과 비밀
 
-- OAuth 자격 증명은 GitHub Secrets에만 저장합니다: `BLOGGER_BLOG_ID`, `BLOGGER_CLIENT_ID`, `BLOGGER_CLIENT_SECRET`, `BLOGGER_REFRESH_TOKEN`.
-- `astrion auth`는 로컬에서만 실행하며 refresh token을 저장소에 쓰지 않습니다.
-- `.gitignore`는 `credentials/`, `secrets/`, `token.json`, `*.service-account.json`을 제외합니다.
+- 웹 발행 세션은 GitHub Secrets에만 저장합니다: `BLOGGER_BLOG_ID`, `BLOGGER_STORAGE_STATE`.
+- API fallback 자격 증명은 `BLOGGER_CLIENT_ID`, `BLOGGER_CLIENT_SECRET`, `BLOGGER_REFRESH_TOKEN`에만 저장합니다.
+- `astrion login`/`npm run login`은 로컬에서만 실행하며 `.state/`에 세션을 저장하고 Base64 값을 출력합니다.
+- `.gitignore`는 `credentials/`, `secrets/`, `token.json`, `*.service-account.json`, `.state/`, `*_storage_state.json`, `artifacts/`를 제외합니다.
 - 워크플로는 최소 권한을 사용합니다. Issue/PR 생성은 `GITHUB_TOKEN`으로 수행합니다.
-- Blogger 쓰기는 서비스 계정으로 불가능합니다. 반드시 사용자 OAuth 동의가 필요합니다.
+- 공개 저장소이므로 CI 아티팩트는 JSON/TXT/LOG만 업로드하고, 이메일 주소는 스크럽합니다.
+- 비밀번호/2FA 자동화는 하지 않습니다. 로그인은 실제 브라우저에서 사람이 수행합니다.
+- API fallback도 서비스 계정으로는 Blogger 쓰기가 불가능합니다. 사용자 OAuth 동의가 필요합니다.
 
 ## 11. 확장 지점
 

@@ -33,10 +33,24 @@ duplicates:
   title_threshold: 0.92
 
 blogger:
+  # "web" drives the Blogger editor with a saved Google browser session and
+  # Playwright. The API OAuth app stays in Google's Testing mode, so its
+  # refresh tokens expire after seven days. "api" is the optional fallback.
+  backend: web
+  blog_id: "7103426249941439830"
+  blog_url: "https://sciencew1thoutlimits.blogspot.com/"
   # Keep drafts until the publish workflow has been verified end to end.
   # Flip to false only after a manual live publish test succeeds.
   is_draft: true
   max_secondary_labels: 4
+  web:
+    # The saved session is materialized from the BLOGGER_STORAGE_STATE secret
+    # (Base64 JSON) at runtime. Never commit .state/.
+    storage_state_path: .state/blogger_storage_state.json
+    artifact_dir: dist/web-artifacts
+    node_bin: node
+    headless: true
+    timeout_seconds: 300
   max_per_run: 1
   max_attempts: 3
   timeout_seconds: 30

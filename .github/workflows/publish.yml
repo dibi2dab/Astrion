@@ -13,7 +13,7 @@ on:
         required: false
         default: ""
       dry_run:
-        description: "Validate only; do not call Blogger."
+        description: "Validate only; do not touch Blogger."
         type: boolean
         required: false
         default: false
@@ -31,7 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TZ: America/New_York
+      # The web backend signs in with a saved Google browser session (Base64
+      # Playwright storage state). The API secrets stay optional fallbacks.
       BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+      BLOGGER_STORAGE_STATE: ${{ secrets.BLOGGER_STORAGE_STATE }}
       BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
       BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
       BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
@@ -45,17 +48,30 @@ jobs:
           python-version: "3.11"
           cache: pip
 
-      - name: Install dependencies
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements-dev.txt
 
-      - name: Verify credentials, blog, and API contract
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        if: ${{ inputs.dry_run != true }}
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify the saved Blogger session and editor controls
+        if: ${{ inputs.dry_run != true }}
         run: |
           set -o pipefail
           mkdir -p dist
-          python -m astrion healthcheck --strict-contract --json 2>&1 \
-            | tee dist/healthcheck.log
+          python -m astrion healthcheck --json 2>&1 | tee dist/healthcheck.log
 
       - name: Publish due posts
         if: success()
@@ -92,7 +108,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: publish-diagnostics-${{ github.run_id }}
-          path: dist/
+          # The repository is public. Upload only scrubbed logs and JSON reports;
+          # never page HTML, screenshots, or the saved browser session.
+          path: |
+            dist/**/*.json
+            dist/**/*.log
+            dist/**/*.txt
           if-no-files-found: ignore
           retention-days: 14
 
@@ -116,6 +137,14 @@ jobs:
             echo '```'
             tail -n 80 dist/publish.log 2>/dev/null || echo "(publish did not run)"
             echo '```'
+            echo ""
+            if grep -q "browser session not found\|BLOGGER_SESSION" dist/*.log 2>/dev/null; then
+              echo "### The browser session probably expired"
+              echo ""
+              echo "Run \`npm run login\` locally, then update the \`BLOGGER_STORAGE_STATE\` secret."
+              echo ""
+            fi
+            echo "The Blogger editor UI may also have changed. The [editor health workflow](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/workflows/web-health.yml) runs after this failure and opens a selector PR when it can."
             echo ""
             echo "Failed payloads, if any, are preserved under \`data/archive/failed/\`."
             echo "State and queue changes are committed even when publishing fails."

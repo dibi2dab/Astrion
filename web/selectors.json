@@ -1,0 +1,153 @@
+{
+  "schema": "astrion.web-selectors/v1",
+  "updated": "2026-11-13",
+  "notes": [
+    "Blogger's editor DOM changes without notice. Keep the candidate lists broad.",
+    "The daily web-health workflow runs `npm run selectors:check` and opens a PR",
+    "with inferred replacements when a primary selector stops working.",
+    "Only `primary` is rewritten automatically; candidates stay as fallbacks."
+  ],
+  "selectors": {
+    "titleInput": {
+      "optional": false,
+      "description": "Post title field at the top of the Blogger editor.",
+      "primary": "input[aria-label=\"Title\"]",
+      "candidates": [
+        "input[aria-label*=\"title\" i]",
+        "textarea[aria-label*=\"title\" i]",
+        "input[placeholder*=\"title\" i]",
+        "textarea[placeholder*=\"title\" i]",
+        "input[name=\"title\"]",
+        "textarea[name=\"title\"]",
+        "input#post-title",
+        "input.post-title",
+        "input[data-testid*=\"title\" i]",
+        "div[contenteditable=\"true\"][aria-label*=\"title\" i]",
+        "div[contenteditable=\"true\"][data-testid*=\"title\" i]"
+      ]
+    },
+    "composeEditor": {
+      "optional": false,
+      "description": "Rich-text body editor used when HTML view is unavailable.",
+      "primary": "div[contenteditable=\"true\"][role=\"textbox\"]",
+      "candidates": [
+        "div[contenteditable=\"true\"][aria-label*=\"body\" i]",
+        "div[contenteditable=\"true\"][aria-label*=\"post\" i]",
+        "div[contenteditable=\"true\"][data-testid*=\"editor\" i]",
+        "div[contenteditable=\"true\"]"
+      ]
+    },
+    "htmlViewButton": {
+      "optional": true,
+      "description": "Toolbar toggle that switches the body editor to raw HTML.",
+      "primary": "button:has-text(\"HTML view\")",
+      "candidates": [
+        "button[aria-label*=\"HTML\" i]",
+        "[role=\"button\"][aria-label*=\"HTML\" i]",
+        "a:has-text(\"HTML view\")",
+        "[role=\"button\"]:has-text(\"HTML view\")",
+        "button:has-text(\"HTML\")",
+        "[data-testid*=\"html\" i]"
+      ]
+    },
+    "htmlViewTextarea": {
+      "optional": true,
+      "description": "Raw HTML editor shown after switching to HTML view.",
+      "primary": "textarea[aria-label*=\"HTML\" i]",
+      "candidates": [
+        "textarea[placeholder*=\"HTML\" i]",
+        ".html-editor textarea",
+        "textarea.html-editor",
+        "div.cm-content[contenteditable=\"true\"]",
+        "div[contenteditable=\"true\"][class*=\"html\" i]",
+        "div[contenteditable=\"true\"][aria-label*=\"HTML\" i]",
+        "textarea"
+      ]
+    },
+    "labelsInput": {
+      "optional": true,
+      "description": "Comma/Enter separated labels field in the post settings panel.",
+      "primary": "input[aria-label*=\"label\" i]",
+      "candidates": [
+        "input[placeholder*=\"label\" i]",
+        "textarea[aria-label*=\"label\" i]",
+        "input[name=\"labels\"]",
+        "input#labelsInput",
+        "input[data-testid*=\"label\" i]"
+      ]
+    },
+    "labelsSectionButton": {
+      "optional": true,
+      "description": "Button that reveals the labels field when the sidebar is collapsed.",
+      "primary": "button:has-text(\"Labels\")",
+      "candidates": [
+        "[role=\"button\"]:has-text(\"Labels\")",
+        "summary:has-text(\"Labels\")",
+        "button:has-text(\"Post settings\")",
+        "[role=\"button\"]:has-text(\"Post settings\")"
+      ]
+    },
+    "saveDraftButton": {
+      "optional": false,
+      "description": "Saves the post without publishing it.",
+      "primary": "button:has-text(\"Save\")",
+      "candidates": [
+        "button:has-text(\"Save draft\")",
+        "[role=\"button\"]:has-text(\"Save\")",
+        "button[aria-label*=\"save\" i]",
+        "button[data-testid*=\"save\" i]"
+      ]
+    },
+    "publishButton": {
+      "optional": true,
+      "description": "Opens the publish confirmation dialog.",
+      "primary": "button:has-text(\"Publish\")",
+      "candidates": [
+        "[role=\"button\"]:has-text(\"Publish\")",
+        "button[aria-label*=\"publish\" i]",
+        "button[data-testid*=\"publish\" i]"
+      ]
+    },
+    "draftConfirmButton": {
+      "optional": true,
+      "description": "Confirmation inside the save/draft dialog.",
+      "primary": "button:has-text(\"Save draft\")",
+      "candidates": [
+        "button:has-text(\"Save\")",
+        "button:has-text(\"OK\")",
+        "button:has-text(\"Continue\")",
+        "[role=\"button\"]:has-text(\"Save draft\")"
+      ]
+    },
+    "publishConfirmButton": {
+      "optional": true,
+      "description": "Final publish button inside the confirmation dialog.",
+      "primary": "button:has-text(\"Publish\")",
+      "candidates": [
+        "[role=\"button\"]:has-text(\"Publish\")",
+        "button[type=\"submit\"]",
+        "button:has-text(\"Confirm\")"
+      ]
+    },
+    "publishedLink": {
+      "optional": true,
+      "description": "Link to the live post shown after publishing.",
+      "primary": "a:has-text(\"View post\")",
+      "candidates": [
+        "a:has-text(\"View blog\")",
+        "a:has-text(\"View\")",
+        "a[href*=\"blogspot.com\"]"
+      ]
+    },
+    "postRow": {
+      "optional": true,
+      "description": "A row in the Blogger posts list. Used to reconcile by title.",
+      "primary": "div[role=\"row\"]",
+      "candidates": [
+        "tr",
+        "li",
+        "article"
+      ]
+    }
+  }
+}

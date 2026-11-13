@@ -27,16 +27,16 @@ git push -u origin main
 
 그다음:
 
-1. **Settings → Secrets and variables → Actions**에 4개 Secret 등록
-   - `BLOGGER_BLOG_ID`
-   - `BLOGGER_CLIENT_ID`
-   - `BLOGGER_CLIENT_SECRET`
-   - `BLOGGER_REFRESH_TOKEN`
+1. **Settings → Secrets and variables → Actions**에 Secret 등록
+   - `BLOGGER_BLOG_ID` (필수)
+   - `BLOGGER_STORAGE_STATE` (필수, `npm run login`이 출력한 Base64)
+   - `BLOGGER_CLIENT_ID`, `BLOGGER_CLIENT_SECRET`, `BLOGGER_REFRESH_TOKEN` (API fallback 전용)
 2. **Settings → Actions → General → Workflow permissions**에서 **Read and write permissions**를 선택합니다.
    - 워크플로가 `data/state.json`, 큐, 아카이브를 커밋하고 Issue/PR을 만들어야 합니다.
 3. **Actions** 탭에서 워크플로가 활성화되었는지 확인합니다.
 4. `ci.yml`을 수동 실행해 테스트와 검증이 통과하는지 확인합니다.
-5. `publish.yml`을 `dry_run: true`로 수동 실행해 자격 증명과 healthcheck를 확인합니다.
+5. `publish.yml`을 `dry_run: true`로 수동 실행해 큐 검증을 확인합니다.
+6. `web-health.yml`을 수동 실행해 세션과 선택자를 확인합니다.
 
 ### 브랜치 보호와 상태 커밋
 
@@ -82,7 +82,8 @@ Pending:
 - `Build queue`: 매일 성공해야 합니다.
 - `Publish due posts`: 실패 시 Issue가 열립니다.
 - `CI`: PR마다 통과해야 합니다.
-- `Blogger contract refresh`: 매주 결과 확인.
+- `Blogger editor health`: 매일 선택자 검사 결과 확인. PR/Issue가 열리면 검토합니다.
+- `Blogger contract refresh`: (API fallback) 매주 결과 확인.
 
 ### 3.3 발행 결과 확인
 
@@ -134,9 +135,31 @@ python -m astrion list --status active
 
 `skipped` 목록에서 사유를 확인합니다. "오늘 2개를 못 채웠다"는 그 자체로 장애가 아닙니다. 억지로 품질 미달 콘텐츠를 넣지 마십시오.
 
-### 4.3 인증 실패 (`invalid_grant`, 401, 403)
+### 4.3 웹 세션 만료 / 에디터 선택자 변경
 
-증상: `publish.yml`이 healthcheck 또는 발행에서 실패. Issue에 `invalid_grant` 또는 `Blogger rejected the credentials`가 보임.
+증상: `publish.yml` 또는 `web-health.yml` 실패. Issue에 `BLOGGER_SESSION_REQUIRED`, `BLOGGER_SESSION_EXPIRED`, `BLOGGER_SELECTOR_MISSING`이 보임. `python -m astrion session` 종료 코드가 `3`(세션) 또는 `2`(에디터)입니다.
+
+대응:
+
+1. `python -m astrion session --json`으로 상태를 확인합니다.
+2. 종료 코드 3(세션):
+   - 로컬에서 `npm install` 후 `npm run login`을 실행합니다.
+   - 브라우저에서 Google 계정으로 직접 로그인합니다.
+   - 출력된 Base64 값을 `BLOGGER_STORAGE_STATE` Secret에 갱신합니다.
+   - `python -m astrion session`으로 다시 확인합니다.
+3. 종료 코드 2(에디터):
+   - `npm run selectors:check`로 `web/selectors.json`의 깨진 항목을 확인합니다.
+   - `npm run selectors:fix`로 추론합니다.
+   - `git diff web/selectors.json`을 검토하고 커밋합니다.
+   - 일일 `web-health.yml`이 만든 PR이 있으면 내용을 확인하고 병합합니다.
+4. 추론도 실패하면 `dist/web-artifacts/selector-health/report.json`의 `broken` 목록을 보고 수동으로 `primary`를 추가합니다.
+5. 복구 후 `publish.yml`을 수동 실행합니다.
+
+> 세션이 만료되어도 큐와 상태는 그대로입니다. 다음 실행에서 due 항목이 정상 발행됩니다.
+
+### 4.4 API 인증 실패 (`invalid_grant`, 401, 403)
+
+증상: `blogger.backend: api`에서 healthcheck 또는 발행 실패. Issue에 `invalid_grant` 또는 `Blogger rejected the credentials`가 보임.
 
 원인:
 
@@ -151,14 +174,14 @@ python -m astrion list --status active
 1. `python -m astrion healthcheck`로 로컬에서 재현합니다.
 2. `invalid_grant`면 `python -m astrion auth`를 다시 실행해 새 refresh token을 발급합니다.
 3. GitHub Secret `BLOGGER_REFRESH_TOKEN`을 갱신합니다.
-4. 7일마다 반복된다면 OAuth 앱을 **Publishing**으로 전환하거나 **Internal** 앱으로 옮깁니다.
+4. 7일마다 반복된다면 `blogger.backend: web`으로 전환하거나 OAuth 앱을 **Publishing**으로 전환합니다.
 5. `healthcheck`가 통과하면 `publish.yml`을 수동 실행합니다.
 
 > 토큰을 재발급해도 큐와 상태는 그대로입니다. 다음 실행에서 due 항목이 정상 발행됩니다.
 
-### 4.4 API 계약 변경 (`contract: changed` / `missing`)
+### 4.5 API 계약 변경 (`contract: changed` / `missing`)
 
-증상: `healthcheck --strict-contract` 실패, 또는 주간 계약 워크플로가 PR/Issue 생성.
+증상: (API fallback) `healthcheck --strict-contract` 실패, 또는 주간 계약 워크플로가 PR/Issue 생성.
 
 대응:
 
@@ -172,7 +195,7 @@ python -m astrion list --status active
 5. 필수 표면이 사라졌다면 `astrion/blogger.py`와 테스트를 수정합니다. 이때는 자동 복구가 아니라 **의도적 코드 변경**입니다.
 6. 수정 후 `healthcheck --strict-contract`가 통과하는지 확인합니다.
 
-### 4.5 재시도 예약 (`retry_scheduled`)
+### 4.6 재시도 예약 (`retry_scheduled`)
 
 증상: 발행 결과에 `retry_scheduled`, 상태에 `next_attempt_at`.
 
@@ -181,9 +204,9 @@ python -m astrion list --status active
 - 대부분 429/5xx/네트워크 오류입니다. 다음 실행을 기다립니다.
 - `next_attempt_at`이 지나면 자동으로 다시 시도합니다.
 - `attempts`가 `max_attempts`에 도달하면 `failed`로 전환되고 아카이브됩니다.
-- 같은 항목이 반복해서 재시도되면 Blogger API 상태, 네트워크, 요청 크기를 확인합니다.
+- 같은 항목이 반복해서 재시도되면 세션/에디터 상태와 네트워크를 확인합니다.
 
-### 4.6 실패 페이로드
+### 4.7 실패 페이로드
 
 증상: `state.failed` 증가, `data/archive/failed/` 생성.
 
@@ -196,22 +219,25 @@ python -m astrion list --status active
    - 검증 실패: 모듈 수정 후 다시 빌드
    - 품질 미달: 콘텐츠 보강
    - 중복: 새 각도로 재작성 또는 `distinct_from` 검토
-   - 일시적 API 오류: 재빌드 후 재발행
+   - 세션/에디터 문제: 4.3 참고
+   - 일시적 네트워크 오류: 재빌드 후 재발행
 5. 실패 아카이브는 삭제하지 말고 원인 분석 자료로 남깁니다.
 
-### 4.7 `in_flight`에 멈춘 항목
+### 4.8 `in_flight`에 멈춘 항목
 
 증상: `status`에 `in_flight`가 남아 있고 다음 실행이 `still in flight`로 건너뜀.
 
 대응:
 
 1. 다음 `publish.yml` 실행에서 `_reconcile_inflight`가 자동으로 처리합니다.
-2. Blogger에서 해당 주제 마커(`data-astrion-topic="..."`)를 검색합니다.
+2. 이전 부분 발행을 찾습니다.
+   - 웹: Blogger 게시물 목록에서 제목으로 확인합니다.
+   - API: Blogger에서 `data-astrion-topic="..."` 마커를 검색합니다.
 3. 게시물이 있으면 상태에 기록되고 아카이브됩니다.
 4. 없으면 `queued`로 되돌아가 다음 실행에서 발행됩니다.
-5. 자동 조정이 반복 실패하면 Blogger API와 `state.json`을 수동으로 확인합니다. 수정 전 백업 필수.
+5. 자동 조정이 반복 실패하면 Blogger와 `state.json`을 수동으로 확인합니다. 수정 전 백업 필수.
 
-### 4.8 중복 차단
+### 4.9 중복 차단
 
 증상: `duplicate topic`, `identical editorial signature`, `same primary keyword`, `shared alias`.
 
@@ -223,7 +249,7 @@ python -m astrion list --status active
 4. 그래도 겹치면 `distinct_from`에 상대 ID와 40자 이상의 사유를 적습니다.
 5. `distinct_from`은 명시한 상대에게만 적용됩니다. 전체 면제가 아닙니다.
 
-### 4.9 잘못된 글이 라이브로 나감
+### 4.10 잘못된 글이 라이브로 나감
 
 대응:
 
@@ -235,7 +261,7 @@ python -m astrion list --status active
 
 > 게시물을 삭제한 뒤 상태 기록을 남겨두면 이후 같은 주제가 영원히 중복으로 차단됩니다. 반드시 상태도 함께 정리합니다.
 
-### 4.10 상태 파일 손상
+### 4.11 상태 파일 손상
 
 증상: `state file is unreadable`, JSON 파싱 오류.
 
@@ -247,7 +273,7 @@ python -m astrion list --status active
 4. `python -m astrion status`로 파싱되는지 확인합니다.
 5. 손상 원인(수동 편집, 동시 실행, 디스크 오류)을 제거합니다.
 
-### 4.11 긴급 중지
+### 4.12 긴급 중지
 
 즉시 발행을 멈추려면:
 
@@ -332,7 +358,18 @@ GitHub에서:
 - **Actions → Publish due posts → Run workflow**
 - `queue_id`를 비우면 due 전체, `dry_run`을 켜면 네트워크 호출 없음
 
-## 8. 자격 증명 교체
+## 8. 자격 증명/세션 교체
+
+### 웹 백엔드 (기본)
+
+1. 로컬에서 `npm run login`을 실행합니다.
+2. 브라우저에서 Google 계정으로 직접 로그인합니다.
+3. 출력된 Base64 값으로 `BLOGGER_STORAGE_STATE` Secret을 갱신합니다.
+4. `python -m astrion session`으로 검증합니다.
+5. `publish.yml`을 `dry_run: true`로 실행합니다.
+6. 정상 확인 후 실제 초안 발행을 1회 테스트합니다.
+
+### API fallback
 
 1. 새 OAuth 클라이언트를 만들거나 기존 Secret을 재발급합니다.
 2. `python -m astrion auth`로 새 refresh token을 받습니다.
@@ -351,12 +388,14 @@ GitHub에서:
 - `data/state.json`
 - `data/queue/`
 - `data/archive/`
+- `web/selectors.json`
 - `.github/workflows/`
 
 커밋되지 않는 것:
 
-- `dist/` (미리보기, 리포트, 로그)
-- `.venv/`
+- `dist/`, `artifacts/` (미리보기, 리포트, 로그)
+- `.state/` (브라우저 세션)
+- `.venv/`, `node_modules/`
 - 자격 증명
 
 복구:
@@ -375,19 +414,21 @@ python -m astrion status
 
 - [ ] `Build queue` 성공
 - [ ] `Publish due posts` 성공 또는 실패 Issue 확인
+- [ ] `Blogger editor health`에서 세션 만료 Issue/선택자 PR 확인
 - [ ] `status`에서 `Pending` 2개, `Failed` 0
 - [ ] 새 게시물의 제목/라벨/수식/표 확인
 
 ### 매주
 
-- [ ] 계약 갱신 PR 확인 (있으면 diff 검토)
+- [ ] 선택자 PR 확인 (있으면 diff 검토 후 병합)
+- [ ] 계약 갱신 PR 확인 (API fallback 사용 시)
 - [ ] 실패 아카이브와 Issue 정리
 - [ ] 큐에 오래 남은 항목 확인
 - [ ] 발행 주제가 카테고리별로 균형 있는지 확인
 
 ### 매월
 
-- [ ] OAuth 앱 상태(Testing/Publishing, 7일 만료) 확인
+- [ ] 저장된 브라우저 세션이 여전히 유효한지 확인
 - [ ] 발행 수와 품질 점수 추세
 - [ ] 중복 경고/예외(`distinct_from`) 누적 검토
 - [ ] GitHub Actions 사용량과 실패율

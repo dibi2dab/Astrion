@@ -1,0 +1,22 @@
+{
+  "name": "astrion-web-publisher",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blogger web-editor publishing engine for Astrion (Playwright + saved Google session).",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "login": "node web/login.mjs",
+    "session:check": "node web/sessionCheck.mjs",
+    "selectors:check": "node web/selectorHealth.mjs check",
+    "selectors:fix": "node web/selectorHealth.mjs fix",
+    "publish": "node web/publishBlogger.mjs",
+    "find:post": "node web/findPost.mjs",
+    "check": "node --check web/lib.mjs && node --check web/inspect.mjs && node --check web/login.mjs && node --check web/findPost.mjs && node --check web/sessionCheck.mjs && node --check web/selectorHealth.mjs && node --check web/publishBlogger.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.65.0"
+  }
+}

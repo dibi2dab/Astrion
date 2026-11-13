@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 from datetime import time
 from pathlib import Path
+from typing import Literal
 from zoneinfo import ZoneInfo
 
 import yaml
@@ -95,14 +96,36 @@ class DuplicateSettings(BaseModel):
     title_threshold: float = Field(default=0.92, ge=0, le=1)
 
 
+class BloggerWebSettings(BaseModel):
+    """Settings for the Playwright web-editor backend.
+
+    The web backend publishes through the Blogger editor with a saved Google
+    browser session, because the Blogger API OAuth app remains in Google's
+    "Testing" mode and its refresh tokens expire after seven days.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    storage_state_path: str = ".state/blogger_storage_state.json"
+    artifact_dir: str = "dist/web-artifacts"
+    node_bin: str = "node"
+    headless: bool = True
+    timeout_seconds: int = Field(default=300, ge=30, le=1800)
+    slow_mo_ms: int = Field(default=0, ge=0, le=2000)
+
+
 class BloggerSettings(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
+    backend: Literal["web", "api"] = "web"
+    blog_id: str = ""
+    blog_url: str = "https://sciencew1thoutlimits.blogspot.com/"
     is_draft: bool = True
     max_secondary_labels: int = Field(default=4, ge=0, le=10)
     max_per_run: int = Field(default=1, ge=1, le=5)
     max_attempts: int = Field(default=3, ge=1, le=10)
     timeout_seconds: int = Field(default=30, ge=5, le=120)
+    web: BloggerWebSettings = Field(default_factory=BloggerWebSettings)
 
 
 class PathSettings(BaseModel):
@@ -156,6 +179,14 @@ class Settings(BaseModel):
     @property
     def report_dir(self) -> Path:
         return self.dist_dir / "reports"
+
+    @property
+    def web_storage_state_path(self) -> Path:
+        return self._resolve(self.blogger.web.storage_state_path)
+
+    @property
+    def web_artifact_dir(self) -> Path:
+        return self._resolve(self.blogger.web.artifact_dir)
 
     def _resolve(self, value: str) -> Path:
         path = Path(value)
