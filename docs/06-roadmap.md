@@ -23,7 +23,7 @@
 | API 클라이언트 | 완료 | 선택 fallback (`blogger.backend: api`) |
 | 발행기 | 완료 | 멱등 발행, in-flight 조정, 제목 기반 재조정 |
 | CLI | 완료 | validate, list, plan, build, publish, healthcheck, session, login, contract, auth, status |
-| 테스트 | 완료 | 195개 통과 |
+| 테스트 | 완료 | 196개 통과 |
 | GitHub Actions | 완료 | CI, build, publish, web-health, contract |
 | 문서 | 완료 | 이 문서 포함 8개 |
 | 저장소 초기화 | 완료 | `dibi2dab/Astrion`, `main` 푸시 완료 |
@@ -47,7 +47,7 @@
 - [x] 발행기가 fake client로 멱등성과 재시도를 증명한다.
 - [x] `publish --dry-run`이 세션/자격 증명 없이 동작한다.
 - [x] GitHub Actions 워크플로가 정의되어 있다.
-- [x] 테스트 195개가 통과한다.
+- [x] 테스트 196개가 통과한다.
 - [x] 설계/운영 문서가 있다.
 
 ### M1 — 저장소 + 웹 세션 + 초안 검증
