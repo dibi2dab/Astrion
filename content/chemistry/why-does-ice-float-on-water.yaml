@@ -1,0 +1,248 @@
+schema: astrion.topic/v1
+id: chemistry.ice-floats-water
+status: draft
+content_type: science-explained
+main_category: Chemistry
+labels:
+  - Water
+  - Physical Chemistry
+  - Hydrogen Bonding
+title: Why Does Ice Float on Water?
+slug: why-does-ice-float-on-water
+meta_description: Ice floats because its hydrogen-bonded crystal is less dense than liquid water, and the density maximum near 4 °C keeps lakes from freezing solid.
+primary_keyword: why does ice float on water
+secondary_keywords:
+  - density of ice
+  - hydrogen bonding in water
+  - water density anomaly
+  - density maximum at 4 C
+hook: >-
+  Why does ice float on water? Drop an ice cube into a glass and the answer seems
+  obvious, yet the everyday sight hides a genuine anomaly. For most substances, the solid
+  is denser than the liquid and sinks in its own melt. Water does the opposite: at 0 °C,
+  ice is about 8 to 9 percent less dense than liquid water. The question is not why ice
+  feels light. It is why the arrangement of water molecules in a crystal takes up more
+  space than the jumbled liquid, and why that arrangement has consequences for lakes,
+  oceans, and life.
+core_question: >-
+  Why is solid water less dense than liquid water, and what does that anomaly imply for
+  natural bodies of water?
+explanation_target: >-
+  The molecular geometry of the water molecule, the open hydrogen-bonded lattice of ice,
+  the density maximum of liquid water near 4 °C, and the ecological consequences of ice
+  floating instead of sinking.
+central_principle: >-
+  Water molecules can donate and accept hydrogen bonds in four directions, so freezing
+  locks them into an open tetrahedral network that occupies more volume than the liquid;
+  density, not molecular weight, decides whether ice floats.
+unique_value: >-
+  This explanation connects the density anomaly to the tetrahedral hydrogen-bond network,
+  distinguishes bond strength from bond order, quantifies how much of a floating ice block
+  stays submerged, and shows why the density maximum near 4 °C protects lake ecosystems.
+key_takeaways:
+  - Ice floats because its crystal lattice is less dense than liquid water, not because its molecules are lighter.
+  - The open tetrahedral arrangement of hydrogen bonds gives ice extra volume; order and directionality matter more than raw bond strength.
+  - Liquid water reaches its maximum density near 4 °C, so cooling surface water sinks until the whole lake is near that temperature.
+  - A floating ice layer insulates the water below and helps lakes and polar seas support life through winter.
+sections:
+  - heading: 'The Observation: Solid Water Is Less Dense'
+    blocks:
+      - type: paragraph
+        text: >-
+          Density is mass per unit volume. A block of ice contains almost the same number
+          of water molecules as the liquid that formed it, but those molecules occupy more
+          space. At 0 °C the density of ice is about 0.917 grams per cubic centimeter, while
+          liquid water at the same temperature is about 0.9998 grams per cubic centimeter.
+          The difference is small in absolute terms and enormous in its effects.
+      - type: equation
+        latex: '\rho = \frac{m}{V}'
+        variables:
+          - symbol: '\rho'
+            meaning: density of the sample
+            unit: grams per cubic centimeter
+          - symbol: m
+            meaning: mass of the sample
+            unit: grams
+          - symbol: V
+            meaning: volume occupied by the sample
+            unit: cubic centimeters
+        caption: Density compares the mass of a sample with the volume it occupies.
+      - type: paragraph
+        text: >-
+          Archimedes' principle explains the floating part. A floating object displaces a
+          weight of fluid equal to its own weight. Because ice is about 92 percent as dense
+          as water, roughly 92 percent of a free-floating iceberg sits below the surface.
+          The visible tip is the small remainder, not the bulk of the object.
+      - type: table
+        caption: Ice is less dense than liquid water, and liquid water is densest near 4 °C.
+        headers:
+          - Temperature
+          - State
+          - Density (g/cm3)
+        rows:
+          - ["-10 °C", "ice", "0.9187"]
+          - ["0 °C", "ice", "0.9168"]
+          - ["0 °C", "liquid water", "0.9998"]
+          - ["4 °C", "liquid water", "1.0000"]
+          - ["20 °C", "liquid water", "0.9982"]
+      - type: paragraph
+        text: >-
+          The table also shows a second oddity. Liquid water becomes denser as it cools
+          from room temperature to about 4 °C, then becomes less dense as it approaches
+          freezing. Most liquids contract steadily until they solidify. Water reaches a
+          density maximum near 4 °C and then expands on further cooling.
+
+  - heading: 'The Molecular Reason: An Open Hydrogen-Bonded Lattice'
+    blocks:
+      - type: paragraph
+        text: >-
+          A water molecule is bent rather than linear. Its oxygen atom pulls electron
+          density away from the two hydrogen atoms, leaving the hydrogen side slightly
+          positive and the oxygen side slightly negative. Neighboring molecules therefore
+          attract one another through hydrogen bonds. Each water molecule can donate two
+          hydrogen bonds and accept two more.
+      - type: paragraph
+        text: >-
+          In ordinary ice, those four bonds point toward the corners of a tetrahedron. The
+          result is a hexagonal crystal built from open cages rather than a tightly packed
+          stack. The molecules sit farther apart than they do in the liquid, even though the
+          same molecules are present. The crystal is rigid, but it is not dense.
+      - type: paragraph
+        text: >-
+          Liquid water is different because its hydrogen bonds constantly break and
+          re-form. Molecules slide past one another and can settle into the gaps that the
+          rigid crystal leaves open. The liquid is disordered, and that disorder allows
+          closer average packing. Freezing replaces a flexible network with a fixed,
+          spacious one.
+      - type: callout
+        tone: key
+        title: Order creates the space
+        text: >-
+          The density anomaly comes from geometry. A directed, tetrahedral network holds
+          water molecules apart, while the liquid can rearrange around them.
+      - type: paragraph
+        text: >-
+          It is tempting to say that hydrogen bonds are simply stronger in ice. The more
+          accurate statement is that ice has a more complete and ordered hydrogen-bond
+          network. The key is not one bond pulling harder, but many bonds holding the
+          molecules in an open pattern.
+
+  - heading: Why the Density Maximum at 4 °C Matters
+    blocks:
+      - type: paragraph
+        text: >-
+          Suppose water behaved like a typical liquid and kept contracting as it cooled.
+          The coldest, densest water would sink to the bottom, and a lake would freeze from
+          the bottom up. Instead, water below 4 °C expands as it cools, so the surface
+          layer reaches the freezing point first while the denser water remains below.
+      - type: paragraph
+        text: >-
+          Ice then forms at the surface and floats. The ice layer is a poor conductor of
+          heat, so it slows further cooling of the water underneath. This insulation is not
+          perfect, but it is enough to keep many lakes and ponds from freezing solid. Fish,
+          insects, and microorganisms can survive in the liquid water below.
+      - type: paragraph
+        text: >-
+          The same anomaly shapes polar oceans. Sea ice forms at the surface, reflects
+          sunlight, and separates the cold atmosphere from the relatively warmer ocean.
+          The seasonal growth and retreat of that ice influences ocean circulation, heat
+          exchange, and the global climate system.
+      - type: paragraph
+        text: >-
+          The effect is also familiar in daily life. Water expands when it freezes inside a
+          pipe or a rock crack. That expansion can split metal, crack stone, and damage
+          roads. The floating ice cube and the burst pipe are two expressions of the same
+          molecular arrangement.
+
+  - heading: What Ice Floating Does Not Mean
+    blocks:
+      - type: paragraph
+        text: >-
+          Floating does not mean that ice is made of lighter molecules. A water molecule
+          has the same mass whether it is in ice or in liquid water. What changes is the
+          volume that a given mass occupies. Ice floats because its density is lower, and
+          density depends on both mass and volume.
+      - type: paragraph
+        text: >-
+          Floating also does not prove that hydrogen bonds vanish in the liquid. Liquid
+          water is held together by an extensive hydrogen-bond network. The network is
+          dynamic rather than fixed. On freezing, the molecules settle into the most
+          stable local arrangement, and that arrangement happens to be unusually open.
+      - type: paragraph
+        text: >-
+          Finally, the rule is about density relative to the surrounding liquid. Ordinary
+          ice floats in ordinary liquid water because its density is lower. The general
+          statement is not that every solid floats in every liquid, but that an object
+          floats when the displaced liquid weighs as much as the object.
+
+  - heading: Reading the Anomaly Correctly
+    blocks:
+      - type: paragraph
+        text: >-
+          Most solids are denser than their liquids because their particles pack more
+          closely. Water is a conspicuous exception because its particles are directional
+          and form a stiff, open network when they freeze. The exception is a consequence
+          of hydrogen bonding, not a violation of the rules of density.
+      - type: paragraph
+        text: >-
+          The anomaly also illustrates a broader lesson in chemistry. A material property
+          cannot always be predicted from the mass of its particles alone. Geometry and
+          intermolecular forces can dominate. Two samples with identical molecules can have
+          different densities because those molecules are arranged differently.
+      - type: paragraph
+        text: >-
+          So the next time an ice cube bobs at the surface, the glass is showing a balance
+          between thermal motion and hydrogen-bond geometry. The solid is less dense than
+          the liquid, the lake freezes from the top, and a molecular detail becomes an
+          ecological necessity.
+misconceptions:
+  - claim: Ice floats because its molecules are lighter than liquid water molecules.
+    correction: >-
+      Ice and liquid water contain the same kind of molecule, with the same mass. The
+      difference is volume. The crystal lattice holds the molecules farther apart, so a
+      given mass of ice takes up more space and has a lower density than the liquid.
+  - claim: Hydrogen bonds are stronger in ice, so ice should be denser than water.
+    correction: >-
+      Stronger attraction would usually pull molecules closer, but the crucial feature of
+      ice is the directed tetrahedral network. Each molecule is held in an open geometry
+      that creates empty space. Ice has a more ordered hydrogen-bond network, not simply a
+      stronger single bond.
+  - claim: Ice always floats in any liquid because freezing always makes water expand.
+    correction: >-
+      Floating depends on the density of the ice compared with the density of the
+      surrounding liquid. Ordinary ice floats in fresh liquid water, but the rule is a
+      density comparison, not a universal property of every solid in every liquid.
+sources:
+  - id: usgs-water-density
+    title: Water Density
+    publisher: U.S. Geological Survey
+    url: https://www.usgs.gov/water-science-school/science/water-density
+    kind: agency
+    accessed_at: 2026-11-14
+  - id: openstax-intermolecular-forces
+    title: Chemistry 2e, Intermolecular Forces
+    publisher: OpenStax
+    url: https://openstax.org/books/chemistry-2e/pages/10-1-intermolecular-forces
+    kind: textbook
+    accessed_at: 2026-11-14
+  - id: iapws-95
+    title: Revised Release on the IAPWS Formulation 1995 for the Thermodynamic Properties of Ordinary Water Substance
+    publisher: International Association for the Properties of Water and Steam
+    url: https://iapws.org/technical-guidance/release/IAPWS-95
+    kind: standard
+    accessed_at: 2026-11-14
+related: []
+aliases:
+  - why ice floats
+  - ice density
+  - density anomaly of water
+distinct_from: []
+provenance:
+  authored_by: Astrion editorial
+  fact_basis: textbook
+  reviewed_at: 2026-11-14
+  review_status: draft
+  notes: Drafted for editorial review. Confirm the density values and the IAPWS reference before approval.
+priority: 4
+evergreen: true
+notes: ""
