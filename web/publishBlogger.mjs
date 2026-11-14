@@ -24,13 +24,14 @@ import fs from 'node:fs';
 import {
   WebError,
   clickDialogButton,
-  clickLocator,
   configFromPayload,
+  editorUrlFor,
   emit,
   extractPostId,
   findPostInList,
   launchContext,
   openEditor,
+  openPublishMenu,
   readBodyText,
   readPayload,
   resolveLocator,
@@ -38,7 +39,9 @@ import {
   assertStorageState,
   nowIso,
   waitForEditorReady,
+  waitForEditorSync,
   waitForLocator,
+  waitForSaved,
 } from './lib.mjs';
 
 const LABEL_LIMIT = 10;
@@ -112,7 +115,45 @@ async function switchToHtmlView(page) {
   return waitForLocator(page, 'htmlViewTextarea', { timeoutMs: 10000 });
 }
 
-async function setBody(page, config, html, warnings) {
+async function setBody(page, config, html, warnings, ready) {
+  const frameBody = ready?.body || null;
+  if (frameBody) {
+    await frameBody.locator.click({ timeout: 8000 }).catch(() => {});
+    const inserted = await frameBody.locator
+      .evaluate((element, value) => {
+        element.focus();
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(element);
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+        try {
+          document.execCommand('delete', false);
+        } catch {
+          element.innerHTML = '';
+        }
+        let ok = false;
+        try {
+          ok = document.execCommand('insertHTML', false, value);
+        } catch {
+          ok = false;
+        }
+        if (!ok || (element.innerText || '').trim().length < 40) {
+          element.innerHTML = value;
+        }
+        return (element.innerText || '').trim().length;
+      }, html)
+      .catch(() => 0);
+
+    if (inserted < 40) {
+      throw new WebError(
+        'the post body could not be inserted into the Blogger editor',
+        'BLOGGER_BODY_NOT_SET'
+      );
+    }
+    return { mode: 'compose-frame', selector: frameBody.selector, length: inserted };
+  }
+
   const htmlTarget = await switchToHtmlView(page);
   if (htmlTarget) {
     await htmlTarget.locator.click({ timeout: 8000 }).catch(() => {});
@@ -140,7 +181,7 @@ async function setBody(page, config, html, warnings) {
   const editor = await resolveLocator(page, 'composeEditor', { visible: true });
   if (!editor) {
     throw new WebError(
-      'neither the HTML view nor the rich-text body editor was found',
+      'neither the frame body editor nor the HTML view was found',
       'BLOGGER_SELECTOR_MISSING'
     );
   }
@@ -219,81 +260,136 @@ async function applyLabels(page, labels) {
   );
   if (wanted.length === 0) return { added: 0, skipped: true };
 
-  let added = 0;
-  for (const label of wanted) {
-    const input = await openLabels(page);
-    if (!input) {
-      return {
-        added,
-        skipped: true,
-        warning: 'the labels field was not found; the post was saved without labels',
-      };
-    }
-    try {
-      await input.locator.click({ timeout: 5000 });
-      await input.locator.fill(label, { timeout: 5000 });
-      await page.keyboard.press('Enter');
-      await page.waitForTimeout(200);
-      added += 1;
-    } catch {
-      break;
-    }
+  const input = await openLabels(page);
+  if (!input) {
+    return {
+      added: 0,
+      skipped: true,
+      warning: 'the labels field was not found; the post was saved without labels',
+    };
   }
+
+  try {
+    // The labels control is a comma-separated textarea, not a chip widget.
+    // Real keystrokes matter: setting .value directly, or pressing Enter (which
+    // inserts a newline), leaves Blogger's model unchanged. Each label must be
+    // followed by a comma, and the field must blur so the model commits.
+    await input.locator.click({ timeout: 5000 });
+    await page.keyboard.press('Control+A').catch(() => {});
+    await page.keyboard.press('Delete').catch(() => {});
+    await page.waitForTimeout(250);
+    for (let index = 0; index < wanted.length; index += 1) {
+      const label = wanted[index];
+      await page.keyboard.type(`${label},`, { delay: 30 });
+      if (index < wanted.length - 1) await page.keyboard.type(' ', { delay: 30 });
+      await page.waitForTimeout(300);
+    }
+    const typed = String(await input.locator.inputValue().catch(() => ''));
+    if (!/,\s*$/.test(typed)) await page.keyboard.type(',', { delay: 30 });
+    await page.waitForTimeout(400);
+
+    // Blur commits the label list to the post model.
+    const title = await resolveLocator(page, 'titleInput', { visible: true });
+    if (title) await title.locator.click({ timeout: 5000 }).catch(() => {});
+    await page.waitForTimeout(600);
+
+    const committed = String(await input.locator.inputValue().catch(() => ''))
+      .toLowerCase()
+      .trim();
+    const added = wanted.filter((label) => committed.includes(label.toLowerCase())).length;
+    return {
+      added,
+      skipped: added === 0,
+      warning:
+        added < wanted.length
+          ? `only ${added}/${wanted.length} labels were applied`
+          : '',
+    };
+  } catch (err) {
+    return {
+      added: 0,
+      skipped: true,
+      warning: `the labels field could not be filled: ${err.message}`,
+    };
+  }
+}
+
+async function waitForPublishConfirmation(page, config) {
+  const deadline = Date.now() + Math.min(config.timeoutMs, 30000);
+  while (Date.now() < deadline) {
+    const link = await resolveLocator(page, 'publishedLink', { visible: true });
+    if (link) return true;
+    const text = await readBodyText(page);
+    if (/your post (has been|was) published|published just now|view post/i.test(text)) return true;
+    await page.waitForTimeout(500);
+  }
+  return false;
+}
+
+async function confirmDraftInList(page, config, title, warnings) {
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    const found = await findPostInList(page, config, title).catch((err) => {
+      if (err?.code?.startsWith('BLOGGER_SESSION')) throw err;
+      warnings.push(`post-list confirmation attempt ${attempt} failed: ${err.message}`);
+      return null;
+    });
+    if (found) return found;
+    if (attempt < 3) await page.waitForTimeout(2000);
+  }
+  return null;
+}
+
+async function verifyDraftContent(page, config, postId, title) {
+  await page.goto(editorUrlFor(config, postId), {
+    waitUntil: 'domcontentloaded',
+    timeout: config.timeoutMs,
+  });
+  const ready = await waitForEditorReady(page, config);
+  await page.waitForTimeout(1500);
+
+  const tagName = await ready.title.locator
+    .evaluate((element) => element.tagName.toLowerCase())
+    .catch(() => 'input');
+  const actualTitle = String(
+    tagName === 'input' || tagName === 'textarea'
+      ? await ready.title.locator.inputValue().catch(() => '')
+      : await ready.title.locator.innerText().catch(() => '')
+  )
+    .replace(/\s+/g, ' ')
+    .trim();
+  const bodyText = String(await ready.body.locator.innerText().catch(() => ''))
+    .replace(/\s+/g, ' ')
+    .trim();
+  const normalize = (value) => String(value || '').replace(/\s+/g, ' ').trim();
   return {
-    added,
-    skipped: added === 0,
-    warning: added < wanted.length ? `only ${added}/${wanted.length} labels were applied` : '',
+    titleOk: normalize(actualTitle) === normalize(title),
+    title: actualTitle,
+    bodyLength: bodyText.length,
+    bodyPreview: bodyText.slice(0, 80),
   };
 }
 
-async function waitForConfirmation(page, config, mode) {
-  const deadline = Date.now() + Math.min(config.timeoutMs, 30000);
-  while (Date.now() < deadline) {
-    const postId = extractPostId(page.url(), config.blogId);
-    if (postId) return { postId, editUrl: page.url(), how: 'url' };
-
-    const text = await readBodyText(page);
-    const confirmed =
-      mode === 'draft'
-        ? /draft saved|saved just now|changes saved/i.test(text)
-        : /published|your post is live|post published/i.test(text);
-    if (confirmed) {
-      return { postId: '', editUrl: '', how: 'toast' };
-    }
-    await page.waitForTimeout(500);
-  }
-  return { postId: '', editUrl: '', how: 'unconfirmed' };
-}
-
 async function saveDraft(page, config, title, warnings) {
+  // Typing triggers a delayed autosave; saving before it completes persists the
+  // previous revision. Wait for the editor to report a settled save first.
+  const synced = await waitForEditorSync(page, Math.min(config.timeoutMs, 30000));
+  if (!synced) warnings.push('the editor never reported a settled save before clicking Save');
+
   let clicked = false;
-  const save = await resolveLocator(page, 'saveDraftButton', { visible: true });
-  if (save) {
-    await save.locator.click({ timeout: 10000 });
+
+  // The current editor hides Save in the split-button menu next to Publish.
+  const direct = await resolveLocator(page, 'saveDraftButton', { visible: true });
+  if (direct) {
+    await direct.locator.click({ timeout: 10000 });
     clicked = true;
   } else {
-    // Some editor revisions put Save behind an overflow menu.
-    const overflow = await firstVisibleSafe(
-      page.getByRole('button', { name: /more options|more|options/i })
-    );
-    if (overflow) {
-      await overflow.click({ timeout: 5000 }).catch(() => {});
-      await page.waitForTimeout(400);
-      const menuSave = await resolveLocator(page, 'saveDraftButton', { visible: true });
-      if (menuSave) {
-        await menuSave.locator.click({ timeout: 8000 });
+    const menu = await openPublishMenu(page);
+    if (menu) {
+      const item = await waitForLocator(page, 'saveDraftButton', { timeoutMs: 6000 });
+      if (item) {
+        await item.locator.click({ timeout: 8000 });
         clicked = true;
       }
-    }
-  }
-
-  if (!clicked) {
-    // Last resort: open the publish dialog if it offers a "Save draft" option.
-    const publish = await resolveLocator(page, 'publishButton', { visible: true });
-    if (publish) {
-      await publish.locator.click({ timeout: 8000 }).catch(() => {});
-      await page.waitForTimeout(700);
-      clicked = await clickDialogButton(page, [/^save draft$/i, /^save$/i]);
     }
   }
 
@@ -305,30 +401,63 @@ async function saveDraft(page, config, title, warnings) {
   }
 
   await page.waitForTimeout(700);
-  await clickDialogButton(page, [/^save draft$/i, /^save$/i, /^ok$/i, /^continue$/i]);
-  const confirmation = await waitForConfirmation(page, config, 'draft');
-  const found = await findPostInList(page, config, title).catch((err) => {
-    if (err?.code?.startsWith('BLOGGER_SESSION')) throw err;
-    warnings.push(`post-list confirmation failed: ${err.message}`);
-    return null;
+  await clickDialogButton(page, [/^save draft$/i, /^ok$/i, /^continue$/i]);
+  const confirmed = await waitForSaved(page, Math.min(config.timeoutMs, 30000));
+  const postId = extractPostId(page.url(), config.blogId);
+  if (!confirmed) {
+    warnings.push('Blogger did not show the "Changes saved" indicator; checking the posts list');
+  }
+
+  // The posts list is the source of truth. A visible saved indicator alone is
+  // not enough: it has been shown while an empty draft was stored.
+  const found = await confirmDraftInList(page, config, title, warnings);
+  if (!found) {
+    throw new WebError(
+      'Save was clicked but the draft with this title never appeared in the Blogger posts list. ' +
+        'The next run reconciles by title before creating another post.',
+      'BLOGGER_SAVE_UNCONFIRMED'
+    );
+  }
+
+  const id = found.id || postId;
+  if (!id) {
+    throw new WebError(
+      'the saved draft could not be mapped to a Blogger post id.',
+      'BLOGGER_POST_ID_MISSING'
+    );
+  }
+
+  // Reopen the saved post and confirm the server stored the text, not just a
+  // title in the list. Slower, but it turns silent empty drafts into a retry.
+  const verified = await verifyDraftContent(page, config, id, title).catch((err) => {
+    if (err?.code?.startsWith('BLOGGER_SESSION') || err?.code === 'BLOGGER_SELECTOR_MISSING') {
+      throw err;
+    }
+    warnings.push(`draft verification failed: ${err.message}`);
+    return { titleOk: false, title: '', bodyLength: 0, bodyPreview: '' };
   });
 
-  if (found) {
-    return {
-      postId: found.id || confirmation.postId,
-      editUrl: found.editUrl || confirmation.editUrl,
-      url: found.url || '',
-      how: 'post-list',
-    };
+  if (!verified.titleOk) {
+    throw new WebError(
+      `Save was reported but the stored draft title is "${verified.title || '(empty)'}" ` +
+        `instead of "${title}". The next run reconciles by title before creating another post.`,
+      'BLOGGER_SAVE_UNCONFIRMED'
+    );
   }
-  if (confirmation.how !== 'unconfirmed') {
-    return { postId: confirmation.postId, editUrl: confirmation.editUrl, url: '', how: confirmation.how };
+  if (verified.bodyLength < 40) {
+    throw new WebError(
+      'the saved draft has an empty body. The next run reconciles by title before creating another post.',
+      'BLOGGER_SAVE_UNCONFIRMED'
+    );
   }
-  throw new WebError(
-    'Save was clicked but the editor did not confirm the draft. It may still have been saved; ' +
-      'the next run reconciles by title before creating another post.',
-    'BLOGGER_SAVE_UNCONFIRMED'
-  );
+
+  return {
+    postId: id,
+    editUrl: editorUrlFor(config, id),
+    url: found.url || '',
+    how: 'post-list+verified',
+    verified,
+  };
 }
 
 async function publishLive(page, config, title, warnings) {
@@ -359,28 +488,54 @@ async function publishLive(page, config, title, warnings) {
     await fallback.click({ timeout: 8000 });
   }
 
-  const confirmation = await waitForConfirmation(page, config, 'publish');
-  const found = await findPostInList(page, config, title).catch((err) => {
-    if (err?.code?.startsWith('BLOGGER_SESSION')) throw err;
-    warnings.push(`post-list confirmation failed: ${err.message}`);
-    return null;
+  const live = await waitForPublishConfirmation(page, config);
+  const postId = extractPostId(page.url(), config.blogId);
+  const found = await confirmDraftInList(page, config, title, warnings);
+  if (!found) {
+    throw new WebError(
+      'Publish was clicked but the post with this title never appeared in the Blogger posts list. ' +
+        'The next run reconciles by title before creating another post.',
+      'BLOGGER_SAVE_UNCONFIRMED'
+    );
+  }
+  if (found.status !== 'live') {
+    throw new WebError(
+      `Publish was clicked but the post is still listed as ${found.status || 'draft'}.`,
+      'BLOGGER_SAVE_UNCONFIRMED'
+    );
+  }
+
+  const id = found.id || postId;
+  if (!id) {
+    throw new WebError(
+      'the published post could not be mapped to a Blogger post id.',
+      'BLOGGER_POST_ID_MISSING'
+    );
+  }
+  const verified = await verifyDraftContent(page, config, id, title).catch((err) => {
+    if (err?.code?.startsWith('BLOGGER_SESSION') || err?.code === 'BLOGGER_SELECTOR_MISSING') {
+      throw err;
+    }
+    warnings.push(`publish verification failed: ${err.message}`);
+    return { titleOk: false, title: '', bodyLength: 0, bodyPreview: '' };
   });
-  if (found) {
-    return {
-      postId: found.id || confirmation.postId,
-      editUrl: found.editUrl || confirmation.editUrl,
-      url: found.url || '',
-      how: 'post-list',
-    };
+  if (!verified.titleOk) {
+    throw new WebError(
+      `Publish was reported but the stored title is "${verified.title || '(empty)'}".`,
+      'BLOGGER_SAVE_UNCONFIRMED'
+    );
   }
-  if (confirmation.how !== 'unconfirmed') {
-    return { postId: confirmation.postId, editUrl: confirmation.editUrl, url: '', how: confirmation.how };
+  if (verified.bodyLength < 40) {
+    throw new WebError('the published post has an empty body.', 'BLOGGER_SAVE_UNCONFIRMED');
   }
-  throw new WebError(
-    'Publish was clicked but the editor did not confirm the live post. ' +
-      'The next run reconciles by title before creating another post.',
-    'BLOGGER_SAVE_UNCONFIRMED'
-  );
+
+  return {
+    postId: id,
+    editUrl: editorUrlFor(config, id),
+    url: found.url || '',
+    how: live ? 'publish-confirmation+verified' : 'post-list+verified',
+    verified,
+  };
 }
 
 async function main() {
@@ -405,13 +560,16 @@ async function main() {
     browser = launched.browser;
     page = launched.page;
 
-    await openEditor(page, config);
-    await waitForEditorReady(page, config);
+    await openEditor(page, config, { create: true });
+    const ready = await waitForEditorReady(page, config);
 
     const titleSelector = await setTitle(page, config, title);
-    const body = await setBody(page, config, html, warnings);
+    const body = await setBody(page, config, html, warnings, ready);
+    await waitForEditorSync(page, Math.min(config.timeoutMs, 30000));
+
     const labelResult = await applyLabels(page, asArray(payload.labels));
     if (labelResult.warning) warnings.push(labelResult.warning);
+    await waitForEditorSync(page, Math.min(config.timeoutMs, 30000));
 
     const saved =
       mode === 'draft'
@@ -427,7 +585,7 @@ async function main() {
       mode,
       postId: saved.postId || '',
       url: saved.url || '',
-      editUrl: saved.editUrl || (saved.postId ? `${config.editorUrl}/${saved.postId}` : ''),
+      editUrl: saved.editUrl || (saved.postId ? editorUrlFor(config, saved.postId) : ''),
       status: mode === 'draft' ? 'DRAFT' : 'LIVE',
       publishedAt: mode === 'publish' ? nowIso() : '',
       title,

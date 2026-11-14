@@ -165,7 +165,7 @@ blogger:
   timeout_seconds: 30
 ```
 
-초안 모드에서는 웹 백엔드가 **Save draft**만 누르고 Publish는 누르지 않습니다. API fallback은 `posts.insert`에 `isDraft=true`를 전달합니다. 어느 쪽이든 자동으로 공개되지 않습니다.
+초안 모드에서는 웹 백엔드가 Publish 분할 버튼의 **More options → Save**만 누르고 Publish는 누르지 않습니다. 저장 후 게시물 목록과 다시 연 초안에서 제목/본문이 실제로 남았는지 검증합니다. API fallback은 `posts.insert`에 `isDraft=true`를 전달합니다. 어느 쪽이든 자동으로 공개되지 않습니다.
 
 절차:
 

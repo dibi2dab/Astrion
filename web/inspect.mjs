@@ -1,25 +1,33 @@
 /**
  * Small, read-only inspection of the Blogger editor.
  *
- * Session checks and selector health both use this module. It opens panels
- * (HTML view, labels) to make hidden controls testable, but it never clicks
- * Save or Publish.
+ * Session checks and selector health both use this module. It opens menus
+ * (labels, publish overflow) to make hidden controls testable, but it never
+ * clicks Save or Publish.
  */
 
 import {
-  clickDialogButton,
+  openPublishMenu,
   resolveLocator,
+  waitForEditorReady,
   waitForLocator,
 } from './lib.mjs';
 
-export const REQUIRED_SELECTORS = ['titleInput', 'composeEditor', 'saveDraftButton'];
+export const REQUIRED_SELECTORS = [
+  'titleInput',
+  'composeFrame',
+  'composeEditor',
+  'saveDraftButton',
+];
 export const OPTIONAL_SELECTORS = [
   'htmlViewButton',
   'htmlViewTextarea',
   'labelsInput',
   'labelsSectionButton',
   'publishButton',
+  'savedIndicator',
 ];
+export const LIST_SELECTORS = ['createPostButton'];
 export const DIALOG_SELECTORS = [
   'draftConfirmButton',
   'publishConfirmButton',
@@ -29,12 +37,11 @@ export const DIALOG_SELECTORS = [
 
 export async function inspectEditor(page, config) {
   const selectors = {};
+  const ready = await waitForEditorReady(page, config);
 
-  // Check controls that are visible before any panel is opened.
-  for (const key of ['titleInput', 'composeEditor', 'saveDraftButton', 'publishButton']) {
-    const found = await resolveLocator(page, key, { visible: true });
-    selectors[key] = found?.selector || '';
-  }
+  selectors.titleInput = ready.title.selector;
+  selectors.composeFrame = ready.frame?.selector || '';
+  selectors.composeEditor = ready.body.selector;
 
   // Labels can be behind "Post settings" or a "Labels" disclosure.
   let labels = await resolveLocator(page, 'labelsInput', { visible: true });
@@ -52,19 +59,24 @@ export async function inspectEditor(page, config) {
   selectors.labelsSectionButton =
     (await resolveLocator(page, 'labelsSectionButton', { visible: true }))?.selector || '';
 
-  // HTML view: opening it does not create a saved post, and it is the only way
-  // to verify the raw HTML textarea while the compose editor is hidden.
-  const htmlButton = await resolveLocator(page, 'htmlViewButton', { visible: true });
-  selectors.htmlViewButton = htmlButton?.selector || '';
-  if (htmlButton) {
-    await htmlButton.locator.click({ timeout: 8000 }).catch(() => {});
-    await page.waitForTimeout(500);
-    await clickDialogButton(page, [/^ok$/i, /^continue$/i, /^switch$/i, /^yes$/i]);
-    const textarea = await waitForLocator(page, 'htmlViewTextarea', { timeoutMs: 6000 });
-    selectors.htmlViewTextarea = textarea?.selector || '';
-  } else {
-    selectors.htmlViewTextarea = '';
+  selectors.savedIndicator =
+    (await resolveLocator(page, 'savedIndicator', { visible: true }))?.selector || '';
+  selectors.publishButton =
+    (await resolveLocator(page, 'publishButton', { visible: true }))?.selector || '';
+
+  // The Save control only exists while the publish overflow menu is open.
+  let save = await resolveLocator(page, 'saveDraftButton', { visible: true });
+  if (!save) {
+    const menu = await openPublishMenu(page);
+    if (menu) save = await waitForLocator(page, 'saveDraftButton', { timeoutMs: 5000 });
+    if (menu) await page.keyboard.press('Escape').catch(() => {});
   }
+  selectors.saveDraftButton = save?.selector || '';
+
+  // HTML view only exists in older editor revisions.
+  selectors.htmlViewButton =
+    (await resolveLocator(page, 'htmlViewButton', { visible: true }))?.selector || '';
+  selectors.htmlViewTextarea = '';
 
   for (const key of DIALOG_SELECTORS) selectors[key] = '';
 

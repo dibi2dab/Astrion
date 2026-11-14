@@ -30,7 +30,6 @@ import {
 } from './lib.mjs';
 
 const STATE_PATH = path.join(PROJECT_ROOT, '.state', 'blogger_storage_state.json');
-const DASHBOARD_URL = 'https://www.blogger.com/';
 const LOGIN_TIMEOUT_SECONDS = 600;
 
 function fail(message) {
@@ -45,10 +44,33 @@ function parseTimeout() {
   return Number.isFinite(value) && value > 0 ? value : LOGIN_TIMEOUT_SECONDS;
 }
 
+async function launchBrowser() {
+  // Google is much more likely to allow a sign-in from the real Chrome build
+  // than from Playwright's bundled Chromium. The automation infobar flag is
+  // omitted as well. Set ASTRION_BROWSER_CHANNEL=bundled to force Chromium.
+  const channel = process.env.ASTRION_BROWSER_CHANNEL || 'chrome';
+  const options = {
+    headless: false,
+    ignoreDefaultArgs: ['--enable-automation'],
+    args: ['--disable-blink-features=AutomationControlled'],
+  };
+  if (channel !== 'bundled') {
+    try {
+      return await chromium.launch({ ...options, channel });
+    } catch (err) {
+      process.stderr.write(
+        `Could not launch channel "${channel}" (${err.message}); falling back to bundled Chromium.\n`
+      );
+    }
+  }
+  return chromium.launch(options);
+}
+
 async function looksSignedIn(page) {
   const url = page.url();
   if (/accounts\.google\.com|servicelogin|signin\/v2/i.test(url)) return false;
-  if (!/blogger\.com/i.test(url)) return false;
+  if (!/^https?:\/\/[^/]*blogger\.com\/blog(\/|$)/i.test(url)) return false;
+  if (/\/about(\/|$|\?)/i.test(url)) return false;
   const email = page.locator('input[type="email"]');
   if ((await email.count().catch(() => 0)) > 0) {
     for (let index = 0; index < (await email.count()); index += 1) {
@@ -57,6 +79,16 @@ async function looksSignedIn(page) {
   }
   return true;
 }
+
+const AUTH_COOKIES = [
+  'SID',
+  'HSID',
+  'SSID',
+  'SAPISID',
+  '__Secure-1PSID',
+  '__Secure-3PSID',
+  'SIDCC',
+];
 
 async function main() {
   let config;
@@ -71,10 +103,10 @@ async function main() {
 
   let browser;
   try {
-    browser = await chromium.launch({ headless: false });
+    browser = await launchBrowser();
   } catch (err) {
     fail(
-      `Could not launch Chromium: ${err.message}\n` +
+      `Could not launch a browser: ${err.message}\n` +
         'Run `npx playwright install chromium` and try again.'
     );
     return;
@@ -87,7 +119,10 @@ async function main() {
   const page = await context.newPage();
   page.setDefaultTimeout(30000);
 
-  await page.goto(DASHBOARD_URL, { waitUntil: 'domcontentloaded' }).catch(() => {});
+  const startUrl = config.blogId
+    ? `https://www.blogger.com/blog/posts/${config.blogId}`
+    : 'https://www.blogger.com/';
+  await page.goto(startUrl, { waitUntil: 'domcontentloaded' }).catch(() => {});
 
   const timeout = parseTimeout();
   const deadline = Date.now() + timeout * 1000;
@@ -144,7 +179,17 @@ async function main() {
   }
 
   await page.waitForTimeout(1000);
-  await context.storageState({ path: STATE_PATH });
+  const state = await context.storageState();
+  const cookieNames = new Set((state.cookies || []).map((cookie) => cookie.name));
+  if (!AUTH_COOKIES.some((name) => cookieNames.has(name))) {
+    fail(
+      'The browser reached Blogger but did not receive Google authentication cookies.\n' +
+        'Sign in again and make sure the blog post list is visible before the window closes.'
+    );
+    await browser.close().catch(() => {});
+    return;
+  }
+  fs.writeFileSync(STATE_PATH, JSON.stringify(state), { encoding: 'utf8', mode: 0o600 });
   await browser.close().catch(() => {});
 
   const raw = fs.readFileSync(STATE_PATH, 'utf8');

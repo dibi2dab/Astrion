@@ -56,10 +56,11 @@ CI(`ubuntu-latest`)에서는 `npx playwright install --with-deps chromium`을 �
 npm run login
 ```
 
-1. Chromium 창이 열립니다.
+1. 실시간 Chrome 창이 열립니다(`ASTRION_BROWSER_CHANNEL=bundled`로 Chromium 강제 가능).
 2. 블로그 소유 Google 계정으로 로그인합니다.
-3. Blogger 대시보드가 보이면 자동으로 세션이 저장됩니다.
-4. 터미널에 `BLOGGER_STORAGE_STATE (base64): ...`가 출력됩니다.
+3. Blogger 게시물 목록이 보이면 자동으로 세션이 저장됩니다.
+4. Google 인증 쿠키가 없으면 저장을 거부하고 다시 로그인하도록 안내합니다.
+5. 터미널에 `BLOGGER_STORAGE_STATE (base64): ...`가 출력됩니다.
 
 저장 위치는 `.state/blogger_storage_state.json`이며 `.gitignore`에 포함됩니다. 절대 커밋하지 마십시오.
 
@@ -95,34 +96,49 @@ python -m astrion healthcheck --json
 - `selectors:check`: 필수 컨트롤이 모두 보이는지 확인합니다.
 - `healthcheck`: 큐/상태와 무관하게 백엔드 준비 상태를 확인합니다.
 
+세션 검사는 **초안 게시물을 우선** 열어 `Save` 메뉴까지 확인합니다. 초안이 없으면 공개 게시물을 열고 `Save`/`Publish` 선택자는 `skipped`로 표시합니다(공개 게시물은 `Update`만 제공하므로 드리프트가 아님).
+
 ## 발행 흐름
 
 1. Python이 큐 페이로드의 품질/중복/상태를 다시 검증합니다.
 2. `publisher.py`가 in-flight 항목을 먼저 재조정합니다.
 3. `web_publisher.py`가 `BLOGGER_STORAGE_STATE`를 `.state/`에 복원합니다.
-4. Node가 Chromium을 실행하고 `https://www.blogger.com/blog/post/edit/<blogId>`를 엽니다.
-5. 제목을 입력하고 값을 다시 읽어 확인합니다.
-6. 본문을 **HTML view**에 주입합니다. HTML view가 없으면 compose 편집기로 fallback합니다.
-7. 라벨을 입력합니다. 라벨 입력창이 없으면 라벨만 건너뛰고 경고를 남깁니다.
-8. `blogger.is_draft: true`이면 **Save draft**만 누릅니다.
-9. 게시물 목록에서 제목으로 ID/URL/상태를 확인합니다.
-10. Python이 상태 원장과 아카이브를 갱신합니다.
+4. Node가 Chromium을 실행하고 게시물 목록에서 **Create New Post**를 누릅니다. Blogger가 새 초안 ID를 서버에서 만들므로 URL을 미리 알 수 없습니다.
+5. 생성된 초안을 다시 URL로 엽니다. 생성 직후 타이핑하면 에디터 초기화와 경쟁해 내용이 덮어써질 수 있습니다.
+6. 제목을 입력하고 값을 다시 읽어 확인합니다.
+7. 본문을 에디터 iframe(`iframe.editable` 안의 `body[contenteditable]`)에 주입하고 길이를 확인합니다. 이전 UI의 HTML view는 fallback으로만 사용합니다.
+8. 라벨을 입력합니다. 라벨 입력창이 없으면 라벨만 건너뛰고 경고를 남깁니다.
+9. 에디터가 **Changes saved** 상태로 안정될 때까지 기다립니다. 이 대기 없이 저장하면 직전(빈) 리비전이 저장될 수 있습니다.
+10. `blogger.is_draft: true`이면 Publish 분할 버튼의 **More options → Save**만 누릅니다.
+11. 게시물 목록에서 제목을 최대 3회 확인하고, 저장된 초안을 다시 열어 제목/본문이 실제로 남았는지 검증합니다.
+12. Python이 상태 원장과 아카이브를 갱신합니다.
+
+### 라벨 입력
+
+현재 Blogger 라벨 필드는 칩 위젯이 아니라 **쉼표로 구분하는 textarea**입니다.
+
+- `fill()`이나 `Enter`는 모델에 커밋되지 않습니다(`Enter`는 줄바꿈만 삽입).
+- 실제 키보드 입력으로 `라벨,` 형태를 만들고 마지막에 쉼표를 붙인 뒤 blur해야 저장됩니다.
+- 예: `Physics, Optics,`
 
 ### 초안 안전 장치
 
-초안 모드에서 "Save draft" 컨트롤을 찾지 못하면 **Publish를 누르지 않고 실패**합니다.
+초안 모드에서 "Save" 컨트롤을 찾지 못하면 **Publish를 누르지 않고 실패**합니다.
 
-- 직접 Save 버튼이 없으면 overflow 메뉴를 확인합니다.
-- 그래도 없으면 Publish 다이얼로그 안의 "Save draft" 옵션만 시도합니다.
-- 모두 실패하면 `BLOGGER_DRAFT_BUTTON_MISSING`으로 종료합니다.
+- 현재 UI에서는 Publish 옆 분할 버튼의 **More options → Save**만 사용합니다.
+- 직접 Save 버튼이 없으면 이 메뉴를 엽니다.
+- 메뉴가 없으면 `BLOGGER_DRAFT_BUTTON_MISSING`으로 종료합니다.
 
 이 동작은 의도적입니다. 초안 요청이 실수로 공개 발행이 되는 것보다, 실패하고 Issue를 만드는 편이 안전합니다.
+
+저장 후에는 "Changes saved" 표시만 믿지 않습니다. 목록 확인에 실패하거나, 다시 연 초안의 제목/본문이 비어 있으면 `BLOGGER_SAVE_UNCONFIRMED`로 실패합니다.
 
 ### 중복 방지
 
 - 기본 방어는 `data/state.json`의 멱등성 원장입니다.
 - 저장/발행 결과가 불확실하면(`BLOGGER_SAVE_UNCONFIRMED`) 다음 실행에서 **제목으로 게시물을 찾아** 중복 생성을 막습니다.
 - 웹 게시물 목록은 HTML 마커 검색을 지원하지 않으므로 제목 기반 조회를 사용합니다. 제목이 비어 있으면 조회를 건너뜁니다.
+- 저장 검증까지 통과한 경우에만 `savedBy: "post-list+verified"`로 기록합니다.
 
 ## 선택자 유지보수
 
@@ -144,12 +160,16 @@ Blogger 에디터 DOM은 예고 없이 바뀝니다. Astrion은 선택자를 코
 - `candidates`: fallback 목록
 - `optional`: 없어도 발행 가능한 컨트롤
 
+모든 Blogger URL에는 `?hl=en`을 붙입니다. 계정 UI 언어가 한국어여도 영어 라벨이 내려오므로 선택자가 안정적입니다. 한국어/일본어 라벨 후보는 fallback으로 함께 둡니다.
+
+`body[contenteditable=""]`처럼 속성값이 빈 선택자는 DOM에 따라 `contenteditable="true"`로 바뀔 수 있으므로 후보 목록에 둘 다 유지합니다.
+
 ### 매일 자동 검사
 
 `web-health.yml`이 매일 09:00 UTC에 실행됩니다.
 
-1. 저장된 세션으로 에디터를 엽니다.
-2. 모든 `primary` 선택자를 검사합니다.
+1. 저장된 세션으로 게시물 목록을 열고, 초안이 있으면 그 초안을, 없으면 공개 게시물을 엽니다.
+2. 모든 `primary` 선택자를 검사합니다. 초안이 없을 때 `Save`/`Publish`는 `skipped`로 기록합니다.
 3. 깨진 항목이 있으면 `npm run selectors:fix`로 라이브 DOM에서 대체 선택자를 추론합니다.
 4. `web/selectors.json`이 바뀌면 **PR**을 만듭니다.
 5. 세션이 만료되었으면(종료 코드 3) **Issue**를 만듭니다.

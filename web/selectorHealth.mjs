@@ -13,25 +13,26 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  WebError,
   assertStorageState,
   clickDialogButton,
   configFromPayload,
-  cssPathOf,
   emit,
   launchContext,
-  loadSelectors,
   nowIso,
-  openEditor,
+  openEditorProbe,
+  openPublishMenu,
   patchSelector,
   readPayload,
   resolveConfig,
   resolveLocator,
+  resolveLocatorInFrame,
   saveArtifacts,
   selectorEntry,
+  waitForEditorFrame,
   waitForEditorReady,
   waitForLocator,
 } from './lib.mjs';
+import { inspectEditor } from './inspect.mjs';
 
 const SKIP_KEYS = new Set([
   'draftConfirmButton',
@@ -40,7 +41,23 @@ const SKIP_KEYS = new Set([
   'postRow',
 ]);
 
-const REQUIRED_KEYS = new Set(['titleInput', 'composeEditor', 'saveDraftButton']);
+const REQUIRED_KEYS = new Set([
+  'createPostButton',
+  'titleInput',
+  'composeFrame',
+  'composeEditor',
+  'saveDraftButton',
+]);
+
+const EDITOR_KEYS = [
+  'titleInput',
+  'composeFrame',
+  'composeEditor',
+  'savedIndicator',
+  'publishButton',
+  'labelsSectionButton',
+  'labelsInput',
+];
 
 function reportPath(config) {
   return path.join(config.artifactDir, 'selector-health', 'report.json');
@@ -57,24 +74,8 @@ function writeReport(config, report) {
   }
 }
 
-async function testSelector(page, selector, visible = true) {
-  if (!selector) return false;
-  try {
-    const locator = page.locator(selector);
-    const count = await locator.count();
-    if (count === 0) return false;
-    if (!visible) return true;
-    for (let index = 0; index < count; index += 1) {
-      if (await locator.nth(index).isVisible().catch(() => false)) return true;
-    }
-    return false;
-  } catch {
-    return false;
-  }
-}
-
-async function inferSelector(page, kind) {
-  return page
+async function inferSelector(root, kind) {
+  return root
     .evaluate((key) => {
       const escape = (value) =>
         window.CSS && CSS.escape ? CSS.escape(value) : String(value).replace(/["\\]/g, '\\$&');
@@ -140,7 +141,7 @@ async function inferSelector(page, kind) {
 
       const controls = [
         ...document.querySelectorAll(
-          'button, [role="button"], a, input, textarea, [contenteditable="true"]'
+          'button, [role="button"], [role="menuitem"], a, input, textarea, [contenteditable="true"]'
         ),
       ].filter(visible);
       const fields = controls.filter(
@@ -157,6 +158,10 @@ async function inferSelector(page, kind) {
           .sort((left, right) => right.area - left.area)[0]?.element || null;
 
       switch (key) {
+        case 'createPostButton':
+          return cssPath(
+            byText([/^create new post$/i, /^new post$/i]) || null
+          );
         case 'titleInput': {
           const scored = fields
             .map((element) => {
@@ -175,12 +180,28 @@ async function inferSelector(page, kind) {
             .sort((left, right) => right.score - left.score);
           return scored.length && scored[0].score > 2 ? cssPath(scored[0].element) : '';
         }
+        case 'composeFrame': {
+          const frames = [...document.querySelectorAll('iframe')]
+            .filter(visible)
+            .map((element) => {
+              const rect = element.getBoundingClientRect();
+              const meta = metaOf(element);
+              let score = rect.width * rect.height;
+              if (/editable/.test(meta)) score += 1_000_000;
+              if (!attr(element, 'src')) score += 100_000;
+              return { element, score };
+            })
+            .sort((left, right) => right.score - left.score);
+          return cssPath(frames[0]?.element || null);
+        }
         case 'composeEditor': {
           const editors = fields.filter(
             (element) => element.isContentEditable && !/title/.test(metaOf(element))
           );
           return cssPath(largest(editors));
         }
+        case 'savedIndicator':
+          return cssPath(byText([/^changes saved$/i, /^saved$/i]));
         case 'htmlViewButton':
           return cssPath(byText([/^html view$/i, /^html$/i, /switch to html/i]));
         case 'htmlViewTextarea': {
@@ -205,26 +226,29 @@ async function inferSelector(page, kind) {
     .catch(() => '');
 }
 
-async function evaluateKey(page, key, results, changed, broken) {
+async function record(page, root, key, matched, results, changed, broken) {
   const entry = selectorEntry(key);
   const required = REQUIRED_KEYS.has(key);
 
-  if (await testSelector(page, entry.primary, true)) {
-    results.push({ key, ok: true, changed: false, selector: entry.primary });
-    return entry.primary;
+  if (matched) {
+    if (matched === entry.primary) {
+      results.push({ key, ok: true, changed: false, selector: matched });
+    } else {
+      results.push({
+        key,
+        ok: true,
+        changed: true,
+        old: entry.primary,
+        new: matched,
+        selector: matched,
+      });
+      changed.push({ key, from: entry.primary, to: matched });
+    }
+    return matched;
   }
 
-  const resolved = await resolveLocator(page, key, { visible: true });
-  let replacement = '';
-  if (resolved) {
-    replacement = resolved.selector.startsWith('role=')
-      ? await cssPathOf(resolved.locator)
-      : resolved.selector;
-    if (!replacement) replacement = await cssPathOf(resolved.locator);
-  } else {
-    replacement = await inferSelector(page, key);
-  }
-
+  let replacement = await inferSelector(root, key);
+  if (!replacement && root !== page) replacement = await inferSelector(page, key);
   if (replacement) {
     const didChange = replacement !== entry.primary;
     results.push({
@@ -261,34 +285,82 @@ async function main() {
     browser = launched.browser;
     page = launched.page;
 
-    await openEditor(page, config);
-    await waitForEditorReady(page, config);
+    // The create button is only present on the posts list.
+    await page.goto(config.postsUrl, { waitUntil: 'domcontentloaded', timeout: config.timeoutMs });
+    await page.waitForTimeout(1500);
+    await page
+      .locator('a[href*="/post/edit/"]')
+      .first()
+      .waitFor({ state: 'attached', timeout: Math.min(config.timeoutMs, 20000) })
+      .catch(() => {});
+    let matched =
+      (await waitForLocator(page, 'createPostButton', { timeoutMs: 15000 }))?.selector || '';
+    await record(page, page, 'createPostButton', matched, results, changed, broken);
 
-    // Check the controls that are visible in the initial editor state.
-    for (const key of ['titleInput', 'composeEditor', 'saveDraftButton', 'publishButton']) {
-      await evaluateKey(page, key, results, changed, broken);
+    // Probe an existing post so the check never creates a draft.
+    const probe = await openEditorProbe(page, config);
+    const ready = await waitForEditorReady(page, config);
+    const inspection = await inspectEditor(page, config);
+
+    const matchedByKey = {
+      ...inspection.selectors,
+      titleInput: ready.title.selector,
+      composeFrame: ready.frame?.selector || '',
+      composeEditor: ready.body.selector,
+    };
+
+    const frame = await waitForEditorFrame(page);
+    for (const key of EDITOR_KEYS) {
+      if (key === 'publishButton' && probe.status !== 'draft') {
+        results.push({
+          key,
+          ok: true,
+          skipped: true,
+          reason: 'a published post shows Update instead of Publish',
+        });
+        continue;
+      }
+      const root = key === 'composeEditor' && frame ? frame.frame : page;
+      matched = matchedByKey[key] || '';
+      await record(page, root, key, matched, results, changed, broken);
     }
 
-    // Labels may need a disclosure click before the input exists.
-    await evaluateKey(page, 'labelsSectionButton', results, changed, broken);
-    const labelsButton = await resolveLocator(page, 'labelsSectionButton', { visible: true });
-    if (labelsButton) {
-      await labelsButton.locator.click({ timeout: 5000 }).catch(() => {});
-      await page.waitForTimeout(400);
+    // The Save menu item only exists while the overflow menu is open.
+    if (probe.status !== 'draft') {
+      // Published posts expose "Update" instead of "Save"; a missing Save item
+      // here is not editor drift.
+      results.push({
+        key: 'saveDraftButton',
+        ok: true,
+        skipped: true,
+        reason: 'no draft post was available to expose the Save menu item',
+      });
+    } else {
+      matched = inspection.selectors.saveDraftButton || '';
+      if (!matched) {
+        const menu = await openPublishMenu(page);
+        if (menu) {
+          matched = (await waitForLocator(page, 'saveDraftButton', { timeoutMs: 5000 }))?.selector || '';
+        }
+        await record(page, page, 'saveDraftButton', matched, results, changed, broken);
+        if (menu) await page.keyboard.press('Escape').catch(() => {});
+      } else {
+        await record(page, page, 'saveDraftButton', matched, results, changed, broken);
+      }
     }
-    await evaluateKey(page, 'labelsInput', results, changed, broken);
 
-    // HTML view: open it and verify the raw editor control.
-    const htmlButton = await evaluateKey(page, 'htmlViewButton', results, changed, broken);
+    // HTML view only exists in older editor revisions.
+    matched = inspection.selectors.htmlViewButton || '';
+    const htmlButton = await record(page, page, 'htmlViewButton', matched, results, changed, broken);
     if (htmlButton) {
       const button = await resolveLocator(page, 'htmlViewButton', { visible: true });
       if (button) {
         await button.locator.click({ timeout: 8000 }).catch(() => {});
         await page.waitForTimeout(500);
         await clickDialogButton(page, [/^ok$/i, /^continue$/i, /^switch$/i, /^yes$/i]);
-        await waitForLocator(page, 'htmlViewTextarea', { timeoutMs: 5000 });
+        matched = (await waitForLocator(page, 'htmlViewTextarea', { timeoutMs: 5000 }))?.selector || '';
       }
-      await evaluateKey(page, 'htmlViewTextarea', results, changed, broken);
+      await record(page, page, 'htmlViewTextarea', matched, results, changed, broken);
     } else {
       results.push({
         key: 'htmlViewTextarea',
@@ -296,6 +368,15 @@ async function main() {
         skipped: true,
         reason: 'HTML view is not exposed by this editor revision',
       });
+    }
+
+    // Sanity check that the body frame is really reachable.
+    if (frame) {
+      const body = await resolveLocatorInFrame(frame.frame, 'composeEditor', { visible: true });
+      if (!body) {
+        results.push({ key: 'composeFrame', ok: false, error: 'the editor iframe has no body editor' });
+        if (!broken.includes('composeFrame')) broken.push('composeFrame');
+      }
     }
 
     for (const key of SKIP_KEYS) {

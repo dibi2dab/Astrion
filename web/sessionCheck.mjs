@@ -17,13 +17,14 @@ import {
   emit,
   launchContext,
   nowIso,
-  openEditor,
+  openEditorProbe,
   readPayload,
   resolveConfig,
+  resolveLocator,
   saveArtifacts,
   waitForEditorReady,
 } from './lib.mjs';
-import { inspectEditor } from './inspect.mjs';
+import { LIST_SELECTORS, REQUIRED_SELECTORS, inspectEditor } from './inspect.mjs';
 
 function loadConfig() {
   if (process.argv[2]) {
@@ -43,24 +44,48 @@ async function main() {
     browser = launched.browser;
     page = launched.page;
 
-    await openEditor(page, config);
+    const probe = await openEditorProbe(page, config);
     await waitForEditorReady(page, config);
     const inspection = await inspectEditor(page, config);
 
+    // The "Create New Post" button lives on the posts list, not the editor.
+    await page.goto(config.postsUrl, { waitUntil: 'domcontentloaded', timeout: config.timeoutMs });
+    await page.waitForTimeout(1200);
+    const listSelectors = {};
+    for (const key of LIST_SELECTORS) {
+      listSelectors[key] = (await resolveLocator(page, key, { visible: true }))?.selector || '';
+    }
+
+    // A published post has no "Save" menu item and its primary button reads
+    // "Update", so those controls can only be verified on a draft.
+    const needsDraftControls = probe.status === 'draft';
+    const skipped = needsDraftControls ? [] : ['saveDraftButton', 'publishButton'];
+    const broken = [
+      ...inspection.broken.filter((key) => !skipped.includes(key)),
+      ...LIST_SELECTORS.filter((key) => !listSelectors[key]),
+    ];
+
     const result = {
-      ok: inspection.broken.length === 0,
+      ok: broken.length === 0,
       backend: 'web',
       session: 'ok',
       blogId: config.blogId,
       blogUrl: config.blogUrl,
       url: page.url(),
-      selectors: inspection.selectors,
-      broken: inspection.broken,
+      probe,
+      selectors: {
+        ...inspection.selectors,
+        ...listSelectors,
+        ...Object.fromEntries(skipped.map((key) => [key, ''])),
+      },
+      required: REQUIRED_SELECTORS.filter((key) => !skipped.includes(key)),
+      skipped,
+      broken,
       optionalMissing: inspection.optionalMissing,
       checkedAt: nowIso(),
     };
     if (!result.ok) {
-      result.error = `required editor controls are missing: ${inspection.broken.join(', ')}`;
+      result.error = `required editor controls are missing: ${broken.join(', ')}`;
       result.errorCode = 'BLOGGER_SELECTOR_MISSING';
       process.exitCode = 2;
     }

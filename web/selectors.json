@@ -5,14 +5,34 @@
     "Blogger's editor DOM changes without notice. Keep the candidate lists broad.",
     "The daily web-health workflow runs `npm run selectors:check` and opens a PR",
     "with inferred replacements when a primary selector stops working.",
-    "Only `primary` is rewritten automatically; candidates stay as fallbacks."
+    "Only `primary` is rewritten automatically; candidates stay as fallbacks.",
+    "The current editor puts the body inside an iframe; composeFrame is looked up",
+    "on the page and composeEditor is looked up inside that frame."
   ],
   "selectors": {
+    "createPostButton": {
+      "optional": false,
+      "description": "Button on the posts list that opens a brand-new post editor.",
+      "primary": "[aria-label=\"Create New Post\"]",
+      "candidates": [
+        "[role=\"button\"][aria-label=\"Create New Post\"]",
+        "button[aria-label=\"Create New Post\"]",
+        "[data-tooltip=\"Create New Post\"]",
+        "[aria-label=\"새 글 작성\"]",
+        "[aria-label=\"新規投稿\"]",
+        "a[href*=\"post/create\"]",
+        "button:has-text(\"New Post\")",
+        "[role=\"button\"]:has-text(\"New Post\")"
+      ]
+    },
     "titleInput": {
       "optional": false,
       "description": "Post title field at the top of the Blogger editor.",
       "primary": "input[aria-label=\"Title\"]",
       "candidates": [
+        "input[aria-label=\"제목\"]",
+        "input[aria-label=\"タイトル\"]",
+        "input[aria-label=\"标题\"]",
         "input[aria-label*=\"title\" i]",
         "textarea[aria-label*=\"title\" i]",
         "input[placeholder*=\"title\" i]",
@@ -26,28 +46,74 @@
         "div[contenteditable=\"true\"][data-testid*=\"title\" i]"
       ]
     },
+    "composeFrame": {
+      "optional": false,
+      "description": "Iframe that hosts the rich-text body editor in the current Blogger UI.",
+      "primary": "iframe.editable",
+      "candidates": [
+        "iframe[class*=\"editable\"]",
+        "iframe.ZW3ZFc",
+        "iframe[name=\"editor\"]",
+        "iframe[title*=\"editor\" i]"
+      ]
+    },
     "composeEditor": {
       "optional": false,
-      "description": "Rich-text body editor used when HTML view is unavailable.",
-      "primary": "div[contenteditable=\"true\"][role=\"textbox\"]",
+      "description": "Rich-text body editor. Resolved inside composeFrame when one is present.",
+      "primary": "body[contenteditable=\"\"]",
       "candidates": [
+        "body[contenteditable=\"true\"]",
+        "body[role=\"textbox\"]",
+        "div[contenteditable=\"true\"][role=\"textbox\"]",
         "div[contenteditable=\"true\"][aria-label*=\"body\" i]",
         "div[contenteditable=\"true\"][aria-label*=\"post\" i]",
         "div[contenteditable=\"true\"][data-testid*=\"editor\" i]",
         "div[contenteditable=\"true\"]"
       ]
     },
+    "savedIndicator": {
+      "optional": false,
+      "description": "Status icon that only appears once Blogger has persisted the draft.",
+      "primary": "[aria-label=\"Changes saved\"]",
+      "candidates": [
+        "[title=\"Changes saved\"]",
+        "[aria-label=\"변경사항 저장됨\"]",
+        "[aria-label*=\"saved\" i]",
+        "[title*=\"saved\" i]"
+      ]
+    },
+    "savingIndicator": {
+      "optional": true,
+      "description": "Status icon shown while Blogger is still uploading changes.",
+      "primary": "[aria-label=\"Saving in progress\"]",
+      "candidates": [
+        "[title=\"Saving in progress\"]",
+        "[aria-label*=\"saving\" i]",
+        "[title*=\"saving\" i]",
+        "[aria-label*=\"저장 중\"]"
+      ]
+    },
+    "unsavedIndicator": {
+      "optional": true,
+      "description": "Status icon shown when the editor has local edits that are not uploaded yet.",
+      "primary": "[aria-label=\"Changes not saved\"]",
+      "candidates": [
+        "[title=\"Changes not saved\"]",
+        "[aria-label*=\"not saved\" i]",
+        "[title*=\"not saved\" i]",
+        "[aria-label*=\"저장되지 않\"]"
+      ]
+    },
     "htmlViewButton": {
       "optional": true,
-      "description": "Toolbar toggle that switches the body editor to raw HTML.",
+      "description": "Toolbar toggle that switches the body editor to raw HTML (older editor UI).",
       "primary": "button:has-text(\"HTML view\")",
       "candidates": [
-        "button[aria-label*=\"HTML\" i]",
-        "[role=\"button\"][aria-label*=\"HTML\" i]",
         "a:has-text(\"HTML view\")",
         "[role=\"button\"]:has-text(\"HTML view\")",
+        "button:has-text(\"Switch to HTML\")",
         "button:has-text(\"HTML\")",
-        "[data-testid*=\"html\" i]"
+        "[data-testid*=\"html-view\" i]"
       ]
     },
     "htmlViewTextarea": {
@@ -67,10 +133,14 @@
     "labelsInput": {
       "optional": true,
       "description": "Comma/Enter separated labels field in the post settings panel.",
-      "primary": "input[aria-label*=\"label\" i]",
+      "primary": "textarea[aria-label=\"Separate labels by commas\"]",
       "candidates": [
-        "input[placeholder*=\"label\" i]",
+        "textarea[aria-label=\"라벨을 쉼표로 구분\"]",
         "textarea[aria-label*=\"label\" i]",
+        "textarea[aria-label*=\"라벨\"]",
+        "input[aria-label*=\"label\" i]",
+        "input[placeholder*=\"label\" i]",
+        "textarea[placeholder*=\"label\" i]",
         "input[name=\"labels\"]",
         "input#labelsInput",
         "input[data-testid*=\"label\" i]"
@@ -79,32 +149,48 @@
     "labelsSectionButton": {
       "optional": true,
       "description": "Button that reveals the labels field when the sidebar is collapsed.",
-      "primary": "button:has-text(\"Labels\")",
+      "primary": "[role=\"button\"]:has-text(\"Labels\")",
       "candidates": [
-        "[role=\"button\"]:has-text(\"Labels\")",
+        "button:has-text(\"Labels\")",
         "summary:has-text(\"Labels\")",
         "button:has-text(\"Post settings\")",
         "[role=\"button\"]:has-text(\"Post settings\")"
       ]
     },
+    "publishMenuButton": {
+      "optional": false,
+      "description": "Split-button arrow next to Publish that opens Preview/Save.",
+      "primary": "[role=\"button\"][aria-label=\"More options\"]",
+      "candidates": [
+        "[aria-label=\"More options\"][aria-haspopup=\"true\"]",
+        "[data-tooltip=\"More options\"]",
+        "[role=\"button\"][aria-label*=\"more\" i]"
+      ]
+    },
     "saveDraftButton": {
       "optional": false,
-      "description": "Saves the post without publishing it.",
-      "primary": "button:has-text(\"Save\")",
+      "description": "Saves the post without publishing it. Lives in the publish menu.",
+      "primary": "[role=\"menuitem\"][aria-label=\"Save\"]",
       "candidates": [
+        "[role=\"menuitem\"][aria-label=\"저장\"]",
+        "[role=\"menuitem\"]:has-text(\"Save\")",
+        "[role=\"menuitem\"]:has-text(\"저장\")",
+        "button[aria-label=\"Save\"]",
+        "[role=\"button\"][aria-label=\"Save\"]",
         "button:has-text(\"Save draft\")",
-        "[role=\"button\"]:has-text(\"Save\")",
-        "button[aria-label*=\"save\" i]",
-        "button[data-testid*=\"save\" i]"
+        "button:has-text(\"Save\")"
       ]
     },
     "publishButton": {
       "optional": true,
-      "description": "Opens the publish confirmation dialog.",
-      "primary": "button:has-text(\"Publish\")",
+      "description": "Opens the publish confirmation dialog. A published post shows Update instead.",
+      "primary": "[role=\"button\"][aria-label=\"Publish\"]",
       "candidates": [
-        "[role=\"button\"]:has-text(\"Publish\")",
-        "button[aria-label*=\"publish\" i]",
+        "button[aria-label=\"Publish\"]",
+        "[role=\"button\"]:text-is(\"Publish\")",
+        "button:text-is(\"Publish\")",
+        "[role=\"button\"]:text-is(\"Update\")",
+        "button:text-is(\"Update\")",
         "button[data-testid*=\"publish\" i]"
       ]
     },
@@ -122,8 +208,9 @@
     "publishConfirmButton": {
       "optional": true,
       "description": "Final publish button inside the confirmation dialog.",
-      "primary": "button:has-text(\"Publish\")",
+      "primary": "[role=\"dialog\"] [role=\"button\"]:has-text(\"Publish\")",
       "candidates": [
+        "button:has-text(\"Publish\")",
         "[role=\"button\"]:has-text(\"Publish\")",
         "button[type=\"submit\"]",
         "button:has-text(\"Confirm\")"
@@ -141,9 +228,10 @@
     },
     "postRow": {
       "optional": true,
-      "description": "A row in the Blogger posts list. Used to reconcile by title.",
-      "primary": "div[role=\"row\"]",
+      "description": "A card in the Blogger posts list. Used to reconcile by title.",
+      "primary": "[role=\"listitem\"]",
       "candidates": [
+        "div[role=\"row\"]",
         "tr",
         "li",
         "article"

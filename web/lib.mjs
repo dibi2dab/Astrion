@@ -98,9 +98,15 @@ export function resolveConfig(overrides = {}) {
       true
     ),
     projectRoot: PROJECT_ROOT,
+    hl: 'en',
     editorUrl: `https://www.blogger.com/blog/post/edit/${blogId}`,
-    postsUrl: `https://www.blogger.com/blog/posts/${blogId}`,
+    postsUrl: `https://www.blogger.com/blog/posts/${blogId}?hl=en`,
   };
+}
+
+/** Absolute editor URL for an existing post, forcing the English UI labels. */
+export function editorUrlFor(config, postId) {
+  return `${config.editorUrl}/${postId}?hl=${config.hl || 'en'}`;
 }
 
 export function configFromPayload(payload) {
@@ -159,6 +165,7 @@ export function patchSelector(key, value, file = SELECTORS_FILE) {
 }
 
 const TEXT_KEYS = new Set([
+  'createPostButton',
   'htmlViewButton',
   'saveDraftButton',
   'publishButton',
@@ -168,6 +175,7 @@ const TEXT_KEYS = new Set([
 ]);
 
 const TEXT_PATTERNS = {
+  createPostButton: [/^create new post$/i, /^new post$/i],
   htmlViewButton: [/^html view$/i, /^switch to html( view)?$/i, /^html$/i],
   saveDraftButton: [/^save draft$/i, /^save$/i],
   publishButton: [/^publish$/i, /^publish now$/i],
@@ -205,11 +213,6 @@ export async function resolveLocator(
 ) {
   const deadline = Date.now() + timeoutMs;
   do {
-    if (TEXT_KEYS.has(key) && !root) {
-      const byRole = await resolveByRoleName(page, TEXT_PATTERNS[key] || []);
-      if (byRole) return byRole;
-    }
-
     for (const selector of selectorCandidates(key)) {
       const scope = root ? root.locator(selector) : page.locator(selector);
       const count = await scope.count().catch(() => 0);
@@ -217,6 +220,11 @@ export async function resolveLocator(
       if (!visible) return { locator: scope.first(), selector };
       const found = await firstVisible(scope);
       if (found) return { locator: found, selector };
+    }
+
+    if (TEXT_KEYS.has(key) && !root) {
+      const byRole = await resolveByRoleName(page, TEXT_PATTERNS[key] || []);
+      if (byRole) return byRole;
     }
 
     if (timeoutMs > 0 && Date.now() < deadline) {
@@ -228,6 +236,119 @@ export async function resolveLocator(
 
 export async function waitForLocator(page, key, options = {}) {
   return resolveLocator(page, key, { visible: true, ...options });
+}
+
+/**
+ * Locate the iframe that hosts the rich-text body editor.
+ *
+ * Recent Blogger versions render the compose area in a same-origin iframe with
+ * no `src`, so page-level contenteditable queries never match it. All body
+ * lookups go through this frame.
+ */
+export async function resolveEditorFrame(page) {
+  for (const selector of selectorCandidates('composeFrame')) {
+    const locator = page.locator(selector);
+    const count = await locator.count().catch(() => 0);
+    if (count === 0) continue;
+    return { frame: page.frameLocator(selector).first(), selector };
+  }
+  return null;
+}
+
+export async function waitForEditorFrame(page, timeoutMs = 0) {
+  const deadline = Date.now() + timeoutMs;
+  do {
+    const found = await resolveEditorFrame(page);
+    if (found) return found;
+    if (timeoutMs > 0 && Date.now() < deadline) await page.waitForTimeout(400);
+  } while (Date.now() < deadline);
+  return null;
+}
+
+export async function resolveLocatorInFrame(frame, key, { visible = true } = {}) {
+  for (const selector of selectorCandidates(key)) {
+    const scope = frame.locator(selector);
+    const count = await scope.count().catch(() => 0);
+    if (count === 0) continue;
+    if (!visible) return { locator: scope.first(), selector };
+    for (let index = 0; index < count; index += 1) {
+      const item = scope.nth(index);
+      if (await item.isVisible().catch(() => false)) return { locator: item, selector };
+    }
+  }
+  return null;
+}
+
+export async function firstVisibleLocator(locator) {
+  return firstVisible(locator);
+}
+
+/**
+ * Open the split-button menu that holds Preview and Save.
+ *
+ * The editor has several "More options" buttons (sidebar sections, post cards).
+ * Only the arrow inside the Publish container opens the Save menu, so the
+ * lookup is scoped to the Publish button's parent element.
+ */
+export async function openPublishMenu(page) {
+  const publish = await resolveLocator(page, 'publishButton', { visible: true });
+  if (publish) {
+    const container = publish.locator.locator('xpath=..');
+    for (const selector of selectorCandidates('publishMenuButton')) {
+      const found = await firstVisible(container.locator(selector));
+      if (!found) continue;
+      await found.click({ timeout: 8000 });
+      await page.waitForTimeout(300);
+      return { locator: found, selector, scope: 'publish-container' };
+    }
+  }
+  return null;
+}
+
+/**
+ * Wait until Blogger reports that the in-flight save finished.
+ *
+ * The editor shows "Changes saved" only when nothing is pending. Returning
+ * false is not fatal: the post list is still checked for the title.
+ */
+export async function waitForSaved(page, timeoutMs = 20000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    const saving = await resolveLocator(page, 'savingIndicator', { visible: true });
+    if (!saving) {
+      const saved = await resolveLocator(page, 'savedIndicator', { visible: true });
+      if (saved) return true;
+    }
+    await page.waitForTimeout(400);
+  }
+  return false;
+}
+
+/**
+ * Wait until the editor finished uploading the current edits.
+ *
+ * Typing triggers an autosave a few seconds later. Saving a draft before that
+ * round-trip completes stores the previous (often empty) revision, so the
+ * publisher waits here after the last edit. The check requires the "saved"
+ * indicator to stay visible with no pending indicator for a short settle
+ * window; the indicator flickers during upload.
+ */
+export async function waitForEditorSync(page, timeoutMs = 30000, settleMs = 1200) {
+  const deadline = Date.now() + timeoutMs;
+  let quietSince = 0;
+  while (Date.now() < deadline) {
+    const saving = await resolveLocator(page, 'savingIndicator', { visible: true });
+    const pending = saving || (await resolveLocator(page, 'unsavedIndicator', { visible: true }));
+    const saved = await resolveLocator(page, 'savedIndicator', { visible: true });
+    if (!pending && saved) {
+      if (!quietSince) quietSince = Date.now();
+      if (Date.now() - quietSince >= settleMs) return true;
+    } else {
+      quietSince = 0;
+    }
+    await page.waitForTimeout(300);
+  }
+  return false;
 }
 
 export async function clickLocator(page, key, options = {}) {
@@ -379,13 +500,117 @@ export async function assertEditorAccess(page, config) {
   }
 }
 
-export async function openEditor(page, config) {
-  await page.goto(config.editorUrl, {
+/**
+ * Open a Blogger editor page.
+ *
+ * Options:
+ *   postId  - open that specific post/draft.
+ *   create  - open the posts list and click "Create New Post" (Blogger assigns
+ *             the new draft id server-side, so there is no URL to hardcode).
+ *   neither - open a draft (preferred), else the newest post, in the posts list
+ *             (read-only probe used by the session check; never creates a draft).
+ */
+/**
+ * Open an existing post for a read-only session/selector probe.
+ *
+ * Prefers a draft because only a draft exposes the "Save" item in the publish
+ * menu. Published posts show "Update" instead, so a probe on a published post
+ * cannot verify the draft-save control.
+ */
+export async function openEditorProbe(page, config) {
+  await page.goto(config.postsUrl, {
+    waitUntil: 'domcontentloaded',
+    timeout: config.timeoutMs,
+  });
+  await page.waitForTimeout(1500);
+  await assertEditorAccess(page, config);
+  await page
+    .locator('a[href*="/post/edit/"]')
+    .first()
+    .waitFor({ state: 'attached', timeout: Math.min(config.timeoutMs, 20000) })
+    .catch(() => {});
+
+  const posts = await readPosts(page);
+  if (posts.length === 0) {
+    throw new WebError(
+      'the Blogger posts list has no editable post to probe. Publish one post, ' +
+        'or run `python -m astrion login` to refresh the session.',
+      'BLOGGER_POST_ID_MISSING'
+    );
+  }
+
+  const target = posts.find((post) => /draft/i.test(post.row)) || posts[0];
+  const probeId = target.id || extractPostId(target.href, config.blogId);
+  await page.goto(probeId ? editorUrlFor(config, probeId) : target.href, {
     waitUntil: 'domcontentloaded',
     timeout: config.timeoutMs,
   });
   await page.waitForTimeout(1200);
   await assertEditorAccess(page, config);
+  return {
+    url: page.url(),
+    postId: probeId,
+    title: target.title,
+    status: /draft/i.test(target.row) ? 'draft' : 'published',
+  };
+}
+
+export async function openEditor(page, config, { postId = '', create = false } = {}) {
+  if (create) {
+    await page.goto(config.postsUrl, {
+      waitUntil: 'domcontentloaded',
+      timeout: config.timeoutMs,
+    });
+    await page.waitForTimeout(1200);
+    await assertEditorAccess(page, config);
+    const button = await waitForLocator(page, 'createPostButton', {
+      timeoutMs: Math.min(config.timeoutMs, 30000),
+    });
+    if (!button) {
+      throw new WebError(
+        'the "Create New Post" control was not found on the Blogger posts list. ' +
+          'The editor UI may have changed; run `npm run selectors:check`.',
+        'BLOGGER_SELECTOR_MISSING'
+      );
+    }
+    await button.locator.click({ timeout: 15000 });
+    const deadline = Date.now() + config.timeoutMs;
+    let newId = '';
+    while (Date.now() < deadline) {
+      newId = extractPostId(page.url(), config.blogId);
+      if (newId) break;
+      await page.waitForTimeout(400);
+    }
+    if (!newId) {
+      throw new WebError(
+        'clicking "Create New Post" did not open an editor page. The editor UI may have changed.',
+        'BLOGGER_NAVIGATION_TIMEOUT'
+      );
+    }
+    // Re-open the freshly created draft by URL. Typing during the create
+    // navigation races the editor's own initialization and the server can
+    // overwrite the title/body, so always wait for a clean editor load.
+    await page.goto(editorUrlFor(config, newId), {
+      waitUntil: 'domcontentloaded',
+      timeout: config.timeoutMs,
+    });
+    await page.waitForTimeout(1500);
+    await assertEditorAccess(page, config);
+    return page.url();
+  }
+
+  if (postId) {
+    await page.goto(editorUrlFor(config, postId), {
+      waitUntil: 'domcontentloaded',
+      timeout: config.timeoutMs,
+    });
+    await page.waitForTimeout(1200);
+    await assertEditorAccess(page, config);
+    return page.url();
+  }
+
+  const probe = await openEditorProbe(page, config);
+  return probe.url;
 }
 
 export async function waitForEditorReady(page, config) {
@@ -393,10 +618,11 @@ export async function waitForEditorReady(page, config) {
   while (Date.now() < deadline) {
     await assertEditorAccess(page, config);
     const title = await resolveLocator(page, 'titleInput', { visible: true });
-    const body =
-      (await resolveLocator(page, 'composeEditor', { visible: true })) ||
-      (await resolveLocator(page, 'htmlViewButton', { visible: true }));
-    if (title && body) return { title, body };
+    const frame = await resolveEditorFrame(page);
+    const body = frame
+      ? await resolveLocatorInFrame(frame.frame, 'composeEditor', { visible: true })
+      : await resolveLocator(page, 'composeEditor', { visible: true });
+    if (title && body) return { title, body, frame };
     await page.waitForTimeout(500);
   }
   throw new WebError(
@@ -477,82 +703,78 @@ export function extractPostId(url, blogId) {
   return '';
 }
 
-function rowText(anchor) {
-  const row = anchor.closest('[role="row"], tr, li, article');
-  return (row?.innerText || anchor.innerText || '').replace(/\s+/g, ' ').trim();
+function normalizeTitle(value) {
+  return String(value || '').replace(/\s+/g, ' ').trim().toLowerCase();
 }
 
-export async function findPostInList(page, config, title) {
-  const wanted = String(title || '').trim();
-  if (!wanted) return null;
+/**
+ * Read the rendered post cards from the Blogger posts list.
+ *
+ * The current list renders every post as `[role="listitem"]` with the title in
+ * an element whose id is `post-title-<postId>`. The edit anchor has no text of
+ * its own, so the title is read from that element instead of the anchor.
+ */
+export async function readPosts(page) {
+  return page
+    .evaluate(() => {
+      const seen = new Set();
+      const items = [];
+      for (const anchor of document.querySelectorAll('a[href*="/post/edit/"]')) {
+        const href = anchor.href || '';
+        const match = href.match(/\/post\/edit\/\d+\/(\d{6,})/);
+        const id = match ? match[1] : '';
+        if (!id || seen.has(id)) continue;
 
+        let card = anchor.parentElement;
+        for (let depth = 0; depth < 6 && card && !card.querySelector('[id^="post-title-"]'); depth += 1) {
+          card = card.parentElement;
+        }
+        if (card === document.documentElement) card = anchor.parentElement;
+        const titleNode = card?.querySelector('[id^="post-title-"]') || null;
+        const title = (titleNode?.innerText || '').replace(/\s+/g, ' ').trim();
+        const row = (card?.innerText || '').replace(/\s+/g, ' ').trim();
+        seen.add(id);
+        items.push({ id, title, row, href });
+      }
+      return items;
+    })
+    .catch(() => []);
+}
+
+export async function listPosts(page, config) {
   await page.goto(config.postsUrl, { waitUntil: 'domcontentloaded', timeout: config.timeoutMs });
-  await page.waitForTimeout(1200);
+  await page.waitForTimeout(1500);
   await assertEditorAccess(page, config);
 
-  // Newer Blogger UIs expose a search box. Filtering first keeps the list short.
-  const search =
-    (await firstVisible(page.locator('input[type="search"]'))) ||
-    (await firstVisible(page.locator('input[placeholder*="Search" i]'))) ||
-    (await firstVisible(page.locator('input[aria-label*="Search" i]')));
-  if (search) {
-    await search.fill(wanted).catch(() => {});
-    await search.press('Enter').catch(() => {});
-    await page.waitForTimeout(1500);
-  }
-
-  // Wait for the list to render at least one post link.
-  const linkSelector = 'a[href*="/post/edit/"], a[href*="blogspot.com/"]';
   await page
-    .locator(linkSelector)
+    .locator('a[href*="/post/edit/"]')
     .first()
     .waitFor({ state: 'attached', timeout: Math.min(config.timeoutMs, 15000) })
     .catch(() => {});
 
-  const anchors = await page.evaluate((selector) => {
-    return [...document.querySelectorAll(selector)]
-      .map((anchor) => ({
-        title: (anchor.innerText || anchor.getAttribute('aria-label') || '').trim(),
-        href: anchor.href || '',
-        row: (() => {
-          const row = anchor.closest('[role="row"], tr, li, article');
-          return (row?.innerText || '').replace(/\s+/g, ' ').trim();
-        })(),
-      }))
-      .filter((item) => item.title && item.href);
-  }, linkSelector).catch(() => []);
+  return readPosts(page);
+}
 
-  const normalize = (value) => String(value || '').replace(/\s+/g, ' ').trim().toLowerCase();
-  const target = normalize(wanted);
-  let match =
-    anchors.find((item) => normalize(item.title) === target) ||
-    anchors.find((item) => normalize(item.title).includes(target)) ||
-    anchors.find((item) => target.includes(normalize(item.title)) && item.title.length > 12);
+export async function findPostInList(page, config, title) {
+  const wanted = normalizeTitle(title);
+  if (!wanted) return null;
 
-  if (!match) {
-    // The UI may render the title in a sibling cell rather than the anchor.
-    const rowMatch = anchors.find((item) => normalize(item.row).includes(target));
-    if (rowMatch) match = rowMatch;
-  }
+  const posts = await listPosts(page, config);
+  const match =
+    posts.find((item) => normalizeTitle(item.title) === wanted) ||
+    posts.find((item) => normalizeTitle(item.title).includes(wanted)) ||
+    posts.find((item) => {
+      const haystack = normalizeTitle(`${item.title} ${item.row}`);
+      return wanted.length > 12 && haystack.includes(wanted);
+    });
   if (!match) return null;
 
-  const id = extractPostId(match.href, config.blogId);
-  const editUrl = match.href.includes('/post/edit/')
-    ? match.href
-    : id
-      ? `${config.editorUrl}/${id}`
-      : '';
-  const publicUrl =
-    /blogspot\.com|blogger\.com\/blog\/post\/edit/.test(match.href) &&
-    !match.href.includes('/post/edit/')
-      ? match.href
-      : '';
-  const status = /draft/i.test(match.row) ? 'draft' : 'live';
+  const id = match.id || extractPostId(match.href, config.blogId);
   return {
     id,
-    url: publicUrl,
-    editUrl,
-    status,
+    url: '',
+    editUrl: id ? editorUrlFor(config, id) : match.href,
+    status: /draft/i.test(match.row) ? 'draft' : 'live',
     title: match.title,
     row: match.row,
   };
