@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-10T21:46:52+00:00",
+  "updated_at": "2026-11-14T05:33:40+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -11,8 +11,8 @@
       "publish_date": "2026-11-10",
       "slot": 0,
       "blogger_post_id": "4293092910592619318",
-      "url": "https://sciencew1thoutlimits.blogspot.com/",
-      "blogger_status": "DRAFT",
+      "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/why-dividing-by-zero-is-undefined.html",
+      "blogger_status": "live",
       "published_at": "2026-11-09T22:20:49-08:00",
       "quality_score": 98.0,
       "labels": [
@@ -38,8 +38,8 @@
       "publish_date": "2026-11-10",
       "slot": 1,
       "blogger_post_id": "427473430573109335",
-      "url": "https://sciencew1thoutlimits.blogspot.com/",
-      "blogger_status": "DRAFT",
+      "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/why-the-sky-is-blue-rayleigh-scattering-explained.html",
+      "blogger_status": "live",
       "published_at": "2026-11-10T13:46:52-08:00",
       "quality_score": 98.0,
       "labels": [

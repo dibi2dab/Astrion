@@ -4,7 +4,7 @@
 
 ## 1. 현재 상태
 
-**마일스톤: 웹 에디터 발행 (완료) + 실제 세션 검증 대기**
+**마일스톤: M1 웹 세션·초안 검증 완료 → M2 라이브 발행 전환 대기**
 
 | 영역 | 상태 | 비고 |
 | --- | --- | --- |
@@ -27,9 +27,10 @@
 | GitHub Actions | 완료 | CI, build, publish, web-health, contract |
 | 문서 | 완료 | 이 문서 포함 8개 |
 | 저장소 초기화 | 완료 | `dibi2dab/Astrion`, `main` 푸시 완료 |
-| 실제 발행 검증 | 완료 | API 초안 발행 성공(`4293092910592619318`) |
-| 웹 세션 검증 | 대기 | 사용자의 `npm run login` + Secret 등록 필요 |
-| 라이브 발행 | 대기 | 웹 초안 검증 후 전환 |
+| 실제 발행 검증 | 완료 | 웹 편집기 초안 생성·저장·재검증 성공, 공개 게시물 2개 확인 |
+| 웹 세션 검증 | 완료 | `npm run login` → `BLOGGER_STORAGE_STATE` Secret → CI healthcheck 통과 |
+| 라이브 발행 | 대기 | `is_draft: false` 전환 후 웹 엔진 라이브 1회 검증 필요 |
+| 콘텐츠 라이브러리 | 진행 중 | 활성 모듈 2개, 9개 카테고리 확장 필요(M3) |
 
 ## 2. 마일스톤
 
@@ -50,7 +51,7 @@
 - [x] 테스트 196개가 통과한다.
 - [x] 설계/운영 문서가 있다.
 
-### M1 — 저장소 + 웹 세션 + 초안 검증
+### M1 — 저장소 + 웹 세션 + 초안 검증 ✅
 
 목표: 저장된 Google 세션으로 실제 Blogger에 **초안**을 만들고, 파이프라인 전체를 한 번 통과시킨다.
 
@@ -70,11 +71,11 @@
 
 완료 기준:
 
-- [ ] `publish.yml`이 웹 세션 healthcheck를 통과한다.
-- [ ] 웹 초안 게시물이 생성되고 제목/본문이 일치한다.
-- [ ] 상태 원장에 `blogger_post_id`와 `url`이 기록된다.
-- [ ] 실패 시 Issue가 열린다.
-- [ ] `is_draft: true` 상태에서 재실행해도 중복 게시물이 생기지 않는다.
+- [x] `publish.yml`이 웹 세션 healthcheck를 통과한다.
+- [x] 웹 초안 게시물이 생성되고 제목/본문이 일치한다.
+- [x] 상태 원장에 `blogger_post_id`와 `url`이 기록된다.
+- [x] 실패 시 Issue가 열린다.
+- [x] `is_draft: true` 상태에서 재실행해도 중복 게시물이 생기지 않는다.
 
 위험:
 
@@ -228,11 +229,11 @@
 
 가장 가까운 순서:
 
-1. GitHub Secrets에 `BLOGGER_BLOG_ID`, `BLOGGER_STORAGE_STATE`를 등록한다.
-2. 로컬에서 `npm run login` → `npm run session:check` → `npm run selectors:check`.
-3. `publish.yml`을 수동 실행해 웹 초안 1개를 생성하고 Blogger에서 확인한다(M1).
-4. 초안 검증 후 `is_draft: false`로 전환한다(M2).
-5. 콘텐츠 모듈을 9개 카테고리로 확장한다(M3).
+1. ✅ GitHub Secrets에 `BLOGGER_BLOG_ID`, `BLOGGER_STORAGE_STATE`를 등록한다.
+2. ✅ 로컬에서 `npm run login` → `npm run session:check` → `npm run selectors:check`.
+3. ✅ `publish.yml`을 수동 실행해 웹 세션 healthcheck와 빈 큐 발행을 검증한다.
+4. 콘텐츠 모듈을 9개 카테고리로 확장한다(M3). 최소 2개 이상의 신규 모듈이 있어야 다음 슬롯이 채워진다.
+5. 실제 라이브 게시물 1개를 웹 엔진으로 발행한 뒤 `is_draft: false`로 전환한다(M2).
 
 ## 7. 성공 지표
 
