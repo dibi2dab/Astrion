@@ -169,16 +169,16 @@
     },
     "saveDraftButton": {
       "optional": false,
-      "description": "Saves the post without publishing it. Lives in the publish menu.",
+      "description": "Saves the post without publishing it. Only menu items are allowed here; a Publish/Update control must never match.",
       "primary": "[role=\"menuitem\"][aria-label=\"Save\"]",
       "candidates": [
+        "[role=\"menuitem\"][aria-label=\"Save draft\"]",
         "[role=\"menuitem\"][aria-label=\"저장\"]",
+        "[role=\"menuitem\"][aria-label=\"保存\"]",
+        "[role=\"menuitem\"]:has-text(\"Save draft\")",
         "[role=\"menuitem\"]:has-text(\"Save\")",
         "[role=\"menuitem\"]:has-text(\"저장\")",
-        "button[aria-label=\"Save\"]",
-        "[role=\"button\"][aria-label=\"Save\"]",
-        "button:has-text(\"Save draft\")",
-        "button:has-text(\"Save\")"
+        "[role=\"menuitem\"]:has-text(\"保存\")"
       ]
     },
     "publishButton": {

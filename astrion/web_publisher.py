@@ -40,6 +40,7 @@ SESSION_CODES = {"BLOGGER_SESSION_REQUIRED", "BLOGGER_SESSION_EXPIRED"}
 DRIFT_CODES = {
     "BLOGGER_SELECTOR_MISSING",
     "BLOGGER_DRAFT_BUTTON_MISSING",
+    "BLOGGER_DRAFT_BECAME_LIVE",
     "BLOGGER_BODY_NOT_SET",
     "BLOGGER_TITLE_NOT_SET",
     "BLOGGER_NAVIGATION_TIMEOUT",
@@ -283,6 +284,15 @@ class WebBloggerClient:
                 "mode": "draft" if is_draft else "publish",
             },
         )
+        if is_draft and str(result.get("status") or "").upper() != "DRAFT":
+            # Defense in depth: even if the browser engine mislabels a live post
+            # as a draft save, never record it as a draft. This is the exact
+            # failure that made four one-off drafts public.
+            raise BloggerDriftError(
+                "the web publisher was asked to save a draft but reported a live post. "
+                "Refusing to record a public post as a draft. Revert it in the Blogger editor.",
+                reason="BLOGGER_DRAFT_BECAME_LIVE",
+            )
         post_id = str(result.get("postId") or "")
         url = str(result.get("url") or "") or str(result.get("editUrl") or "")
         if not post_id:

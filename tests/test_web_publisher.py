@@ -98,6 +98,7 @@ def test_session_codes_map_to_auth_error(code):
     [
         "BLOGGER_SELECTOR_MISSING",
         "BLOGGER_DRAFT_BUTTON_MISSING",
+        "BLOGGER_DRAFT_BECAME_LIVE",
         "BLOGGER_BODY_NOT_SET",
         "BLOGGER_TITLE_NOT_SET",
         "BLOGGER_NAVIGATION_TIMEOUT",
@@ -229,6 +230,27 @@ def test_insert_post_sends_a_live_publish_payload(web_settings, monkeypatch):
     assert post["status"] == "live"
     assert post["published"] == "2026-11-13T10:00:00Z"
     assert post["url"].startswith("https://sciencew1thoutlimits")
+
+
+def test_insert_post_rejects_a_live_result_in_draft_mode(web_settings, monkeypatch):
+    client = WebBloggerClient(web_settings)
+    write_session(client)
+    monkeypatch.setattr(
+        "astrion.web_publisher.subprocess.run",
+        lambda command, **kwargs: Completed(
+            {
+                "ok": True,
+                "mode": "draft",
+                "postId": "123",
+                "status": "LIVE",
+                "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/x.html",
+            }
+        ),
+    )
+    with pytest.raises(BloggerDriftError) as exc:
+        client.insert_post(title="T", content="<p>x</p>", labels=[], is_draft=True)
+    assert exc.value.reason == "BLOGGER_DRAFT_BECAME_LIVE"
+    assert exc.value.retryable is False
 
 
 def test_insert_post_requires_a_post_id(web_settings, monkeypatch):
@@ -383,3 +405,33 @@ def test_make_client_can_still_build_the_api_backend(web_settings, monkeypatch):
     }.items():
         monkeypatch.setenv(name, value)
     assert isinstance(make_client(web_settings), BloggerClient)
+
+
+# ---------------------------------------------------- draft-safety regression
+WEB_DIR = Path(__file__).resolve().parent.parent / "web"
+
+
+def test_draft_path_checks_the_saved_status_is_still_a_draft():
+    source = (WEB_DIR / "publishBlogger.mjs").read_text(encoding="utf-8")
+    start = source.index("async function saveDraft")
+    end = source.index("async function publishLive")
+    body = source[start:end]
+    # The exact regression: a save must be proven to be a draft after the click.
+    assert "found.status" in body
+    assert "BLOGGER_DRAFT_BECAME_LIVE" in body
+    # The draft path may never invoke the live publisher or its confirmation.
+    assert "publishLive(" not in body
+    assert "publishConfirmButton" not in body
+
+
+def test_draft_selector_can_only_resolve_to_a_menu_save_control():
+    document = json.loads((WEB_DIR / "selectors.json").read_text(encoding="utf-8"))
+    entry = document["selectors"]["saveDraftButton"]
+    assert "menuitem" in entry["primary"]
+    options = [entry["primary"], *entry.get("candidates", [])]
+    for option in options:
+        lowered = option.lower()
+        assert "publish" not in lowered, option
+        assert "update" not in lowered, option
+        # No generic top-level buttons: only menu items may match.
+        assert 'role="menuitem"' in lowered or "menuitem" in lowered, option

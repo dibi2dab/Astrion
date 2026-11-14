@@ -253,6 +253,37 @@ async function firstVisibleSafe(locator) {
   return null;
 }
 
+/**
+ * Reject any control that could publish a post.
+ *
+ * The draft path may only ever click a control labelled "Save". A stale or
+ * over-broad selector that resolves to Publish/Update would turn a private
+ * draft into a public post, so the label is checked immediately before the
+ * click instead of trusting the selector alone.
+ */
+async function saveControlLooksSafe(locator) {
+  const info = await locator
+    .evaluate((element) => ({
+      role: element.getAttribute('role') || '',
+      aria: element.getAttribute('aria-label') || '',
+      text: (element.innerText || element.textContent || '').replace(/\s+/g, ' ').trim(),
+    }))
+    .catch(() => null);
+  if (!info) return false;
+  const label = `${info.aria} ${info.text}`.toLowerCase();
+  if (/publish|update/.test(label)) return false;
+  return /save|저장|保存/.test(label);
+}
+
+/** Read the editor's primary action: a draft offers Publish, a live post Update. */
+async function editorPrimaryAction(page) {
+  const action = await resolveLocator(page, 'publishButton', { visible: true });
+  if (!action) return '';
+  return String(await action.locator.getAttribute('aria-label').catch(() => '') || '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 async function applyLabels(page, labels) {
   const wanted = [...new Set(labels.map((label) => String(label).trim()).filter(Boolean))].slice(
     0,
@@ -361,11 +392,17 @@ async function verifyDraftContent(page, config, postId, title) {
     .replace(/\s+/g, ' ')
     .trim();
   const normalize = (value) => String(value || '').replace(/\s+/g, ' ').trim();
+  const action = await editorPrimaryAction(page);
   return {
     titleOk: normalize(actualTitle) === normalize(title),
     title: actualTitle,
     bodyLength: bodyText.length,
     bodyPreview: bodyText.slice(0, 80),
+    // A reopened draft still offers "Publish"; a live post offers "Update".
+    // Unknown (empty) is treated as not-live so the posts-list check stays the
+    // authority, but an explicit "Update" is a hard failure in draft mode.
+    isDraft: !/^update$/i.test(action),
+    editorAction: action,
   };
 }
 
@@ -375,30 +412,39 @@ async function saveDraft(page, config, title, warnings) {
   const synced = await waitForEditorSync(page, Math.min(config.timeoutMs, 30000));
   if (!synced) warnings.push('the editor never reported a settled save before clicking Save');
 
-  let clicked = false;
+  // A brand-new draft offers "Publish". If the editor offers "Update", Blogger
+  // already considers this post live; saving would silently modify a public
+  // post, so stop before touching any control.
+  const initialAction = await editorPrimaryAction(page);
+  if (/^update$/i.test(initialAction)) {
+    throw new WebError(
+      'the Blogger editor is showing "Update", which means this post is already live. ' +
+        'Astrion will not save a live post through the draft path.',
+      'BLOGGER_DRAFT_BECAME_LIVE'
+    );
+  }
+
+  let control = null;
 
   // The current editor hides Save in the split-button menu next to Publish.
   const direct = await resolveLocator(page, 'saveDraftButton', { visible: true });
-  if (direct) {
-    await direct.locator.click({ timeout: 10000 });
-    clicked = true;
+  if (direct && (await saveControlLooksSafe(direct.locator))) {
+    control = direct;
   } else {
     const menu = await openPublishMenu(page);
     if (menu) {
       const item = await waitForLocator(page, 'saveDraftButton', { timeoutMs: 6000 });
-      if (item) {
-        await item.locator.click({ timeout: 8000 });
-        clicked = true;
-      }
+      if (item && (await saveControlLooksSafe(item.locator))) control = item;
     }
   }
 
-  if (!clicked) {
+  if (!control) {
     throw new WebError(
       'the Save draft control was not found. Astrion will not click Publish while a draft was requested.',
       'BLOGGER_DRAFT_BUTTON_MISSING'
     );
   }
+  await control.locator.click({ timeout: 10000 });
 
   await page.waitForTimeout(700);
   await clickDialogButton(page, [/^save draft$/i, /^ok$/i, /^continue$/i]);
@@ -427,6 +473,17 @@ async function saveDraft(page, config, title, warnings) {
     );
   }
 
+  // Regression guard: draft mode must never leave a public post behind. The
+  // earlier one-off upload reported DRAFT while four posts were actually live
+  // because this status was never checked.
+  if (found.status !== 'draft') {
+    throw new WebError(
+      `Draft mode saved "${title}" as ${found.status || 'live'} (post ${id}) instead of a draft. ` +
+        'Blogger did not keep it private; revert it to draft in the editor, then retry.',
+      'BLOGGER_DRAFT_BECAME_LIVE'
+    );
+  }
+
   // Reopen the saved post and confirm the server stored the text, not just a
   // title in the list. Slower, but it turns silent empty drafts into a retry.
   const verified = await verifyDraftContent(page, config, id, title).catch((err) => {
@@ -434,7 +491,7 @@ async function saveDraft(page, config, title, warnings) {
       throw err;
     }
     warnings.push(`draft verification failed: ${err.message}`);
-    return { titleOk: false, title: '', bodyLength: 0, bodyPreview: '' };
+    return { titleOk: false, title: '', bodyLength: 0, bodyPreview: '', isDraft: true };
   });
 
   if (!verified.titleOk) {
@@ -448,6 +505,13 @@ async function saveDraft(page, config, title, warnings) {
     throw new WebError(
       'the saved draft has an empty body. The next run reconciles by title before creating another post.',
       'BLOGGER_SAVE_UNCONFIRMED'
+    );
+  }
+  if (verified.isDraft === false) {
+    throw new WebError(
+      `Draft mode reported success but the reopened editor treats "${title}" as live ` +
+        `(action: ${verified.editorAction || 'Update'}). Revert it to draft before retrying.`,
+      'BLOGGER_DRAFT_BECAME_LIVE'
     );
   }
 

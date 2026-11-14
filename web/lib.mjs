@@ -177,7 +177,7 @@ const TEXT_KEYS = new Set([
 const TEXT_PATTERNS = {
   createPostButton: [/^create new post$/i, /^new post$/i],
   htmlViewButton: [/^html view$/i, /^switch to html( view)?$/i, /^html$/i],
-  saveDraftButton: [/^save draft$/i, /^save$/i],
+  saveDraftButton: [/^save draft$/i, /^save$/i, /^저장$/i, /^保存$/i],
   publishButton: [/^publish$/i, /^publish now$/i],
   draftConfirmButton: [/^save draft$/i, /^save$/i, /^ok$/i, /^continue$/i, /^yes$/i],
   publishConfirmButton: [/^publish$/i, /^publish now$/i, /^confirm$/i, /^ok$/i],

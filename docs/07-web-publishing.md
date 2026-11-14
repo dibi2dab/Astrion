@@ -128,10 +128,14 @@ python -m astrion healthcheck --json
 - 현재 UI에서는 Publish 옆 분할 버튼의 **More options → Save**만 사용합니다.
 - 직접 Save 버튼이 없으면 이 메뉴를 엽니다.
 - 메뉴가 없으면 `BLOGGER_DRAFT_BUTTON_MISSING`으로 종료합니다.
+- 클릭 직전에 컨트롤 라벨이 `Save`인지 확인합니다. `Publish`/`Update`가 매칭되면 클릭하지 않고 실패합니다.
+- 에디터가 `Update`를 보여 주면 이미 공개된 글이므로 초안 경로로 저장하지 않습니다.
 
 이 동작은 의도적입니다. 초안 요청이 실수로 공개 발행이 되는 것보다, 실패하고 Issue를 만드는 편이 안전합니다.
 
 저장 후에는 "Changes saved" 표시만 믿지 않습니다. 목록 확인에 실패하거나, 다시 연 초안의 제목/본문이 비어 있으면 `BLOGGER_SAVE_UNCONFIRMED`로 실패합니다.
+
+**초안은 반드시 초안으로 남아야 합니다.** 저장 후 게시물 목록에서 상태를 다시 읽어 `draft`가 아니면 `BLOGGER_DRAFT_BECAME_LIVE`로 실패합니다. 다시 연 에디터가 `Update`를 보여 줘도 같은 오류로 실패합니다. 이 검사는 2026-11-14에 초안 5편 중 4편이 공개된 사고의 재발을 막기 위해 추가되었습니다.
 
 ### 중복 방지
 
@@ -194,6 +198,7 @@ git diff web/selectors.json
 | `BLOGGER_SESSION_EXPIRED` | Google이 로그인 화면으로 리다이렉트 | `npm run login` 후 Secret 갱신 |
 | `BLOGGER_SELECTOR_MISSING` | 필수 에디터 컨트롤을 찾지 못함 | `npm run selectors:fix` 또는 PR 검토 |
 | `BLOGGER_DRAFT_BUTTON_MISSING` | 초안 저장 버튼을 찾지 못함 | 선택자 복구, 필요 시 수동 초안 저장 |
+| `BLOGGER_DRAFT_BECAME_LIVE` | 초안 모드인데 게시물이 공개 상태로 저장됨 | 즉시 Blogger에서 **Revert to draft**, 원인 수정 후 재시도 |
 | `BLOGGER_SAVE_UNCONFIRMED` | 저장/발행 후 확인 실패 | 다음 실행이 제목으로 재조정 |
 | `BLOGGER_BODY_NOT_SET` | 본문 주입 실패 | 에디터 변경 여부 확인 |
 | `BLOGGER_TITLE_NOT_SET` | 제목 입력 후 값 불일치 | 에디터 변경 여부 확인 |
