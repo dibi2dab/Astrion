@@ -1,0 +1,308 @@
+schema: astrion.topic/v1
+id: space.origin-of-elements
+status: draft
+content_type: science-explained
+main_category: Space & Astronomy
+labels:
+  - Nucleosynthesis
+  - Stars
+  - Stellar Evolution
+title: Where Do the Elements Come From?
+slug: where-do-the-elements-come-from
+meta_description: Hydrogen and helium came from the Big Bang. Stars forged carbon through iron, and supernovae and neutron-star mergers made the heaviest elements.
+primary_keyword: where do the elements come from
+secondary_keywords:
+  - stellar nucleosynthesis
+  - Big Bang nucleosynthesis
+  - r-process
+  - supernova
+hook: >-
+  Where do the elements come from? The oxygen in your lungs, the calcium in your bones,
+  and the iron in your blood were not present at the beginning of the universe. The early
+  universe was almost entirely hydrogen and helium. Everything heavier was built later,
+  mostly inside stars and in the violent events that end some stellar lives. That means
+  the periodic table is also a history book. Each element records a different process,
+  a different temperature, and often a different kind of stellar death.
+core_question: >-
+  Which processes produced the elements, and how do astronomers know which elements came
+  from the Big Bang, which came from ordinary stars, and which required explosions?
+explanation_target: >-
+  Big Bang nucleosynthesis, hydrogen and helium fusion in stars, the triple-alpha process,
+  the onion-shell burning of massive stars, the iron endpoint, and the neutron-capture
+  processes that make elements heavier than iron.
+central_principle: >-
+  Fusion releases energy only until the iron peak, so stars build elements up to iron in
+  their cores and release the rest through supernovae and neutron-star mergers, where
+  rapid neutron capture can assemble the heaviest nuclei.
+unique_value: >-
+  This explanation follows the elements through each stage of cosmic history, from the
+  first few minutes of the universe to the deaths of massive stars and neutron-star
+  mergers. It explains why iron marks a turning point, why gold is rare, and why the
+  elements in your body have different origins.
+key_takeaways:
+  - The Big Bang produced mostly hydrogen and helium, with only traces of lithium and deuterium.
+  - Stars fuse hydrogen into helium, then helium into carbon and oxygen, and massive stars continue up to iron.
+  - Fusion beyond iron absorbs energy, so the heaviest elements require neutron capture in explosive environments.
+  - Supernovae and neutron-star mergers disperse newly made elements into the gas that forms later stars and planets.
+  - The elements in living things come from several different processes, not a single cosmic source.
+sections:
+  - heading: 'The Inventory: A Universe Mostly Hydrogen'
+    blocks:
+      - type: paragraph
+        text: >-
+          By mass, the universe is about three-quarters hydrogen and one-quarter helium.
+          The remaining elements make up only a small fraction, yet that fraction includes
+          everything needed for planets, oceans, and life. The abundance pattern is not
+          random. Light elements are common, iron is relatively abundant, and elements such
+          as gold and uranium are rare. Any successful account of the elements has to
+          explain both the overall inventory and the details.
+      - type: paragraph
+        text: >-
+          The inventory is measured in several ways. Astronomers read the spectra of stars
+          and interstellar gas. They analyze meteorites, which preserve ancient material
+          from the solar system's formation. They also observe the cosmic microwave
+          background, which records the composition of the universe at about 380,000 years
+          after the Big Bang. All of these lines of evidence point to the same broad
+          history.
+      - type: table
+        caption: The universe is dominated by the two lightest elements.
+        headers:
+          - Element
+          - Approximate share of cosmic mass
+          - Main origin
+        rows:
+          - ["Hydrogen", "about 74 percent", "Big Bang"]
+          - ["Helium", "about 24 percent", "Big Bang and stellar fusion"]
+          - ["Oxygen", "about 1 percent", "Massive-star fusion"]
+          - ["Carbon", "about 0.5 percent", "Stellar fusion"]
+          - ["Iron", "about 0.1 percent", "Stellar fusion and supernovae"]
+          - ["Heavier than iron", "trace amounts", "Neutron capture"]
+      - type: paragraph
+        text: >-
+          The table is a rough guide, not a precise budget. The important point is the
+          hierarchy. Hydrogen and helium dominate because they were made before stars
+          existed. Everything else was assembled later, and the amounts decrease sharply
+          for the heaviest nuclei because the processes that make them are rare and
+          inefficient.
+
+  - heading: 'The First Elements: Big Bang Nucleosynthesis'
+    blocks:
+      - type: paragraph
+        text: >-
+          In the first minutes after the Big Bang, the universe was hot enough for protons
+          and neutrons to fuse into light nuclei. This period is called Big Bang
+          nucleosynthesis. It lasted only about 20 minutes. As the universe expanded and
+          cooled, the temperature dropped below the threshold needed for further fusion,
+          and the process stopped.
+      - type: paragraph
+        text: >-
+          The main product was helium-4, along with deuterium, helium-3, and a small amount
+          of lithium-7. The reaction network could not proceed efficiently to carbon because
+          there is no stable nucleus with mass number 5 or 8. A proton or neutron added to
+          helium-4 produces lithium-5 or helium-8, both of which are unstable. That gap
+          blocked the path to heavier elements in the early universe.
+      - type: callout
+        tone: key
+        title: The first elements were light
+        text: >-
+          Big Bang nucleosynthesis produced hydrogen, helium, and traces of lithium. It did
+          not produce carbon, oxygen, or iron. Those elements required stars.
+      - type: paragraph
+        text: >-
+          The predicted abundances match observations remarkably well. The observed
+          primordial helium fraction, the deuterium abundance in distant gas clouds, and
+          the lithium abundance in old stars are broadly consistent with a hot, dense early
+          universe. The lithium-7 prediction is the least secure part of the comparison,
+          which is one reason astronomers continue to study old stars and the early
+          universe.
+
+  - heading: Stars as Element Factories
+    blocks:
+      - type: paragraph
+        text: >-
+          A star is a gravitationally bound ball of plasma that shines because fusion
+          releases energy in its core. In stars like the Sun, the dominant process is the
+          proton-proton chain, which combines hydrogen nuclei into helium. More massive
+          stars use the CNO cycle, in which carbon, nitrogen, and oxygen act as catalysts
+          for hydrogen fusion. Both processes turn hydrogen into helium and release energy.
+      - type: equation
+        latex: 'E = \Delta m\,c^{2}'
+        variables:
+          - symbol: E
+            meaning: energy released by the fusion reaction
+            unit: joules
+          - symbol: '\Delta m'
+            meaning: mass lost when the products are formed
+            unit: kilograms
+          - symbol: c
+            meaning: speed of light in vacuum
+            unit: meters per second
+        caption: Fusion releases energy because the products are slightly less massive than the reactants.
+      - type: paragraph
+        text: >-
+          When a star exhausts the hydrogen in its core, the core contracts and heats up.
+          Hydrogen fusion continues in a shell around the core, and the outer layers
+          expand. In a star like the Sun, the core eventually becomes hot enough for helium
+          fusion. The triple-alpha process combines three helium-4 nuclei into carbon-12.
+          Further alpha captures can produce oxygen-16, neon-20, and magnesium-24.
+      - type: paragraph
+        text: >-
+          These reactions explain why carbon and oxygen are common in the universe. They
+          are built in the late stages of ordinary stars and then ejected into space. The
+          ejected material mixes with interstellar gas, and later generations of stars and
+          planets form from that enriched material. The Sun is a later-generation star, so
+          it started with a small but crucial supply of heavy elements.
+
+  - heading: The Iron Limit and Stellar Death
+    blocks:
+      - type: paragraph
+        text: >-
+          Stars more massive than about eight times the Sun can continue the sequence.
+          After helium fusion, the core contracts and heats until carbon fusion begins.
+          Then neon, oxygen, and silicon fusion follow. The star develops a layered
+          structure like an onion, with the heaviest elements in the center and lighter
+          fusion shells farther out.
+      - type: paragraph
+        text: >-
+          The sequence stops at iron. Iron-56 has one of the highest binding energies per
+          nucleon of any nucleus, which means it is near the bottom of the nuclear energy
+          valley. Fusion reactions that build nuclei lighter than iron release energy.
+          Fusion reactions that build nuclei heavier than iron absorb energy. A star cannot
+          sustain itself by fusing iron; doing so would drain energy rather than supply it.
+      - type: paragraph
+        text: >-
+          Once a massive star builds an iron core, it has only minutes to live. The core
+          can no longer generate pressure through fusion, so it collapses under gravity.
+          The collapse produces a core-collapse supernova, an explosion that blows off the
+          outer layers and leaves behind a neutron star or a black hole. The explosion also
+          provides the energy and neutron flux needed to make some of the heaviest
+          elements.
+      - type: paragraph
+        text: >-
+          The supernova does more than destroy the star. It disperses the elements that
+          were made in the core and in the explosion itself. Those elements become part of
+          the interstellar medium. The next generation of stars inherits them, and planets
+          can form from the enriched gas. The calcium in your bones and the iron in your
+          blood were released by stars that died before the Sun formed.
+
+  - heading: Forging the Heaviest Elements
+    blocks:
+      - type: paragraph
+        text: >-
+          Elements heavier than iron cannot be made by ordinary fusion. They require
+          neutron capture, a process in which a nucleus absorbs neutrons and becomes a
+          heavier isotope. If the nucleus has too many neutrons, it can undergo beta decay,
+          converting a neutron into a proton and moving the element up the periodic table.
+          Two versions of this process matter.
+      - type: list
+        ordered: false
+        items:
+          - "The s-process is slow: a nucleus captures neutrons over thousands of years, and beta decay keeps pace. It operates in asymptotic giant branch stars and produces elements such as strontium, barium, and lead."
+          - "The r-process is rapid: a nucleus captures many neutrons in a fraction of a second, producing highly neutron-rich isotopes that later decay. It requires extreme neutron densities, such as those in neutron-star mergers or core-collapse supernovae."
+          - "The p-process and related proton-rich processes make some rare isotopes through photodisintegration and charged-particle reactions."
+      - type: paragraph
+        text: >-
+          The r-process is responsible for many of the heaviest elements, including gold,
+          platinum, and uranium. The exact sites are still debated, but neutron-star
+          mergers are a confirmed source. In 2017, the gravitational-wave event GW170817
+          marked the merger of two neutron stars. Follow-up observations found signatures
+          of heavy elements in the ejected material, linking the merger to r-process
+          nucleosynthesis.
+      - type: paragraph
+        text: >-
+          The 1957 review by Margaret Burbidge, Geoffrey Burbidge, William Fowler, and Fred
+          Hoyle, often called B2FH, laid out the framework for stellar nucleosynthesis. It
+          connected the observed abundances to specific nuclear processes in stars. Later
+          work refined the picture, especially for the heaviest elements, but the core idea
+          remains: the periodic table is built by stars and by their deaths.
+
+  - heading: Reading Your Own Atoms
+    blocks:
+      - type: paragraph
+        text: >-
+          The elements in a human body have a mixed history. Hydrogen came from the Big
+          Bang. Carbon, nitrogen, and oxygen were made in stars and dispersed by stellar
+          winds and supernovae. Phosphorus and sulfur have stellar origins as well. Iron
+          came from supernovae and from the gradual enrichment of the galaxy. Heavier trace
+          elements, such as iodine and zinc, involve neutron-capture processes.
+      - type: paragraph
+        text: >-
+          This is why the phrase we are made of starstuff is useful but incomplete. The
+          hydrogen in water is older than the stars. The carbon and oxygen were forged in
+          stars. The iron was assembled near the end of a massive star's life. A single
+          human body contains atoms from several different cosmic factories.
+      - type: paragraph
+        text: >-
+          The story is not finished. Stars are still making helium, carbon, and oxygen
+          today. Massive stars are still exploding, and neutron stars are still merging.
+          The interstellar medium is gradually becoming richer in heavy elements, and
+          future generations of stars will form from that enriched material. The periodic
+          table is still being written.
+      - type: paragraph
+        text: >-
+          The next time you look at a chart of the elements, it may help to read it as a
+          timeline. The lightest entries are relics of the first minutes. The middle entries
+          are products of stellar fusion. The heaviest entries are souvenirs of catastrophic
+          stellar events. The elements are not just a list of substances. They are a record
+          of how the universe assembled its complexity.
+misconceptions:
+  - claim: All of the elements were made in the Big Bang.
+    correction: >-
+      The Big Bang made mostly hydrogen and helium, with small amounts of deuterium,
+      helium-3, and lithium-7. Carbon and heavier elements were made later inside stars and
+      in stellar explosions. The early universe did not have the time or the conditions to
+      build them.
+  - claim: Stars burn elements like a fire burns wood.
+    correction: >-
+      Stars do not undergo chemical combustion. They fuse atomic nuclei in their cores,
+      converting a small amount of mass into energy. The word burning is a shorthand for
+      nuclear fusion, not a chemical reaction with oxygen.
+  - claim: All elements heavier than iron come from supernovae.
+    correction: >-
+      Supernovae contribute to the production of heavy elements, but neutron-star mergers
+      are also a major site of the rapid neutron-capture process. The slow neutron-capture
+      process in asymptotic giant branch stars makes another set of heavy elements. The
+      origin of the heaviest nuclei is a combination of several environments.
+  - claim: Iron is the heaviest element that stars can make.
+    correction: >-
+      Iron is the heaviest element that can be made by ordinary fusion while releasing
+      energy. Elements heavier than iron are made mainly by neutron capture, not by the
+      normal fusion sequence in a stellar core.
+sources:
+  - id: b2fh-1957
+    title: Synthesis of the Elements in Stars
+    publisher: Reviews of Modern Physics
+    url: https://doi.org/10.1103/RevModPhys.29.547
+    kind: peer_reviewed
+    doi: 10.1103/RevModPhys.29.547
+    published_at: 1957-10-01
+    accessed_at: 2026-11-14
+  - id: openstax-massive-stars
+    title: 'Astronomy 2e, 22.5 The Evolution of More Massive Stars'
+    publisher: OpenStax
+    url: https://openstax.org/books/astronomy-2e/pages/22-5-the-evolution-of-more-massive-stars
+    kind: textbook
+    accessed_at: 2026-11-14
+  - id: johnson-2020
+    title: 'The origin of the elements: a century of progress'
+    publisher: Philosophical Transactions of the Royal Society A
+    url: https://doi.org/10.1098/rsta.2019.0301
+    kind: peer_reviewed
+    doi: 10.1098/rsta.2019.0301
+    published_at: 2020-09-18
+    accessed_at: 2026-11-14
+related: []
+aliases:
+  - origin of the elements
+  - stellar nucleosynthesis
+  - how elements are made
+distinct_from: []
+provenance:
+  authored_by: Astrion editorial
+  fact_basis: peer_reviewed
+  reviewed_at: 2026-11-14
+  review_status: draft
+  notes: Drafted for editorial review. Confirm the r-process sites, abundance values, and B2FH attribution before approval.
+priority: 4
+evergreen: true
+notes: ""

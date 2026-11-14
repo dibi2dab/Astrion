@@ -1,0 +1,325 @@
+schema: astrion.topic/v1
+id: space.expanding-universe-hubble-law
+status: draft
+content_type: science-explained
+main_category: Space & Astronomy
+labels:
+  - Cosmology
+  - Hubble's Law
+  - Redshift
+title: How Do We Know the Universe Is Expanding?
+slug: how-do-we-know-the-universe-is-expanding
+meta_description: Cosmological redshift, Hubble's law, and standard candles show that galaxies recede as space stretches. The evidence now points to accelerating expansion.
+primary_keyword: how do we know the universe is expanding
+secondary_keywords:
+  - cosmological redshift
+  - Hubble constant
+  - standard candles
+  - dark energy
+hook: >-
+  How do we know the universe is expanding? The evidence is not a single photograph of
+  galaxies flying apart. It is a pattern that appears in spectra, distances, and
+  brightness measurements taken across billions of light-years. Almost every distant
+  galaxy shows its light shifted toward longer, redder wavelengths. The farther a galaxy
+  is, the larger that shift tends to be. When astronomers compare those shifts with
+  independently measured distances, they find a simple relationship: recession speed is
+  proportional to distance. That relationship is Hubble's law, and it is the foundation
+  of modern cosmology.
+core_question: >-
+  What observations show that the universe is expanding, and how do redshift and the
+  distance ladder turn that expansion into a measurable rate?
+explanation_target: >-
+  The meaning of cosmological redshift, the distance ladder used to calibrate Hubble's
+  law, the difference between expansion and motion through space, the discovery of
+  accelerating expansion, and the current Hubble tension.
+central_principle: >-
+  Space itself stretches between gravitationally bound systems, so light from distant
+  galaxies arrives with longer wavelengths and a recession speed proportional to
+  distance; the proportionality constant is the Hubble constant, and its change over
+  time encodes the universe's matter, radiation, and dark-energy content.
+unique_value: >-
+  This explanation connects the observed redshift to the stretching of space, shows how
+  Cepheids and Type Ia supernovae build a distance ladder, and separates the expansion of
+  the universe from the everyday motion of galaxies through space. It also explains why
+  the Hubble constant is not truly constant over cosmic time.
+key_takeaways:
+  - Distant galaxies show cosmological redshift because the space their light crosses is stretching.
+  - Hubble's law relates recession speed to distance, with a constant of about 70 kilometers per second per megaparsec.
+  - The distance ladder combines parallax, Cepheid variables, and Type Ia supernovae to calibrate the law.
+  - Observations of distant supernovae revealed that the expansion is accelerating, which is attributed to dark energy.
+  - The universe has no expansion center; every observer sees distant galaxies receding.
+sections:
+  - heading: 'The Observation: Galaxies Recede'
+    blocks:
+      - type: paragraph
+        text: >-
+          In the 1910s and 1920s, Vesto Slipher photographed the spectra of spiral nebulae
+          and found that most of their spectral lines were shifted toward the red end of
+          the spectrum. At the time, no one knew that these nebulae were separate galaxies.
+          The redshifts were large, and most of them pointed to motion away from Earth.
+          A few nearby objects, including the Andromeda Galaxy, showed blueshift instead.
+      - type: paragraph
+        text: >-
+          Edwin Hubble then measured distances to galaxies using Cepheid variable stars,
+          which brighten and dim in a regular way. In 1929 he compared those distances with
+          recession velocities and found that the two quantities were related. The farther
+          a galaxy was, the faster it appeared to recede. Hubble and Milton Humason extended
+          the measurements in 1931 to much fainter galaxies and confirmed the trend.
+      - type: paragraph
+        text: >-
+          The relationship is written as a simple proportionality. The constant of
+          proportionality is called the Hubble constant, usually given the symbol H0. It is
+          not a speed. It is a rate with units of kilometers per second per megaparsec,
+          where one megaparsec is about 3.26 million light-years.
+      - type: equation
+        latex: 'v = H_{0} d'
+        variables:
+          - symbol: v
+            meaning: recession velocity inferred from redshift
+            unit: kilometers per second
+          - symbol: H_{0}
+            meaning: Hubble constant at the present epoch
+            unit: kilometers per second per megaparsec
+          - symbol: d
+            meaning: distance to the galaxy
+            unit: megaparsecs
+        caption: Hubble's law states that recession velocity is proportional to distance.
+
+  - heading: 'Redshift Is Stretching, Not Just Motion'
+    blocks:
+      - type: paragraph
+        text: >-
+          It is tempting to interpret redshift as a Doppler shift caused by galaxies
+          racing through space. That picture works as a local approximation, but it misses
+          the global geometry. In general relativity, the universe can expand uniformly,
+          and the space between distant galaxies stretches with it. A light wave traveling
+          through that expanding space is stretched along with it. Its wavelength grows,
+          so its color shifts toward red.
+      - type: equation
+        latex: '1 + z = \frac{\lambda_{\mathrm{obs}}}{\lambda_{\mathrm{emit}}} = \frac{a_{\mathrm{now}}}{a_{\mathrm{then}}}'
+        variables:
+          - symbol: z
+            meaning: cosmological redshift
+            unit: dimensionless
+          - symbol: '\lambda_{\mathrm{obs}}'
+            meaning: wavelength observed today
+            unit: meters
+          - symbol: '\lambda_{\mathrm{emit}}'
+            meaning: wavelength emitted by the galaxy
+            unit: meters
+          - symbol: a_{\mathrm{now}}
+            meaning: scale factor of the universe today
+            unit: dimensionless
+          - symbol: a_{\mathrm{then}}
+            meaning: scale factor when the light was emitted
+            unit: dimensionless
+        caption: Redshift measures how much the universe has stretched while the light was in transit.
+      - type: paragraph
+        text: >-
+          This distinction matters for very distant galaxies. Their recession velocities
+          can exceed the speed of light in the Hubble law without violating relativity,
+          because the galaxies are not moving through space at that speed. The space between
+          us and them is expanding. Local motion still exists, and nearby galaxies can move
+          toward us, but cosmological redshift is a record of the expansion history.
+      - type: paragraph
+        text: >-
+          The cosmic microwave background provides an independent check. It is the
+          afterglow of the hot, dense early universe, and it reaches us with a redshift of
+          about 1,100. That means the universe has expanded by a factor of roughly 1,100
+          since the light was released. The same expansion that stretches visible light
+          into infrared and microwave wavelengths also cools the radiation.
+
+  - heading: "Hubble's Law and the Distance Ladder"
+    blocks:
+      - type: paragraph
+        text: >-
+          Hubble's law becomes a distance tool only if the constant is calibrated. The
+          calibration proceeds in steps, which is why astronomers call it a distance
+          ladder. The first rung is parallax: Earth's orbit provides a baseline, and nearby
+          stars appear to shift against more distant stars as Earth moves.
+      - type: paragraph
+        text: >-
+          The next rung uses Cepheid variables. Henrietta Leavitt showed that the period of
+          a Cepheid's brightness variation is related to its intrinsic luminosity. Once
+          that relation is calibrated, a Cepheid's observed brightness reveals its
+          distance. Cepheids are bright enough to be seen in nearby galaxies, so they link
+          the parallax scale to extragalactic distances.
+      - type: table
+        caption: Each rung of the distance ladder extends the reach of the previous one.
+        headers:
+          - Method
+          - Typical reach
+          - What it calibrates
+        rows:
+          - ["Stellar parallax", "Thousands of light-years", "Absolute distances to nearby stars"]
+          - ["Cepheid variables", "Tens of millions of light-years", "Distances to nearby galaxies"]
+          - ["Type Ia supernovae", "Billions of light-years", "Cosmic expansion history"]
+          - ["Cosmic microwave background", "The observable universe", "Expansion rate from early-universe physics"]
+      - type: paragraph
+        text: >-
+          Type Ia supernovae form the next rung. These explosions occur when a white dwarf
+          in a binary system gains enough mass to trigger a runaway thermonuclear
+          detonation. They are not identical, but their peak brightness can be standardized
+          by studying how quickly they fade. That makes them visible across billions of
+          light-years, far beyond the reach of Cepheids.
+      - type: paragraph
+        text: >-
+          Modern measurements put the Hubble constant near 70 kilometers per second per
+          megaparsec, with a spread of several units depending on the method. A galaxy at
+          100 megaparsecs recedes at about 7,000 kilometers per second. A galaxy twice as
+          far away recedes at about twice that speed. The linear relation is the signature
+          of a uniform expansion.
+
+  - heading: Why the Expansion Is Accelerating
+    blocks:
+      - type: paragraph
+        text: >-
+          For decades, astronomers expected the expansion to slow down. Gravity pulls
+          matter together, so the mutual attraction of galaxies should brake the expansion
+          over time. In the late 1990s, two teams used distant Type Ia supernovae to test
+          that expectation. They found that the most distant supernovae were fainter than
+          they would be in a decelerating universe.
+      - type: paragraph
+        text: >-
+          The interpretation is that the expansion has been speeding up, not slowing down.
+          The effect is small in the nearby universe and becomes more pronounced at large
+          distances, where the light was emitted billions of years ago. The discovery was
+          awarded the 2011 Nobel Prize in Physics and forced cosmology to accept a
+          component that behaves like a repulsive force on large scales.
+      - type: paragraph
+        text: >-
+          That component is called dark energy. It is not a substance that has been
+          detected directly. It is inferred from its effect on the expansion rate and on
+          the geometry of the universe. In the standard cosmological model, dark energy
+          makes up roughly 68 percent of the present energy budget, dark matter about 27
+          percent, and ordinary matter only about 5 percent.
+      - type: callout
+        tone: note
+        title: Expansion is not a force inside galaxies
+        text: >-
+          Gravity holds individual galaxies and galaxy clusters together. The expansion
+          acts on the space between unbound systems, so a galaxy does not stretch with the
+          universe, and the Solar System does not expand.
+
+  - heading: The Hubble Tension
+    blocks:
+      - type: paragraph
+        text: >-
+          The Hubble constant can be measured in two broad ways. Local methods build the
+          distance ladder from Cepheids and Type Ia supernovae and measure the present
+          expansion rate directly. Early-universe methods use the cosmic microwave
+          background and a model of how the universe evolved, then infer the present rate.
+      - type: paragraph
+        text: >-
+          Local measurements tend to give values around 73 kilometers per second per
+          megaparsec. Cosmic-microwave-background measurements tend to give values around
+          67. The uncertainty on each is small enough that the two results do not comfortably
+          overlap. This disagreement is called the Hubble tension.
+      - type: paragraph
+        text: >-
+          The tension may come from an unidentified error in one of the measurements. It
+          may also point to new physics beyond the standard cosmological model, such as a
+          change in the behavior of dark energy or an extra component in the early
+          universe. For now, the honest statement is that the expansion rate is known to a
+          few percent, and the remaining disagreement is an active research problem.
+      - type: paragraph
+        text: >-
+          The tension does not cast doubt on the fact of expansion. Both methods agree that
+          the universe is expanding, and both fit the same broad picture. The dispute is
+          about the precise value of the rate and what that value implies for the contents
+          and history of the universe.
+
+  - heading: What Expansion Does and Does Not Mean
+    blocks:
+      - type: paragraph
+        text: >-
+          Expansion has no center and no edge. Imagine a grid of dots on a stretching sheet.
+          Every dot moves away from every other dot, and an observer on any dot sees the
+          same pattern. The universe is not expanding into empty space outside itself.
+          Distances between unbound objects are increasing, and the scale factor that
+          describes those distances grows with time.
+      - type: paragraph
+        text: >-
+          The expansion does not stretch atoms, planets, stars, or galaxies. Those systems
+          are held together by electromagnetic, strong, and gravitational forces that are
+          far stronger than the cosmic expansion on small scales. A ruler in a laboratory
+          keeps its length. A galaxy keeps its size. The expansion is visible only when we
+          compare widely separated, gravitationally unbound systems.
+      - type: paragraph
+        text: >-
+          The Hubble constant is also not constant in time. It is constant across space at
+          any given moment, in a uniformly expanding universe, but its value changes as the
+          universe evolves. That is why distant measurements require a cosmological model
+          rather than a simple multiplication. The expansion history encodes how much
+          matter, radiation, and dark energy the universe contains.
+      - type: paragraph
+        text: >-
+          The expanding universe also implies a beginning. If we run the expansion backward,
+          distances shrink and the universe becomes hotter and denser. That hot, dense state
+          is what we call the Big Bang. It was not an explosion into preexisting space. It
+          was the early state of the space we inhabit, and its afterglow is the cosmic
+          microwave background we observe today.
+misconceptions:
+  - claim: The universe expands because galaxies are flying away from a central explosion point.
+    correction: >-
+      The expansion has no center. Space itself stretches between unbound systems, so
+      observers in any galaxy see distant galaxies receding. The Big Bang was not an
+      explosion into preexisting space but the early hot, dense state of space itself.
+  - claim: Redshift proves that galaxies are moving through space at high speed.
+    correction: >-
+      Cosmological redshift is primarily a stretching of light by the expansion of space.
+      Local Doppler motion exists, but for distant galaxies the cosmological component
+      dominates. A recession velocity derived from Hubble's law is not a speed through
+      space in the ordinary sense.
+  - claim: Because the universe is expanding, atoms and galaxies are expanding too.
+    correction: >-
+      Bound systems do not expand with the universe. Electromagnetic and gravitational
+      forces hold atoms, planets, stars, and galaxies at fixed sizes. The expansion acts on
+      the space between gravitationally unbound systems.
+  - claim: The Hubble constant is a true constant in time.
+    correction: >-
+      The Hubble constant is the present-day expansion rate. It is approximately the same
+      everywhere at a given cosmic time, but it changes as the universe evolves. Its
+      variation with time is central to measuring the age and composition of the universe.
+sources:
+  - id: nasa-cosmological-redshift
+    title: Hubble Cosmological Redshift
+    publisher: NASA Science
+    url: https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-cosmological-redshift/
+    kind: agency
+    accessed_at: 2026-11-14
+  - id: nasa-hubble-tension
+    title: Hubble Constant and Tension
+    publisher: NASA Science
+    url: https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-constant-and-tension/
+    kind: agency
+    accessed_at: 2026-11-14
+  - id: openstax-expanding-universe
+    title: 'Astronomy 2e, 26.5 The Expanding Universe'
+    publisher: OpenStax
+    url: https://openstax.org/books/astronomy-2e/pages/26-5-the-expanding-universe
+    kind: textbook
+    accessed_at: 2026-11-14
+  - id: hubble-1929
+    title: A relation between distance and radial velocity among extra-galactic nebulae
+    publisher: Proceedings of the National Academy of Sciences
+    url: https://doi.org/10.1073/pnas.15.3.168
+    kind: peer_reviewed
+    doi: 10.1073/pnas.15.3.168
+    published_at: 1929-03-15
+    accessed_at: 2026-11-14
+related: []
+aliases:
+  - evidence for the expanding universe
+  - Hubble's law explained
+  - cosmological redshift
+distinct_from: []
+provenance:
+  authored_by: Astrion editorial
+  fact_basis: peer_reviewed
+  reviewed_at: 2026-11-14
+  review_status: draft
+  notes: Drafted for editorial review. Confirm the Hubble constant values and tension wording before approval.
+priority: 4
+evergreen: true
+notes: ""
