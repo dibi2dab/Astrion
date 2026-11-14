@@ -10,9 +10,11 @@ from .conftest import topic_payload
 
 def test_sample_modules_load(topics):
     ids = {topic.id for topic in topics}
-    assert ids == {"math.division-by-zero", "physics.rayleigh-scattering-sky"}
-    assert all(topic.status == "active" for topic in topics)
-    assert all(topic.provenance.review_status == "approved" for topic in topics)
+    assert {"math.division-by-zero", "physics.rayleigh-scattering-sky"} <= ids
+    assert len(ids) == len(topics)
+    active = [topic for topic in topics if topic.status == "active"]
+    assert active
+    assert all(topic.provenance.review_status == "approved" for topic in active)
 
 
 def test_english_only_field_rejects_hangul(topics):

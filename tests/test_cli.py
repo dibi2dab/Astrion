@@ -38,7 +38,7 @@ def test_validate_json_command(tmp_path, capsys):
     project = make_project(tmp_path)
     assert main(["--root", str(project), "validate", "--json"]) == 0
     payload = json.loads(capsys.readouterr().out)
-    assert payload["topics"] == 2
+    assert payload["topics"] >= 2
     assert payload["errors"] == 0
 
 

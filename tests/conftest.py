@@ -34,7 +34,22 @@ def settings(tmp_path: Path) -> Settings:
 
 @pytest.fixture
 def loaded() -> list[LoadedTopic]:
-    return load_topics(CONTENT_DIR)
+    """Load every module with the long-standing seed topics first.
+
+    Several tests use ``topics[0]`` and ``topics[1]`` as stable examples. New
+    draft modules must not change which topics those indexes refer to, so the
+    seed modules keep a fixed position and everything else follows by id.
+    """
+
+    seed_order = ("math.division-by-zero", "physics.rayleigh-scattering-sky")
+
+    def order(item: LoadedTopic) -> tuple[int, str]:
+        topic_id = item.topic.id
+        if topic_id in seed_order:
+            return (seed_order.index(topic_id), topic_id)
+        return (len(seed_order), topic_id)
+
+    return sorted(load_topics(CONTENT_DIR), key=order)
 
 
 @pytest.fixture
