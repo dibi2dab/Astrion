@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-16T03:18:43+00:00",
+  "updated_at": "2026-11-16T03:45:14+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -198,7 +198,64 @@
       ]
     }
   ],
-  "pending": [],
+  "pending": [
+    {
+      "queue_id": "2026-11-16-s1-why-is-the-halting-problem-undecidable",
+      "topic_id": "computing.halting-problem",
+      "title": "Why Is the Halting Problem Undecidable?",
+      "main_category": "Computing & Formal Sciences",
+      "content_type": "mathematics-explained",
+      "publish_date": "2026-11-16",
+      "publish_after": "2026-11-16T08:30:00-05:00",
+      "slot": 0,
+      "status": "queued",
+      "built_at": "2026-11-16T03:45:14+00:00",
+      "quality_score": 100.0,
+      "attempts": 0,
+      "signature": "Why can no algorithm decide, for every possible program and input, whether that program eventually halts? The definition of a Turing machine, the assumption of a halting decider, the diagonal construction that derives a contradiction from that assumption, and what undecidability does and does not imply in practice. A universal halting decider would allow a program to ask what the decider says about itself and then do the opposite, producing a contradiction; since the construction is valid for any candidate decider, no such decider can exist.",
+      "fingerprint": "69a945684a54ca9e84e0cf635df9a0350ae7bfaeeb978641a648e1b8b13c8f8d",
+      "primary_keyword": "why is the halting problem undecidable",
+      "aliases": [
+        "halting problem proof",
+        "undecidability of halting",
+        "Turing halting theorem"
+      ],
+      "labels": [
+        "Computing & Formal Sciences",
+        "Computability",
+        "Logic",
+        "Algorithms"
+      ]
+    },
+    {
+      "queue_id": "2026-11-16-s2-why-do-earthquakes-happen-where-they-do",
+      "topic_id": "earth.earthquakes-plate-boundaries",
+      "title": "Why Do Earthquakes Happen Where They Do?",
+      "main_category": "Earth & Natural Sciences",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-16",
+      "publish_after": "2026-11-16T15:30:00-05:00",
+      "slot": 1,
+      "status": "queued",
+      "built_at": "2026-11-16T03:45:14+00:00",
+      "quality_score": 100.0,
+      "attempts": 0,
+      "signature": "Why are earthquakes concentrated along plate boundaries rather than spread evenly across the planet, and what makes the rock there fail? The geometry of tectonic plates, the difference between divergent, convergent, and transform boundaries, the elastic rebound cycle that stores and releases strain, and the reasons subduction zones produce the largest earthquakes and tsunamis. Earthquakes occur where moving plates lock against one another and elastic strain accumulates in brittle rock; when the stress exceeds friction and strength, the rock slips suddenly and radiates seismic waves.",
+      "fingerprint": "bdd07d604d0614add485e947c590602b90b22953b7be5771ee88a6346ce970b4",
+      "primary_keyword": "why do earthquakes happen",
+      "aliases": [
+        "why earthquakes happen",
+        "earthquake locations",
+        "plate boundary earthquakes"
+      ],
+      "labels": [
+        "Earth & Natural Sciences",
+        "Seismology",
+        "Plate Tectonics",
+        "Geophysics"
+      ]
+    }
+  ],
   "failed": [],
   "builds": [
     {
@@ -208,6 +265,15 @@
       "queue_ids": [
         "2026-11-10-s1-why-dividing-by-zero-is-undefined",
         "2026-11-10-s2-why-the-sky-is-blue-rayleigh-scattering-explained"
+      ]
+    },
+    {
+      "build_id": "2026-11-16-20261116T034514+0000",
+      "created_at": "2026-11-16T03:45:14+00:00",
+      "publish_date": "2026-11-16",
+      "queue_ids": [
+        "2026-11-16-s1-why-is-the-halting-problem-undecidable",
+        "2026-11-16-s2-why-do-earthquakes-happen-where-they-do"
       ]
     }
   ]
