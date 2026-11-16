@@ -39,9 +39,9 @@ blogger:
   backend: web
   blog_id: "7103426249941439830"
   blog_url: "https://sciencew1thoutlimits.blogspot.com/"
-  # Keep drafts until the publish workflow has been verified end to end.
-  # Flip to false only after a manual live publish test succeeds.
-  is_draft: true
+  # Live publication was verified end to end on 2026-11-16 (five reviewed
+  # drafts published in place). Set back to true to stage new posts as drafts.
+  is_draft: false
   max_secondary_labels: 4
   web:
     # The saved session is materialized from the BLOGGER_STORAGE_STATE secret

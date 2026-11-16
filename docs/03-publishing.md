@@ -154,7 +154,7 @@ contract: unchanged
 
 ### 6.2 초안 발행
 
-`config/astrion.yaml`의 기본값은 `blogger.is_draft: true`입니다.
+초안 모드는 웹 발행 경로를 다시 검증할 때 사용합니다. `config/astrion.yaml`에서 `blogger.is_draft: true`로 설정합니다.
 
 ```yaml
 blogger:
@@ -194,7 +194,7 @@ python -m astrion publish --due --max 1
 
 ### 6.3 라이브 전환
 
-초안 검증이 끝난 뒤에만 다음을 수행합니다.
+초안 검증이 끝난 뒤에만 다음을 수행합니다. **2026-11-16에 완료되었습니다**(검토된 초안 5편 in-place 공개, 중복 0).
 
 1. `config/astrion.yaml`에서 `is_draft: false`로 변경합니다.
 2. 변경을 커밋합니다.

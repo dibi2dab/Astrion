@@ -4,7 +4,7 @@ Astrion은 수학·과학 주제를 **사람이 선별·검수한 콘텐츠 모�
 
 현재 발행 경로는 **저장된 Google 브라우저 세션으로 Blogger 웹 에디터를 직접 조작하는 방식**(Playwright)입니다. Blogger API OAuth 앱이 Google의 "Testing" 상태에 머물러 refresh token이 7일마다 만료되는 문제를 피하기 위해서입니다. API 클라이언트는 명시적 fallback(`blogger.backend: api`)으로 남아 있습니다.
 
-운영 발행은 `blogger.is_draft: true`(초안 모드)를 기본값으로 두고, 웹 발행 경로를 검증한 뒤 라이브로 전환합니다.
+운영 발행은 웹 발행 경로 검증을 마친 뒤 라이브 모드(`blogger.is_draft: false`)로 전환되었습니다. 문제가 생기면 `is_draft: true`로 되돌려 초안 모드로 안전하게 검증할 수 있습니다.
 
 ## 핵심 원칙
 
@@ -143,7 +143,7 @@ BLOGGER_REFRESH_TOKEN
 
 ## 안전 기본값
 
-- `config/astrion.yaml`의 `blogger.is_draft: true`
+- `config/astrion.yaml`의 `blogger.is_draft: false` (라이브 발행, 2026-11-16 검증 완료). 문제 시 `true`로 되돌려 초안 모드로 전환
 - 하루 발행 수 `site.posts_per_day: 2`
 - 발행 슬롯 `08:30`, `15:30` America/New_York
 - 한 실행 최대 1개(`blogger.max_per_run: 1`)
@@ -159,7 +159,7 @@ BLOGGER_REFRESH_TOKEN
 - **세션은 Google 정책에 따라 만료될 수 있습니다.** `BLOGGER_STORAGE_STATE`가 만료되면 `npm run login`으로 다시 저장해야 합니다. 비밀번호/2FA 자동화는 하지 않습니다.
 - **Blogger는 게시물의 검색 설명(meta description)을 API로 설정하지 못합니다.** `meta_description`은 큐와 품질 검사에는 쓰이지만 Blogger에는 전송되지 않습니다. 테마 또는 편집기에서 별도로 설정해야 합니다.
 - 이미지 업로드/배치 블록은 아직 없습니다. 현재 콘텐츠 블록은 문단, 수식, 표, 목록, 콜아웃, 예제입니다.
-- `blogger.is_draft: true`에서 발행한 글은 Blogger에 초안으로 남습니다. 자동으로 공개되지 않으므로 검증 기간에는 소량만 사용하십시오.
+- `blogger.is_draft: true`에서 발행한 글은 Blogger에 초안으로 남습니다. 자동으로 공개되지 않으므로 초안 검증 기간에만 사용하십시오. 현재 운영 기본값은 `false`입니다.
 - `related` 링크는 대상 주제가 이미 발행되어 URL이 상태에 기록된 경우에만 렌더링됩니다.
 - API fallback(`blogger.backend: api`)은 OAuth 앱이 Testing 상태이면 refresh token이 7일 후 만료됩니다.
 

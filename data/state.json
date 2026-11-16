@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-14T05:33:40+00:00",
+  "updated_at": "2026-11-16T03:18:43+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -55,6 +55,146 @@
         "blue sky",
         "rayleigh scattering",
         "sky color"
+      ]
+    },
+    {
+      "queue_id": "2026-11-15-s1-why-does-ice-float-on-water",
+      "topic_id": "chemistry.ice-floats-water",
+      "title": "Why Does Ice Float on Water?",
+      "main_category": "Chemistry",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-15",
+      "slot": 0,
+      "blogger_post_id": "7954783153677680206",
+      "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/why-does-ice-float-on-water.html",
+      "blogger_status": "live",
+      "published_at": "2026-11-16T03:17:40.707Z",
+      "quality_score": 100.0,
+      "labels": [
+        "Chemistry",
+        "Water",
+        "Physical Chemistry",
+        "Hydrogen Bonding"
+      ],
+      "signature": "Why is solid water less dense than liquid water, and what does that anomaly imply for natural bodies of water? The molecular geometry of the water molecule, the open hydrogen-bonded lattice of ice, the density maximum of liquid water near 4 °C, and the ecological consequences of ice floating instead of sinking. Water molecules can donate and accept hydrogen bonds in four directions, so freezing locks them into an open tetrahedral network that occupies more volume than the liquid; density, not molecular weight, decides whether ice floats.",
+      "fingerprint": "d327801f1f395fa0ae53129c0053bbafc62e6f324f4174f1dfa6a3504cd8c16d",
+      "primary_keyword": "why does ice float on water",
+      "aliases": [
+        "why ice floats",
+        "ice density",
+        "density anomaly of water"
+      ]
+    },
+    {
+      "queue_id": "2026-11-15-s2-how-does-crispr-cas9-find-its-target",
+      "topic_id": "biology.crispr-cas9-target-search",
+      "title": "How Does CRISPR-Cas9 Find Its Target?",
+      "main_category": "Biology & Life Sciences",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-15",
+      "slot": 1,
+      "blogger_post_id": "6722104267833656037",
+      "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/how-does-crispr-cas9-find-its-target.html",
+      "blogger_status": "live",
+      "published_at": "2026-11-16T03:17:56.361Z",
+      "quality_score": 100.0,
+      "labels": [
+        "Biology & Life Sciences",
+        "Genetics",
+        "Molecular Biology",
+        "Genome Editing"
+      ],
+      "signature": "How does the Cas9 protein use a guide RNA and a PAM sequence to locate a specific DNA site, and why does the search sometimes accept the wrong one? The roles of the guide RNA spacer, the PAM, local DNA unwinding, seed-first proofreading, nuclease activation, and the kinetic and structural reasons off-target sites can still be cut. Cas9 narrows the search with a short PAM, tests candidate sites by unwinding the duplex, and activates its scissors only after sufficient guide complementarity, so target recognition is a staged kinetic proofread rather than a single exact string match.",
+      "fingerprint": "0f0504bf38aa365daefde7bacd6072eb35778fc61ab3c67f9ca79411d244bbd8",
+      "primary_keyword": "how does CRISPR-Cas9 find its target",
+      "aliases": [
+        "CRISPR target search",
+        "Cas9 specificity",
+        "guide RNA matching"
+      ]
+    },
+    {
+      "queue_id": "2026-11-15-s3-why-does-the-moon-always-show-the-same-face",
+      "topic_id": "space.moon-tidal-locking",
+      "title": "Why Does the Moon Always Show the Same Face?",
+      "main_category": "Space & Astronomy",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-15",
+      "slot": 2,
+      "blogger_post_id": "7167520522461854485",
+      "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/why-does-moon-always-show-same-face.html",
+      "blogger_status": "live",
+      "published_at": "2026-11-16T03:18:12.809Z",
+      "quality_score": 100.0,
+      "labels": [
+        "Space & Astronomy",
+        "Moon",
+        "Tidal Locking",
+        "Orbital Dynamics"
+      ],
+      "signature": "How does tidal friction force a moon to rotate once per orbit, and why does the resulting lock still let us see more than half of the lunar surface? The difference between rotation and orbital motion, the tidal bulge raised by Earth, the torque that slows the Moon's spin, the energy budget that makes the lock stable, and the librations that reveal about 59 percent of the lunar surface. Earth's gravity stretches the Moon, and the lagging tidal bulge exerts a torque that drains rotational energy until the Moon's spin period equals its orbital period; at that point the bulge points steadily at Earth and the torque vanishes.",
+      "fingerprint": "dde2605b66fd20f98f82229a68d3660e8c027566437b2ebaba087b21b84a57a9",
+      "primary_keyword": "why does the moon always show the same face",
+      "aliases": [
+        "why the moon shows one face",
+        "synchronous rotation of the moon",
+        "lunar tidal locking"
+      ]
+    },
+    {
+      "queue_id": "2026-11-15-s4-how-do-we-know-the-universe-is-expanding",
+      "topic_id": "space.expanding-universe-hubble-law",
+      "title": "How Do We Know the Universe Is Expanding?",
+      "main_category": "Space & Astronomy",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-15",
+      "slot": 3,
+      "blogger_post_id": "4747449702188286926",
+      "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/how-do-we-know-universe-is-expanding.html",
+      "blogger_status": "live",
+      "published_at": "2026-11-16T03:18:28.315Z",
+      "quality_score": 100.0,
+      "labels": [
+        "Space & Astronomy",
+        "Cosmology",
+        "Hubble's Law",
+        "Redshift"
+      ],
+      "signature": "What observations show that the universe is expanding, and how do redshift and the distance ladder turn that expansion into a measurable rate? The meaning of cosmological redshift, the distance ladder used to calibrate Hubble's law, the difference between expansion and motion through space, the discovery of accelerating expansion, and the current Hubble tension. Space itself stretches between gravitationally bound systems, so light from distant galaxies arrives with longer wavelengths and a recession speed proportional to distance; the proportionality constant is the Hubble constant, and its change over time encodes the universe's matter, radiation, and dark-energy content.",
+      "fingerprint": "4bf3da0213b8ffe4ab9aedf8f2b23d41ce8835ddc5031ed25e1f4dd2690be47f",
+      "primary_keyword": "how do we know the universe is expanding",
+      "aliases": [
+        "evidence for the expanding universe",
+        "Hubble's law explained",
+        "cosmological redshift"
+      ]
+    },
+    {
+      "queue_id": "2026-11-15-s5-where-do-the-elements-come-from",
+      "topic_id": "space.origin-of-elements",
+      "title": "Where Do the Elements Come From?",
+      "main_category": "Space & Astronomy",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-15",
+      "slot": 4,
+      "blogger_post_id": "2275584700548399072",
+      "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/where-do-elements-come-from.html",
+      "blogger_status": "live",
+      "published_at": "2026-11-16T03:18:43.158Z",
+      "quality_score": 100.0,
+      "labels": [
+        "Space & Astronomy",
+        "Nucleosynthesis",
+        "Stars",
+        "Stellar Evolution"
+      ],
+      "signature": "Which processes produced the elements, and how do astronomers know which elements came from the Big Bang, which came from ordinary stars, and which required explosions? Big Bang nucleosynthesis, hydrogen and helium fusion in stars, the triple-alpha process, the onion-shell burning of massive stars, the iron endpoint, and the neutron-capture processes that make elements heavier than iron. Fusion releases energy only until the iron peak, so stars build elements up to iron in their cores and release the rest through supernovae and neutron-star mergers, where rapid neutron capture can assemble the heaviest nuclei.",
+      "fingerprint": "23dc22a4e806c3764caa3c45be2b38e9cdd8176949a9f4d154fc6b377eec869c",
+      "primary_keyword": "where do the elements come from",
+      "aliases": [
+        "origin of the elements",
+        "stellar nucleosynthesis",
+        "how elements are made"
       ]
     }
   ],

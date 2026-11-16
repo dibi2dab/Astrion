@@ -1,6 +1,6 @@
 schema: astrion.topic/v1
 id: space.origin-of-elements
-status: draft
+status: active
 content_type: science-explained
 main_category: Space & Astronomy
 labels:
@@ -301,7 +301,7 @@ provenance:
   authored_by: Astrion editorial
   fact_basis: peer_reviewed
   reviewed_at: 2026-11-14
-  review_status: draft
+  review_status: approved
   notes: Drafted for editorial review. Confirm the r-process sites, abundance values, and B2FH attribution before approval.
 priority: 4
 evergreen: true

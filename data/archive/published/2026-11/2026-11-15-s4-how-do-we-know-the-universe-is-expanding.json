@@ -1,0 +1,153 @@
+{
+  "schema": "astrion.queue/v1",
+  "queue_id": "2026-11-15-s4-how-do-we-know-the-universe-is-expanding",
+  "topic_id": "space.expanding-universe-hubble-law",
+  "status": "published",
+  "created_at": "2026-11-16T03:16:51+00:00",
+  "publish_date": "2026-11-15",
+  "publish_after": "2026-11-15T22:22:51-05:00",
+  "slot": 3,
+  "blogger": {
+    "is_draft": false,
+    "labels": [
+      "Space & Astronomy",
+      "Cosmology",
+      "Hubble's Law",
+      "Redshift"
+    ]
+  },
+  "post": {
+    "title": "How Do We Know the Universe Is Expanding?",
+    "html": "<div class=\"astrion-post\" data-astrion-topic=\"space.expanding-universe-hubble-law\" data-astrion-queue=\"2026-11-16-s4-how-do-we-know-the-universe-is-expanding\">\n<style>\n.astrion-post {\n  --a-ink: #16202b;\n  --a-muted: #5b6875;\n  --a-line: #dfe5ec;\n  --a-accent: #1f6feb;\n  --a-bg: #f6f9fd;\n  max-width: 760px;\n  margin: 0 auto;\n  color: var(--a-ink);\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n  font-size: 1.06rem;\n  line-height: 1.75;\n  overflow-wrap: break-word;\n}\n.astrion-post p { margin: 0 0 1.15em; }\n.astrion-kicker { margin: 0 0 0.6em; color: var(--a-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }\n.astrion-lead { color: #25313d; font-size: 1.17rem; line-height: 1.7; }\n.astrion-reading-time { margin: 0 0 1.9em; color: var(--a-muted); font-size: 0.86rem; }\n.astrion-key-takeaways { margin: 1.9em 0; padding: 1.1rem 1.25rem; background: var(--a-bg); border-left: 4px solid var(--a-accent); border-radius: 0 8px 8px 0; }\n.astrion-key-takeaways h2 { margin: 0 0 0.45rem; font-size: 1rem; letter-spacing: 0.02em; }\n.astrion-key-takeaways ul { margin: 0; padding-left: 1.25rem; }\n.astrion-key-takeaways li { margin: 0.3rem 0; }\n.astrion-section h2 { margin: 2.1em 0 0.7em; font-size: 1.45rem; line-height: 1.3; }\n.astrion-section h3 { margin: 1.6em 0 0.5em; font-size: 1.14rem; line-height: 1.4; }\n.astrion-math { padding: 0.35rem 0; overflow-x: auto; overflow-y: hidden; text-align: center; }\n.astrion-math-inline { text-align: left; }\n.astrion-figure { margin: 1.5em 0; }\n.astrion-figure figcaption, .astrion-equation-caption { margin-top: 0.45rem; color: var(--a-muted); font-size: 0.86rem; text-align: center; }\n.astrion-equation { margin: 1.5em 0; padding: 1rem 1.1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-equation .astrion-math { font-size: 1.08rem; }\n.astrion-vars { display: grid; grid-template-columns: minmax(2.5rem, auto) 1fr; gap: 0.35rem 0.8rem; margin: 0.85rem 0 0; font-size: 0.93rem; }\n.astrion-vars dt { font-family: ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", monospace; font-weight: 700; }\n.astrion-vars dd { margin: 0; color: var(--a-muted); }\n.astrion-table-wrap { margin: 1.5em 0; overflow-x: auto; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 0.95rem; }\n.astrion-table caption { padding: 0.75rem 0.9rem; color: var(--a-ink); font-size: 0.88rem; font-weight: 700; text-align: left; }\n.astrion-table th, .astrion-table td { padding: 0.6rem 0.85rem; border-top: 1px solid var(--a-line); text-align: left; vertical-align: top; }\n.astrion-table thead th { background: #f7f9fc; font-size: 0.8rem; letter-spacing: 0.03em; text-transform: uppercase; }\n.astrion-list { margin: 0 0 1.25em; padding-left: 1.35rem; }\n.astrion-list li { margin: 0.35rem 0; }\n.astrion-callout { margin: 1.5em 0; padding: 0.9rem 1.1rem; background: #f8fafc; border-left: 4px solid #8a94a6; border-radius: 0 6px 6px 0; }\n.astrion-callout--key { background: #f2f7ff; border-color: var(--a-accent); }\n.astrion-callout--warning { background: #fff9ec; border-color: #c47f17; }\n.astrion-callout-title { margin: 0 0 0.35rem; font-weight: 700; }\n.astrion-callout p:last-child { margin-bottom: 0; }\n.astrion-example { margin: 1.5em 0; padding: 1rem 1.1rem; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-example h3 { margin-top: 0; }\n.astrion-example ol { margin-bottom: 0; padding-left: 1.35rem; }\n.astrion-misconceptions, .astrion-sources, .astrion-related { margin-top: 2.3em; }\n.astrion-misconceptions h2, .astrion-sources h2, .astrion-related h2 { margin: 0 0 0.7em; font-size: 1.3rem; line-height: 1.35; }\n.astrion-misconception { margin: 0 0 1.1em; padding: 0.85rem 1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-misconception p { margin: 0; }\n.astrion-misconception-claim { margin-bottom: 0.35rem !important; font-weight: 700; }\n.astrion-sources ol { margin: 0; padding-left: 1.35rem; }\n.astrion-sources li { margin: 0.55em 0; font-size: 0.94rem; }\n.astrion-sources a, .astrion-related a { color: var(--a-accent); text-decoration: none; }\n.astrion-source-meta { display: block; color: var(--a-muted); font-size: 0.84rem; }\n.astrion-related ul { margin: 0; padding-left: 1.25rem; }\n.astrion-related li { margin: 0.4em 0; }\n.astrion-post-meta { margin: 2.4em 0 0; padding-top: 1rem; border-top: 1px solid var(--a-line); color: var(--a-muted); font-size: 0.84rem; }\n@media (max-width: 600px) {\n  .astrion-post { font-size: 1rem; }\n  .astrion-section h2 { font-size: 1.3rem; }\n  .astrion-table { min-width: 360px; }\n  .astrion-vars { grid-template-columns: 1fr; gap: 0.1rem; }\n  .astrion-vars dd { margin-bottom: 0.5rem; }\n}\n</style>\n\n<p class=\"astrion-kicker\">Space & Astronomy</p>\n<p>How do we know the universe is expanding? The evidence is not a single photograph of galaxies flying apart. It is a pattern that appears in spectra, distances, and brightness measurements taken across billions of light-years. Almost every distant galaxy shows its light shifted toward longer, redder wavelengths. The farther a galaxy is, the larger that shift tends to be. When astronomers compare those shifts with independently measured distances, they find a simple relationship: recession speed is proportional to distance. That relationship is Hubble&#x27;s law, and it is the foundation of modern cosmology.</p>\n<p class=\"astrion-reading-time\">8 min read</p>\n\n<aside class=\"astrion-key-takeaways\">\n  <h2>Key takeaways</h2>\n  <ul>\n    <li>Distant galaxies show cosmological redshift because the space their light crosses is stretching.</li>\n    <li>Hubble's law relates recession speed to distance, with a constant of about 70 kilometers per second per megaparsec.</li>\n    <li>The distance ladder combines parallax, Cepheid variables, and Type Ia supernovae to calibrate the law.</li>\n    <li>Observations of distant supernovae revealed that the expansion is accelerating, which is attributed to dark energy.</li>\n    <li>The universe has no expansion center; every observer sees distant galaxies receding.</li>\n  </ul>\n</aside>\n\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-1-the-observation-galaxies-recede\">The Observation: Galaxies Recede</h2>\n  <p>In the 1910s and 1920s, Vesto Slipher photographed the spectra of spiral nebulae and found that most of their spectral lines were shifted toward the red end of the spectrum. At the time, no one knew that these nebulae were separate galaxies. The redshifts were large, and most of them pointed to motion away from Earth. A few nearby objects, including the Andromeda Galaxy, showed blueshift instead.</p>\n<p>Edwin Hubble then measured distances to galaxies using Cepheid variable stars, which brighten and dim in a regular way. In 1929 he compared those distances with recession velocities and found that the two quantities were related. The farther a galaxy was, the faster it appeared to recede. Hubble and Milton Humason extended the measurements in 1931 to much fainter galaxies and confirmed the trend.</p>\n<p>The relationship is written as a simple proportionality. The constant of proportionality is called the Hubble constant, usually given the symbol H0. It is not a speed. It is a rate with units of kilometers per second per megaparsec, where one megaparsec is about 3.26 million light-years.</p>\n<div class=\"astrion-equation\">\n  <div class=\"astrion-math\">\\[v = H_{0} d\\]</div>\n  <dl class=\"astrion-vars\">\n      <dt>v</dt>\n      <dd>recession velocity inferred from redshift (kilometers per second)</dd>\n      <dt>H_{0}</dt>\n      <dd>Hubble constant at the present epoch (kilometers per second per megaparsec)</dd>\n      <dt>d</dt>\n      <dd>distance to the galaxy (megaparsecs)</dd>\n  </dl>\n  <figcaption class=\"astrion-equation-caption\">Hubble&#x27;s law states that recession velocity is proportional to distance.</figcaption>\n</div>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-2-redshift-is-stretching-not-just-motion\">Redshift Is Stretching, Not Just Motion</h2>\n  <p>It is tempting to interpret redshift as a Doppler shift caused by galaxies racing through space. That picture works as a local approximation, but it misses the global geometry. In general relativity, the universe can expand uniformly, and the space between distant galaxies stretches with it. A light wave traveling through that expanding space is stretched along with it. Its wavelength grows, so its color shifts toward red.</p>\n<div class=\"astrion-equation\">\n  <div class=\"astrion-math\">\\[1 + z = \\frac{\\lambda_{\\mathrm{obs}}}{\\lambda_{\\mathrm{emit}}} = \\frac{a_{\\mathrm{now}}}{a_{\\mathrm{then}}}\\]</div>\n  <dl class=\"astrion-vars\">\n      <dt>z</dt>\n      <dd>cosmological redshift (dimensionless)</dd>\n      <dt>\\lambda_{\\mathrm{obs}}</dt>\n      <dd>wavelength observed today (meters)</dd>\n      <dt>\\lambda_{\\mathrm{emit}}</dt>\n      <dd>wavelength emitted by the galaxy (meters)</dd>\n      <dt>a_{\\mathrm{now}}</dt>\n      <dd>scale factor of the universe today (dimensionless)</dd>\n      <dt>a_{\\mathrm{then}}</dt>\n      <dd>scale factor when the light was emitted (dimensionless)</dd>\n  </dl>\n  <figcaption class=\"astrion-equation-caption\">Redshift measures how much the universe has stretched while the light was in transit.</figcaption>\n</div>\n<p>This distinction matters for very distant galaxies. Their recession velocities can exceed the speed of light in the Hubble law without violating relativity, because the galaxies are not moving through space at that speed. The space between us and them is expanding. Local motion still exists, and nearby galaxies can move toward us, but cosmological redshift is a record of the expansion history.</p>\n<p>The cosmic microwave background provides an independent check. It is the afterglow of the hot, dense early universe, and it reaches us with a redshift of about 1,100. That means the universe has expanded by a factor of roughly 1,100 since the light was released. The same expansion that stretches visible light into infrared and microwave wavelengths also cools the radiation.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-3-hubble-s-law-and-the-distance-ladder\">Hubble&#x27;s Law and the Distance Ladder</h2>\n  <p>Hubble&#x27;s law becomes a distance tool only if the constant is calibrated. The calibration proceeds in steps, which is why astronomers call it a distance ladder. The first rung is parallax: Earth&#x27;s orbit provides a baseline, and nearby stars appear to shift against more distant stars as Earth moves.</p>\n<p>The next rung uses Cepheid variables. Henrietta Leavitt showed that the period of a Cepheid&#x27;s brightness variation is related to its intrinsic luminosity. Once that relation is calibrated, a Cepheid&#x27;s observed brightness reveals its distance. Cepheids are bright enough to be seen in nearby galaxies, so they link the parallax scale to extragalactic distances.</p>\n<div class=\"astrion-table-wrap\" role=\"region\" tabindex=\"0\" aria-label=\"Each rung of the distance ladder extends the reach of the previous one.\">\n  <table class=\"astrion-table\">\n    <caption>Each rung of the distance ladder extends the reach of the previous one.</caption>\n    <thead><tr><th scope=\"col\">Method</th><th scope=\"col\">Typical reach</th><th scope=\"col\">What it calibrates</th></tr></thead>\n    <tbody>\n      <tr><td>Stellar parallax</td><td>Thousands of light-years</td><td>Absolute distances to nearby stars</td></tr>\n      <tr><td>Cepheid variables</td><td>Tens of millions of light-years</td><td>Distances to nearby galaxies</td></tr>\n      <tr><td>Type Ia supernovae</td><td>Billions of light-years</td><td>Cosmic expansion history</td></tr>\n      <tr><td>Cosmic microwave background</td><td>The observable universe</td><td>Expansion rate from early-universe physics</td></tr>\n    </tbody>\n  </table>\n</div>\n<p>Type Ia supernovae form the next rung. These explosions occur when a white dwarf in a binary system gains enough mass to trigger a runaway thermonuclear detonation. They are not identical, but their peak brightness can be standardized by studying how quickly they fade. That makes them visible across billions of light-years, far beyond the reach of Cepheids.</p>\n<p>Modern measurements put the Hubble constant near 70 kilometers per second per megaparsec, with a spread of several units depending on the method. A galaxy at 100 megaparsecs recedes at about 7,000 kilometers per second. A galaxy twice as far away recedes at about twice that speed. The linear relation is the signature of a uniform expansion.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-4-why-the-expansion-is-accelerating\">Why the Expansion Is Accelerating</h2>\n  <p>For decades, astronomers expected the expansion to slow down. Gravity pulls matter together, so the mutual attraction of galaxies should brake the expansion over time. In the late 1990s, two teams used distant Type Ia supernovae to test that expectation. They found that the most distant supernovae were fainter than they would be in a decelerating universe.</p>\n<p>The interpretation is that the expansion has been speeding up, not slowing down. The effect is small in the nearby universe and becomes more pronounced at large distances, where the light was emitted billions of years ago. The discovery was awarded the 2011 Nobel Prize in Physics and forced cosmology to accept a component that behaves like a repulsive force on large scales.</p>\n<p>That component is called dark energy. It is not a substance that has been detected directly. It is inferred from its effect on the expansion rate and on the geometry of the universe. In the standard cosmological model, dark energy makes up roughly 68 percent of the present energy budget, dark matter about 27 percent, and ordinary matter only about 5 percent.</p>\n<aside class=\"astrion-callout astrion-callout--note\">\n  <p class=\"astrion-callout-title\">Expansion is not a force inside galaxies</p>\n<p>Gravity holds individual galaxies and galaxy clusters together. The expansion acts on the space between unbound systems, so a galaxy does not stretch with the universe, and the Solar System does not expand.</p>\n</aside>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-5-the-hubble-tension\">The Hubble Tension</h2>\n  <p>The Hubble constant can be measured in two broad ways. Local methods build the distance ladder from Cepheids and Type Ia supernovae and measure the present expansion rate directly. Early-universe methods use the cosmic microwave background and a model of how the universe evolved, then infer the present rate.</p>\n<p>Local measurements tend to give values around 73 kilometers per second per megaparsec. Cosmic-microwave-background measurements tend to give values around 67. The uncertainty on each is small enough that the two results do not comfortably overlap. This disagreement is called the Hubble tension.</p>\n<p>The tension may come from an unidentified error in one of the measurements. It may also point to new physics beyond the standard cosmological model, such as a change in the behavior of dark energy or an extra component in the early universe. For now, the honest statement is that the expansion rate is known to a few percent, and the remaining disagreement is an active research problem.</p>\n<p>The tension does not cast doubt on the fact of expansion. Both methods agree that the universe is expanding, and both fit the same broad picture. The dispute is about the precise value of the rate and what that value implies for the contents and history of the universe.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-6-what-expansion-does-and-does-not-mean\">What Expansion Does and Does Not Mean</h2>\n  <p>Expansion has no center and no edge. Imagine a grid of dots on a stretching sheet. Every dot moves away from every other dot, and an observer on any dot sees the same pattern. The universe is not expanding into empty space outside itself. Distances between unbound objects are increasing, and the scale factor that describes those distances grows with time.</p>\n<p>The expansion does not stretch atoms, planets, stars, or galaxies. Those systems are held together by electromagnetic, strong, and gravitational forces that are far stronger than the cosmic expansion on small scales. A ruler in a laboratory keeps its length. A galaxy keeps its size. The expansion is visible only when we compare widely separated, gravitationally unbound systems.</p>\n<p>The Hubble constant is also not constant in time. It is constant across space at any given moment, in a uniformly expanding universe, but its value changes as the universe evolves. That is why distant measurements require a cosmological model rather than a simple multiplication. The expansion history encodes how much matter, radiation, and dark energy the universe contains.</p>\n<p>The expanding universe also implies a beginning. If we run the expansion backward, distances shrink and the universe becomes hotter and denser. That hot, dense state is what we call the Big Bang. It was not an explosion into preexisting space. It was the early state of the space we inhabit, and its afterglow is the cosmic microwave background we observe today.</p>\n</section>\n\n<section class=\"astrion-misconceptions\">\n  <h2>Common misconceptions</h2>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">The universe expands because galaxies are flying away from a central explosion point.</p>\n    <p>The expansion has no center. Space itself stretches between unbound systems, so observers in any galaxy see distant galaxies receding. The Big Bang was not an explosion into preexisting space but the early hot, dense state of space itself.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Redshift proves that galaxies are moving through space at high speed.</p>\n    <p>Cosmological redshift is primarily a stretching of light by the expansion of space. Local Doppler motion exists, but for distant galaxies the cosmological component dominates. A recession velocity derived from Hubble's law is not a speed through space in the ordinary sense.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Because the universe is expanding, atoms and galaxies are expanding too.</p>\n    <p>Bound systems do not expand with the universe. Electromagnetic and gravitational forces hold atoms, planets, stars, and galaxies at fixed sizes. The expansion acts on the space between gravitationally unbound systems.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">The Hubble constant is a true constant in time.</p>\n    <p>The Hubble constant is the present-day expansion rate. It is approximately the same everywhere at a given cosmic time, but it changes as the universe evolves. Its variation with time is central to measuring the age and composition of the universe.</p>\n  </div>\n</section>\n\n<section class=\"astrion-sources\">\n  <h2>Sources</h2>\n  <ol>\n    <li>\n      <a href=\"https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-cosmological-redshift/\" target=\"_blank\" rel=\"noopener noreferrer\">Hubble Cosmological Redshift</a>\n      <span class=\"astrion-source-meta\">NASA Science, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-constant-and-tension/\" target=\"_blank\" rel=\"noopener noreferrer\">Hubble Constant and Tension</a>\n      <span class=\"astrion-source-meta\">NASA Science, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://openstax.org/books/astronomy-2e/pages/26-5-the-expanding-universe\" target=\"_blank\" rel=\"noopener noreferrer\">Astronomy 2e, 26.5 The Expanding Universe</a>\n      <span class=\"astrion-source-meta\">OpenStax, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://doi.org/10.1073/pnas.15.3.168\" target=\"_blank\" rel=\"noopener noreferrer\">A relation between distance and radial velocity among extra-galactic nebulae</a>\n      <span class=\"astrion-source-meta\">Proceedings of the National Academy of Sciences, 1929</span>\n    </li>\n  </ol>\n</section>\n\n\n\n<p class=\"astrion-post-meta\">Space & Astronomy · Cosmology · Hubble's Law · Redshift · Reviewed November 2026</p>\n\n<script>\nwindow.MathJax = {\n  tex: { inlineMath: [['\\\\(', '\\\\)']], displayMath: [['\\\\[', '\\\\]']] },\n  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },\n  svg: { fontCache: 'global' }\n};\n</script>\n<script async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>\n</div>",
+    "html_sha256": "60abef863d72a5c7942dc777a7f4c7a91b65f7defc428acc7a88ff5549753bfa",
+    "meta_description": "Cosmological redshift, Hubble's law, and standard candles show that galaxies recede as space stretches. The evidence now points to accelerating expansion.",
+    "primary_keyword": "how do we know the universe is expanding",
+    "content_type": "science-explained",
+    "main_category": "Space & Astronomy",
+    "slug": "how-do-we-know-the-universe-is-expanding"
+  },
+  "fingerprint": {
+    "signature": "What observations show that the universe is expanding, and how do redshift and the distance ladder turn that expansion into a measurable rate? The meaning of cosmological redshift, the distance ladder used to calibrate Hubble's law, the difference between expansion and motion through space, the discovery of accelerating expansion, and the current Hubble tension. Space itself stretches between gravitationally bound systems, so light from distant galaxies arrives with longer wavelengths and a recession speed proportional to distance; the proportionality constant is the Hubble constant, and its change over time encodes the universe's matter, radiation, and dark-energy content.",
+    "sha256": "4bf3da0213b8ffe4ab9aedf8f2b23d41ce8835ddc5031ed25e1f4dd2690be47f",
+    "topic_key": "space.expanding-universe-hubble-law",
+    "primary_keyword": "how do we know the universe is expanding",
+    "aliases": [
+      "evidence for the expanding universe",
+      "Hubble's law explained",
+      "cosmological redshift"
+    ]
+  },
+  "quality": {
+    "topic_id": "space.expanding-universe-hubble-law",
+    "score": 100.0,
+    "decision": "PUBLISH",
+    "breakdown": {
+      "accuracy_sources": 25.0,
+      "depth_explanation": 20.0,
+      "distinct_value": 20.0,
+      "readability": 15.0,
+      "notation": 10.0,
+      "blogger_html": 5.0,
+      "seo": 5.0
+    },
+    "fatal": [],
+    "warnings": [],
+    "metrics": {
+      "words": 1722,
+      "min_words": 700,
+      "sections": 6,
+      "paragraphs": 27,
+      "avg_paragraph_words": 55.6,
+      "avg_sentence_words": 15.4,
+      "words_per_section": 287.0,
+      "keyword_density": 0.0046,
+      "sources": 4,
+      "primary_sources": 3,
+      "labels": [
+        "Space & Astronomy",
+        "Cosmology",
+        "Hubble's Law",
+        "Redshift"
+      ],
+      "reading_minutes": 8,
+      "html_bytes": 20775,
+      "has_math": true,
+      "tables": 1,
+      "scripts": 2,
+      "links": 4
+    },
+    "conflicts": []
+  },
+  "review": {
+    "reviewed_at": "2026-11-14",
+    "review_status": "approved",
+    "fact_basis": "peer_reviewed",
+    "authored_by": "Astrion editorial"
+  },
+  "sources": [
+    {
+      "id": "nasa-cosmological-redshift",
+      "title": "Hubble Cosmological Redshift",
+      "publisher": "NASA Science",
+      "url": "https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-cosmological-redshift/",
+      "kind": "agency",
+      "published_at": null,
+      "accessed_at": "2026-11-14"
+    },
+    {
+      "id": "nasa-hubble-tension",
+      "title": "Hubble Constant and Tension",
+      "publisher": "NASA Science",
+      "url": "https://science.nasa.gov/mission/hubble/science/science-behind-the-discoveries/hubble-constant-and-tension/",
+      "kind": "agency",
+      "published_at": null,
+      "accessed_at": "2026-11-14"
+    },
+    {
+      "id": "openstax-expanding-universe",
+      "title": "Astronomy 2e, 26.5 The Expanding Universe",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/astronomy-2e/pages/26-5-the-expanding-universe",
+      "kind": "textbook",
+      "published_at": null,
+      "accessed_at": "2026-11-14"
+    },
+    {
+      "id": "hubble-1929",
+      "title": "A relation between distance and radial velocity among extra-galactic nebulae",
+      "publisher": "Proceedings of the National Academy of Sciences",
+      "url": "https://doi.org/10.1073/pnas.15.3.168",
+      "kind": "peer_reviewed",
+      "published_at": "1929-03-15",
+      "accessed_at": "2026-11-14"
+    }
+  ],
+  "publication": {
+    "queue_id": "2026-11-15-s4-how-do-we-know-the-universe-is-expanding",
+    "topic_id": "space.expanding-universe-hubble-law",
+    "title": "How Do We Know the Universe Is Expanding?",
+    "main_category": "Space & Astronomy",
+    "content_type": "science-explained",
+    "publish_date": "2026-11-15",
+    "slot": 3,
+    "blogger_post_id": "4747449702188286926",
+    "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/how-do-we-know-universe-is-expanding.html",
+    "blogger_status": "live",
+    "published_at": "2026-11-16T03:18:28.315Z",
+    "quality_score": 100.0,
+    "labels": [
+      "Space & Astronomy",
+      "Cosmology",
+      "Hubble's Law",
+      "Redshift"
+    ],
+    "signature": "What observations show that the universe is expanding, and how do redshift and the distance ladder turn that expansion into a measurable rate? The meaning of cosmological redshift, the distance ladder used to calibrate Hubble's law, the difference between expansion and motion through space, the discovery of accelerating expansion, and the current Hubble tension. Space itself stretches between gravitationally bound systems, so light from distant galaxies arrives with longer wavelengths and a recession speed proportional to distance; the proportionality constant is the Hubble constant, and its change over time encodes the universe's matter, radiation, and dark-energy content.",
+    "fingerprint": "4bf3da0213b8ffe4ab9aedf8f2b23d41ce8835ddc5031ed25e1f4dd2690be47f",
+    "primary_keyword": "how do we know the universe is expanding",
+    "aliases": [
+      "evidence for the expanding universe",
+      "Hubble's law explained",
+      "cosmological redshift"
+    ]
+  }
+}

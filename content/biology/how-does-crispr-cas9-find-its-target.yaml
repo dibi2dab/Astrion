@@ -1,6 +1,6 @@
 schema: astrion.topic/v1
 id: biology.crispr-cas9-target-search
-status: draft
+status: active
 content_type: science-explained
 main_category: Biology & Life Sciences
 labels:
@@ -258,7 +258,7 @@ provenance:
   authored_by: Astrion editorial
   fact_basis: peer_reviewed
   reviewed_at: 2026-11-14
-  review_status: draft
+  review_status: approved
   notes: Drafted for editorial review. Confirm the mechanism claims and source links before approval.
 priority: 4
 evergreen: true

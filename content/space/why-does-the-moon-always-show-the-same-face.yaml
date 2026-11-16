@@ -1,6 +1,6 @@
 schema: astrion.topic/v1
 id: space.moon-tidal-locking
-status: draft
+status: active
 content_type: science-explained
 main_category: Space & Astronomy
 labels:
@@ -288,7 +288,7 @@ provenance:
   authored_by: Astrion editorial
   fact_basis: peer_reviewed
   reviewed_at: 2026-11-14
-  review_status: draft
+  review_status: approved
   notes: Drafted for editorial review. Confirm the tidal torque explanation and recession rate before approval.
 priority: 4
 evergreen: true

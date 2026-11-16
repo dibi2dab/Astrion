@@ -1,0 +1,144 @@
+{
+  "schema": "astrion.queue/v1",
+  "queue_id": "2026-11-15-s3-why-does-the-moon-always-show-the-same-face",
+  "topic_id": "space.moon-tidal-locking",
+  "status": "published",
+  "created_at": "2026-11-16T03:16:51+00:00",
+  "publish_date": "2026-11-15",
+  "publish_after": "2026-11-15T22:20:51-05:00",
+  "slot": 2,
+  "blogger": {
+    "is_draft": false,
+    "labels": [
+      "Space & Astronomy",
+      "Moon",
+      "Tidal Locking",
+      "Orbital Dynamics"
+    ]
+  },
+  "post": {
+    "title": "Why Does the Moon Always Show the Same Face?",
+    "html": "<div class=\"astrion-post\" data-astrion-topic=\"space.moon-tidal-locking\" data-astrion-queue=\"2026-11-16-s3-why-does-the-moon-always-show-the-same-face\">\n<style>\n.astrion-post {\n  --a-ink: #16202b;\n  --a-muted: #5b6875;\n  --a-line: #dfe5ec;\n  --a-accent: #1f6feb;\n  --a-bg: #f6f9fd;\n  max-width: 760px;\n  margin: 0 auto;\n  color: var(--a-ink);\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n  font-size: 1.06rem;\n  line-height: 1.75;\n  overflow-wrap: break-word;\n}\n.astrion-post p { margin: 0 0 1.15em; }\n.astrion-kicker { margin: 0 0 0.6em; color: var(--a-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }\n.astrion-lead { color: #25313d; font-size: 1.17rem; line-height: 1.7; }\n.astrion-reading-time { margin: 0 0 1.9em; color: var(--a-muted); font-size: 0.86rem; }\n.astrion-key-takeaways { margin: 1.9em 0; padding: 1.1rem 1.25rem; background: var(--a-bg); border-left: 4px solid var(--a-accent); border-radius: 0 8px 8px 0; }\n.astrion-key-takeaways h2 { margin: 0 0 0.45rem; font-size: 1rem; letter-spacing: 0.02em; }\n.astrion-key-takeaways ul { margin: 0; padding-left: 1.25rem; }\n.astrion-key-takeaways li { margin: 0.3rem 0; }\n.astrion-section h2 { margin: 2.1em 0 0.7em; font-size: 1.45rem; line-height: 1.3; }\n.astrion-section h3 { margin: 1.6em 0 0.5em; font-size: 1.14rem; line-height: 1.4; }\n.astrion-math { padding: 0.35rem 0; overflow-x: auto; overflow-y: hidden; text-align: center; }\n.astrion-math-inline { text-align: left; }\n.astrion-figure { margin: 1.5em 0; }\n.astrion-figure figcaption, .astrion-equation-caption { margin-top: 0.45rem; color: var(--a-muted); font-size: 0.86rem; text-align: center; }\n.astrion-equation { margin: 1.5em 0; padding: 1rem 1.1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-equation .astrion-math { font-size: 1.08rem; }\n.astrion-vars { display: grid; grid-template-columns: minmax(2.5rem, auto) 1fr; gap: 0.35rem 0.8rem; margin: 0.85rem 0 0; font-size: 0.93rem; }\n.astrion-vars dt { font-family: ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", monospace; font-weight: 700; }\n.astrion-vars dd { margin: 0; color: var(--a-muted); }\n.astrion-table-wrap { margin: 1.5em 0; overflow-x: auto; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 0.95rem; }\n.astrion-table caption { padding: 0.75rem 0.9rem; color: var(--a-ink); font-size: 0.88rem; font-weight: 700; text-align: left; }\n.astrion-table th, .astrion-table td { padding: 0.6rem 0.85rem; border-top: 1px solid var(--a-line); text-align: left; vertical-align: top; }\n.astrion-table thead th { background: #f7f9fc; font-size: 0.8rem; letter-spacing: 0.03em; text-transform: uppercase; }\n.astrion-list { margin: 0 0 1.25em; padding-left: 1.35rem; }\n.astrion-list li { margin: 0.35rem 0; }\n.astrion-callout { margin: 1.5em 0; padding: 0.9rem 1.1rem; background: #f8fafc; border-left: 4px solid #8a94a6; border-radius: 0 6px 6px 0; }\n.astrion-callout--key { background: #f2f7ff; border-color: var(--a-accent); }\n.astrion-callout--warning { background: #fff9ec; border-color: #c47f17; }\n.astrion-callout-title { margin: 0 0 0.35rem; font-weight: 700; }\n.astrion-callout p:last-child { margin-bottom: 0; }\n.astrion-example { margin: 1.5em 0; padding: 1rem 1.1rem; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-example h3 { margin-top: 0; }\n.astrion-example ol { margin-bottom: 0; padding-left: 1.35rem; }\n.astrion-misconceptions, .astrion-sources, .astrion-related { margin-top: 2.3em; }\n.astrion-misconceptions h2, .astrion-sources h2, .astrion-related h2 { margin: 0 0 0.7em; font-size: 1.3rem; line-height: 1.35; }\n.astrion-misconception { margin: 0 0 1.1em; padding: 0.85rem 1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-misconception p { margin: 0; }\n.astrion-misconception-claim { margin-bottom: 0.35rem !important; font-weight: 700; }\n.astrion-sources ol { margin: 0; padding-left: 1.35rem; }\n.astrion-sources li { margin: 0.55em 0; font-size: 0.94rem; }\n.astrion-sources a, .astrion-related a { color: var(--a-accent); text-decoration: none; }\n.astrion-source-meta { display: block; color: var(--a-muted); font-size: 0.84rem; }\n.astrion-related ul { margin: 0; padding-left: 1.25rem; }\n.astrion-related li { margin: 0.4em 0; }\n.astrion-post-meta { margin: 2.4em 0 0; padding-top: 1rem; border-top: 1px solid var(--a-line); color: var(--a-muted); font-size: 0.84rem; }\n@media (max-width: 600px) {\n  .astrion-post { font-size: 1rem; }\n  .astrion-section h2 { font-size: 1.3rem; }\n  .astrion-table { min-width: 360px; }\n  .astrion-vars { grid-template-columns: 1fr; gap: 0.1rem; }\n  .astrion-vars dd { margin-bottom: 0.5rem; }\n}\n</style>\n\n<p class=\"astrion-kicker\">Space & Astronomy</p>\n<p>Why does the Moon always show the same face? Look up on any clear night and the pattern of dark plains and bright highlands is the same one your grandparents saw. The Moon is not refusing to rotate. It turns on its axis exactly once during each orbit around Earth, so the same hemisphere stays pointed toward us. That matched spin is called synchronous tidal locking, and it is not a coincidence. It is the end state of a long gravitational tug of war that dissipated energy inside the Moon and continues to push the Moon slowly away from Earth.</p>\n<p class=\"astrion-reading-time\">8 min read</p>\n\n<aside class=\"astrion-key-takeaways\">\n  <h2>Key takeaways</h2>\n  <ul>\n    <li>The Moon rotates once per orbit, so synchronous rotation keeps one hemisphere facing Earth.</li>\n    <li>Earth's gravity raises a tidal bulge; because the bulge lags, it applies a torque that slows the Moon's spin.</li>\n    <li>The lock is an energy-dissipating equilibrium, not a switch that stops the Moon from turning.</li>\n    <li>Libration lets observers see about 59 percent of the lunar surface over a month.</li>\n    <li>The same process is making the Moon recede from Earth by roughly 4 centimeters per year.</li>\n  </ul>\n</aside>\n\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-1-the-observation-one-face-many-phases\">The Observation: One Face, Many Phases</h2>\n  <p>The Moon completes one sidereal orbit around Earth in about 27.32 days. It also completes one rotation on its axis in the same 27.32 days. Because the two periods match, the same lunar hemisphere points toward Earth throughout the orbit. The far side is not hidden because it emits no light. It is simply the hemisphere that never rotates into view from our vantage point.</p>\n<p>The phases of the Moon are a separate matter. They arise from the changing angle between the Sun, Earth, and Moon. A full Moon and a crescent Moon look different because we see different fractions of the sunlit hemisphere, not because the Moon has spun around to show a different face. The familiar face stays put while the terminator, the line between day and night on the Moon, sweeps across it.</p>\n<div class=\"astrion-table-wrap\" role=\"region\" tabindex=\"0\" aria-label=\"The Moon&#x27;s rotation and orbit are matched, while its phases follow a different cycle.\">\n  <table class=\"astrion-table\">\n    <caption>The Moon&#x27;s rotation and orbit are matched, while its phases follow a different cycle.</caption>\n    <thead><tr><th scope=\"col\">Quantity</th><th scope=\"col\">Value</th></tr></thead>\n    <tbody>\n      <tr><td>Sidereal orbital period</td><td>27.3217 days</td></tr>\n      <tr><td>Sidereal rotation period</td><td>27.3217 days</td></tr>\n      <tr><td>Synodic month (phase cycle)</td><td>29.5306 days</td></tr>\n      <tr><td>Mean Earth-Moon distance</td><td>about 384,400 kilometers</td></tr>\n      <tr><td>Present recession rate</td><td>about 4 centimeters per year</td></tr>\n    </tbody>\n  </table>\n</div>\n<p>The lock is not perfect from a visual standpoint. Over a month, observers on Earth can see about 59 percent of the lunar surface, not exactly half. The Moon&#x27;s orbit is elliptical and its speed varies, while its rotation is nearly uniform. That mismatch makes the Moon appear to rock east and west. A small axial tilt adds a north-south rocking, and Earth&#x27;s own rotation adds a third effect. These librations do not break the lock; they let us peek around its edges.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-2-how-gravity-raises-a-tidal-bulge\">How Gravity Raises a Tidal Bulge</h2>\n  <p>Earth&#x27;s gravity does not pull on the Moon uniformly. The near side is closer to Earth and feels a slightly stronger pull than the far side. The difference is the tidal force. It stretches the Moon along the Earth-Moon line and squeezes it slightly in the perpendicular directions, turning a sphere into a mild American-football shape.</p>\n<div class=\"astrion-equation\">\n  <div class=\"astrion-math\">\\[\\Delta a \\approx \\frac{2 G M r}{d^{3}}\\]</div>\n  <dl class=\"astrion-vars\">\n      <dt>\\Delta a</dt>\n      <dd>difference in gravitational acceleration across the body (meters per second squared)</dd>\n      <dt>G</dt>\n      <dd>gravitational constant (cubic meters per kilogram second squared)</dd>\n      <dt>M</dt>\n      <dd>mass of the tide-raising body, in this case Earth (kilograms)</dd>\n      <dt>r</dt>\n      <dd>radius of the body being stretched, in this case the Moon (meters)</dd>\n      <dt>d</dt>\n      <dd>distance between the centers of the two bodies (meters)</dd>\n  </dl>\n  <figcaption class=\"astrion-equation-caption\">Tidal stretching grows strongly as the two bodies get closer together.</figcaption>\n</div>\n<p>The bulge does not appear instantly. The Moon is not perfectly rigid, and its material takes time to deform. If the Moon spins faster than it orbits, the bulge is carried slightly ahead of the Earth-Moon line. Earth&#x27;s gravity then pulls the bulge backward, creating a torque that opposes the spin. The same lagging bulge also gives Earth something to pull on, so the interaction transfers angular momentum between the two bodies.</p>\n<p>The deformation costs energy. As the Moon flexes, internal friction converts some orbital and rotational energy into heat. That heat leaves the system, so the Moon&#x27;s spin slows. The process is gradual, but it has had billions of years to act. Early in its history the Moon was closer to Earth and probably spun much faster, so the tidal torque was stronger and the spin-down was more rapid.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-3-from-bulge-to-brake-the-locking-mechanism\">From Bulge to Brake: The Locking Mechanism</h2>\n  <p>As the Moon&#x27;s rotation slows, its spin period lengthens toward its orbital period. The closer the two periods become, the less the bulge is carried away from the Earth-Moon line. When the spin period finally equals the orbital period, the bulge points steadily at Earth and no longer travels through the lunar body. The torque drops to zero, and the Moon stays locked.</p>\n<p>This endpoint is stable because any small deviation recreates the torque that pushes the system back toward synchrony. A moon that spins slightly too fast carries its bulge ahead of the line and feels a braking torque. A moon that spins slightly too slowly leaves the bulge behind and feels an accelerating torque. Synchronous rotation is the resting point between those two tendencies.</p>\n<aside class=\"astrion-callout astrion-callout--key\">\n  <p class=\"astrion-callout-title\">Locked does not mean motionless</p>\n<p>A tidally locked moon still rotates. Its rotation period simply matches its orbital period, so one hemisphere faces the planet while the moon circles it.</p>\n</aside>\n<p>The interaction does not stop when the Moon&#x27;s spin locks. Earth also raises tides, especially in its oceans, and those tides lag the Moon&#x27;s position. The resulting torque transfers angular momentum from Earth&#x27;s rotation to the Moon&#x27;s orbit. The Moon moves farther away by roughly 4 centimeters per year, and Earth&#x27;s day grows longer by a small amount. Both changes are too slow to notice in a human lifetime, but they are measurable with lasers and reflectors left on the lunar surface.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-4-why-we-still-see-about-59-percent\">Why We Still See About 59 Percent</h2>\n  <p>If the Moon&#x27;s rotation were perfectly uniform and its orbit perfectly circular, we would see exactly half of the surface. Neither condition holds. The Moon&#x27;s orbit is elliptical, so its angular speed around Earth varies. It moves faster near perigee, when it is closest, and slower near apogee, when it is farthest. Its rotation rate stays nearly constant, so the Moon appears to rock east and west over the course of an orbit.</p>\n<p>The Moon&#x27;s rotation axis is also tilted by about 6.7 degrees relative to its orbital plane. That tilt makes the Moon appear to nod north and south, revealing a little more of each pole at different times. Finally, Earth&#x27;s rotation moves an observer across the planet&#x27;s surface, adding a small daily parallax. These effects are called libration, and together they expose about 59 percent of the lunar surface.</p>\n<p>The far side is often called the dark side, but that label is misleading. The far side receives just as much sunlight as the near side over a lunar day. It is dark only in the sense that it is hidden from Earth until a spacecraft goes around the Moon. The first images of the far side, and later orbital maps, showed a surface with fewer dark maria and a thicker crust than the near side.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-5-what-tidal-locking-means-beyond-the-moon\">What Tidal Locking Means Beyond the Moon</h2>\n  <p>The Moon is not unusual. All of the solar system&#x27;s large moons are tidally locked to their planets, and Pluto and Charon are locked to each other. The effect is common because tidal torque grows so quickly as a moon gets closer to its planet. A close-in moon can synchronize within a small fraction of its total lifetime, while a distant moon may take far longer.</p>\n<p>The same physics applies to exoplanets. A rocky planet in the habitable zone of a small, cool star orbits very close to that star, so it may become tidally locked. One hemisphere would face the star in permanent day while the other stays in permanent night. Climate models show that the outcome depends on the atmosphere and ocean, not on the lock alone. Heat transport can keep a locked planet from freezing completely, and the boundary between day and night may be a region of interest for habitability.</p>\n<p>Tidal forces can also heat a moon from within. Io and Europa are locked to Jupiter, but their orbits are slightly eccentric because of gravitational interactions with the other Galilean moons. The changing tidal pull flexes their interiors and generates heat. Io is volcanically active, and Europa probably has a liquid-water ocean beneath its ice. In those cases, tidal locking is part of a broader story about energy, not a guarantee of a cold, geologically dead world.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-6-reading-the-lock-correctly\">Reading the Lock Correctly</h2>\n  <p>The phrase tidal locking describes a relationship between spin and orbit. It does not mean that Earth&#x27;s gravity has switched off the Moon&#x27;s rotation, and it does not mean that the Moon is fixed in space. The Moon travels around Earth, rotates once per trip, and slowly recedes as angular momentum moves from Earth&#x27;s spin into the lunar orbit.</p>\n<p>The lock is also not necessarily permanent on an infinite timescale. A large impact or a close encounter could alter a moon&#x27;s spin and restart the process. In the Earth-Moon system, the Moon&#x27;s recession will continue, and the day will keep lengthening. Given enough time, Earth itself could become locked to the Moon, with one hemisphere always seeing it and the other never seeing it. The Sun&#x27;s evolution will intervene long before that state is reached.</p>\n<p>So the next time the same familiar face looks back at you, the scene is showing a balance between gravity, deformation, and energy loss. The Moon turns once per orbit, the bulge stays aligned, and the leftover tidal friction continues to push the Moon away. The unchanged face is not a lack of motion. It is motion in perfect step with the orbit.</p>\n</section>\n\n<section class=\"astrion-misconceptions\">\n  <h2>Common misconceptions</h2>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">The Moon does not rotate at all.</p>\n    <p>The Moon rotates once during each orbit around Earth. Because its rotation period matches its orbital period, the same hemisphere faces Earth, which can look like no rotation from our viewpoint. A moon that truly did not rotate would show every side as it traveled around Earth.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">The far side of the Moon is always dark.</p>\n    <p>The far side receives sunlight just as the near side does. It is hidden from Earth, not unlit. The phrase dark side is a colloquial name for the hemisphere we cannot see directly, not a description of its illumination.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Earth's gravity simply holds the Moon in place and stops it from spinning.</p>\n    <p>Gravity raises a tidal bulge, and the lagging bulge applies a torque. The torque drains rotational energy until the spin period matches the orbital period. The lock is the result of energy dissipation over time, not a static grip that freezes the Moon.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">A tidally locked moon always shows exactly half of its surface.</p>\n    <p>The Moon's elliptical orbit, axial tilt, and the observer's changing viewpoint cause libration. Over a month, these effects let observers on Earth see about 59 percent of the lunar surface, even though the Moon is fully locked.</p>\n  </div>\n</section>\n\n<section class=\"astrion-sources\">\n  <h2>Sources</h2>\n  <ol>\n    <li>\n      <a href=\"https://science.nasa.gov/moon/tidal-locking/\" target=\"_blank\" rel=\"noopener noreferrer\">Tidal Locking</a>\n      <span class=\"astrion-source-meta\">NASA Science, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://openstax.org/books/astronomy-2e/pages/4-5-phases-and-motions-of-the-moon\" target=\"_blank\" rel=\"noopener noreferrer\">Astronomy 2e, 4.5 Phases and Motions of the Moon</a>\n      <span class=\"astrion-source-meta\">OpenStax, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://doi.org/10.1007/s10569-017-9783-7\" target=\"_blank\" rel=\"noopener noreferrer\">Tidal locking of habitable exoplanets</a>\n      <span class=\"astrion-source-meta\">Celestial Mechanics and Dynamical Astronomy, n.d.</span>\n    </li>\n  </ol>\n</section>\n\n\n\n<p class=\"astrion-post-meta\">Space & Astronomy · Moon · Tidal Locking · Orbital Dynamics · Reviewed November 2026</p>\n\n<script>\nwindow.MathJax = {\n  tex: { inlineMath: [['\\\\(', '\\\\)']], displayMath: [['\\\\[', '\\\\]']] },\n  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },\n  svg: { fontCache: 'global' }\n};\n</script>\n<script async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>\n</div>",
+    "html_sha256": "6c4312094260f5378cbaeb112541c90c42644074edbde4f2fd25ae5c72ddfec4",
+    "meta_description": "The Moon keeps one face toward Earth because tidal locking matches its spin to its orbit. Tidal friction explains the lock, libration, and its slow retreat.",
+    "primary_keyword": "why does the moon always show the same face",
+    "content_type": "science-explained",
+    "main_category": "Space & Astronomy",
+    "slug": "why-does-the-moon-always-show-the-same-face"
+  },
+  "fingerprint": {
+    "signature": "How does tidal friction force a moon to rotate once per orbit, and why does the resulting lock still let us see more than half of the lunar surface? The difference between rotation and orbital motion, the tidal bulge raised by Earth, the torque that slows the Moon's spin, the energy budget that makes the lock stable, and the librations that reveal about 59 percent of the lunar surface. Earth's gravity stretches the Moon, and the lagging tidal bulge exerts a torque that drains rotational energy until the Moon's spin period equals its orbital period; at that point the bulge points steadily at Earth and the torque vanishes.",
+    "sha256": "dde2605b66fd20f98f82229a68d3660e8c027566437b2ebaba087b21b84a57a9",
+    "topic_key": "space.moon-tidal-locking",
+    "primary_keyword": "why does the moon always show the same face",
+    "aliases": [
+      "why the moon shows one face",
+      "synchronous rotation of the moon",
+      "lunar tidal locking"
+    ]
+  },
+  "quality": {
+    "topic_id": "space.moon-tidal-locking",
+    "score": 100.0,
+    "decision": "PUBLISH",
+    "breakdown": {
+      "accuracy_sources": 25.0,
+      "depth_explanation": 20.0,
+      "distinct_value": 20.0,
+      "readability": 15.0,
+      "notation": 10.0,
+      "blogger_html": 5.0,
+      "seo": 5.0
+    },
+    "fatal": [],
+    "warnings": [],
+    "metrics": {
+      "words": 1743,
+      "min_words": 700,
+      "sections": 6,
+      "paragraphs": 24,
+      "avg_paragraph_words": 65.0,
+      "avg_sentence_words": 16.0,
+      "words_per_section": 290.5,
+      "keyword_density": 0.0052,
+      "sources": 3,
+      "primary_sources": 2,
+      "labels": [
+        "Space & Astronomy",
+        "Moon",
+        "Tidal Locking",
+        "Orbital Dynamics"
+      ],
+      "reading_minutes": 8,
+      "html_bytes": 19403,
+      "has_math": true,
+      "tables": 1,
+      "scripts": 2,
+      "links": 3
+    },
+    "conflicts": []
+  },
+  "review": {
+    "reviewed_at": "2026-11-14",
+    "review_status": "approved",
+    "fact_basis": "peer_reviewed",
+    "authored_by": "Astrion editorial"
+  },
+  "sources": [
+    {
+      "id": "nasa-tidal-locking",
+      "title": "Tidal Locking",
+      "publisher": "NASA Science",
+      "url": "https://science.nasa.gov/moon/tidal-locking/",
+      "kind": "agency",
+      "published_at": null,
+      "accessed_at": "2026-11-14"
+    },
+    {
+      "id": "openstax-moon-motions",
+      "title": "Astronomy 2e, 4.5 Phases and Motions of the Moon",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/astronomy-2e/pages/4-5-phases-and-motions-of-the-moon",
+      "kind": "textbook",
+      "published_at": null,
+      "accessed_at": "2026-11-14"
+    },
+    {
+      "id": "barnes-2017",
+      "title": "Tidal locking of habitable exoplanets",
+      "publisher": "Celestial Mechanics and Dynamical Astronomy",
+      "url": "https://doi.org/10.1007/s10569-017-9783-7",
+      "kind": "peer_reviewed",
+      "published_at": null,
+      "accessed_at": "2026-11-14"
+    }
+  ],
+  "publication": {
+    "queue_id": "2026-11-15-s3-why-does-the-moon-always-show-the-same-face",
+    "topic_id": "space.moon-tidal-locking",
+    "title": "Why Does the Moon Always Show the Same Face?",
+    "main_category": "Space & Astronomy",
+    "content_type": "science-explained",
+    "publish_date": "2026-11-15",
+    "slot": 2,
+    "blogger_post_id": "7167520522461854485",
+    "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/why-does-moon-always-show-same-face.html",
+    "blogger_status": "live",
+    "published_at": "2026-11-16T03:18:12.809Z",
+    "quality_score": 100.0,
+    "labels": [
+      "Space & Astronomy",
+      "Moon",
+      "Tidal Locking",
+      "Orbital Dynamics"
+    ],
+    "signature": "How does tidal friction force a moon to rotate once per orbit, and why does the resulting lock still let us see more than half of the lunar surface? The difference between rotation and orbital motion, the tidal bulge raised by Earth, the torque that slows the Moon's spin, the energy budget that makes the lock stable, and the librations that reveal about 59 percent of the lunar surface. Earth's gravity stretches the Moon, and the lagging tidal bulge exerts a torque that drains rotational energy until the Moon's spin period equals its orbital period; at that point the bulge points steadily at Earth and the torque vanishes.",
+    "fingerprint": "dde2605b66fd20f98f82229a68d3660e8c027566437b2ebaba087b21b84a57a9",
+    "primary_keyword": "why does the moon always show the same face",
+    "aliases": [
+      "why the moon shows one face",
+      "synchronous rotation of the moon",
+      "lunar tidal locking"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 schema: astrion.topic/v1
 id: chemistry.ice-floats-water
-status: draft
+status: active
 content_type: science-explained
 main_category: Chemistry
 labels:
@@ -241,7 +241,7 @@ provenance:
   authored_by: Astrion editorial
   fact_basis: textbook
   reviewed_at: 2026-11-14
-  review_status: draft
+  review_status: approved
   notes: Drafted for editorial review. Confirm the density values and the IAPWS reference before approval.
 priority: 4
 evergreen: true

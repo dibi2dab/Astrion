@@ -1,0 +1,144 @@
+{
+  "schema": "astrion.queue/v1",
+  "queue_id": "2026-11-15-s1-why-does-ice-float-on-water",
+  "topic_id": "chemistry.ice-floats-water",
+  "status": "published",
+  "created_at": "2026-11-16T03:16:51+00:00",
+  "publish_date": "2026-11-15",
+  "publish_after": "2026-11-15T22:16:51-05:00",
+  "slot": 0,
+  "blogger": {
+    "is_draft": false,
+    "labels": [
+      "Chemistry",
+      "Water",
+      "Physical Chemistry",
+      "Hydrogen Bonding"
+    ]
+  },
+  "post": {
+    "title": "Why Does Ice Float on Water?",
+    "html": "<div class=\"astrion-post\" data-astrion-topic=\"chemistry.ice-floats-water\" data-astrion-queue=\"2026-11-16-s1-why-does-ice-float-on-water\">\n<style>\n.astrion-post {\n  --a-ink: #16202b;\n  --a-muted: #5b6875;\n  --a-line: #dfe5ec;\n  --a-accent: #1f6feb;\n  --a-bg: #f6f9fd;\n  max-width: 760px;\n  margin: 0 auto;\n  color: var(--a-ink);\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n  font-size: 1.06rem;\n  line-height: 1.75;\n  overflow-wrap: break-word;\n}\n.astrion-post p { margin: 0 0 1.15em; }\n.astrion-kicker { margin: 0 0 0.6em; color: var(--a-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }\n.astrion-lead { color: #25313d; font-size: 1.17rem; line-height: 1.7; }\n.astrion-reading-time { margin: 0 0 1.9em; color: var(--a-muted); font-size: 0.86rem; }\n.astrion-key-takeaways { margin: 1.9em 0; padding: 1.1rem 1.25rem; background: var(--a-bg); border-left: 4px solid var(--a-accent); border-radius: 0 8px 8px 0; }\n.astrion-key-takeaways h2 { margin: 0 0 0.45rem; font-size: 1rem; letter-spacing: 0.02em; }\n.astrion-key-takeaways ul { margin: 0; padding-left: 1.25rem; }\n.astrion-key-takeaways li { margin: 0.3rem 0; }\n.astrion-section h2 { margin: 2.1em 0 0.7em; font-size: 1.45rem; line-height: 1.3; }\n.astrion-section h3 { margin: 1.6em 0 0.5em; font-size: 1.14rem; line-height: 1.4; }\n.astrion-math { padding: 0.35rem 0; overflow-x: auto; overflow-y: hidden; text-align: center; }\n.astrion-math-inline { text-align: left; }\n.astrion-figure { margin: 1.5em 0; }\n.astrion-figure figcaption, .astrion-equation-caption { margin-top: 0.45rem; color: var(--a-muted); font-size: 0.86rem; text-align: center; }\n.astrion-equation { margin: 1.5em 0; padding: 1rem 1.1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-equation .astrion-math { font-size: 1.08rem; }\n.astrion-vars { display: grid; grid-template-columns: minmax(2.5rem, auto) 1fr; gap: 0.35rem 0.8rem; margin: 0.85rem 0 0; font-size: 0.93rem; }\n.astrion-vars dt { font-family: ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", monospace; font-weight: 700; }\n.astrion-vars dd { margin: 0; color: var(--a-muted); }\n.astrion-table-wrap { margin: 1.5em 0; overflow-x: auto; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 0.95rem; }\n.astrion-table caption { padding: 0.75rem 0.9rem; color: var(--a-ink); font-size: 0.88rem; font-weight: 700; text-align: left; }\n.astrion-table th, .astrion-table td { padding: 0.6rem 0.85rem; border-top: 1px solid var(--a-line); text-align: left; vertical-align: top; }\n.astrion-table thead th { background: #f7f9fc; font-size: 0.8rem; letter-spacing: 0.03em; text-transform: uppercase; }\n.astrion-list { margin: 0 0 1.25em; padding-left: 1.35rem; }\n.astrion-list li { margin: 0.35rem 0; }\n.astrion-callout { margin: 1.5em 0; padding: 0.9rem 1.1rem; background: #f8fafc; border-left: 4px solid #8a94a6; border-radius: 0 6px 6px 0; }\n.astrion-callout--key { background: #f2f7ff; border-color: var(--a-accent); }\n.astrion-callout--warning { background: #fff9ec; border-color: #c47f17; }\n.astrion-callout-title { margin: 0 0 0.35rem; font-weight: 700; }\n.astrion-callout p:last-child { margin-bottom: 0; }\n.astrion-example { margin: 1.5em 0; padding: 1rem 1.1rem; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-example h3 { margin-top: 0; }\n.astrion-example ol { margin-bottom: 0; padding-left: 1.35rem; }\n.astrion-misconceptions, .astrion-sources, .astrion-related { margin-top: 2.3em; }\n.astrion-misconceptions h2, .astrion-sources h2, .astrion-related h2 { margin: 0 0 0.7em; font-size: 1.3rem; line-height: 1.35; }\n.astrion-misconception { margin: 0 0 1.1em; padding: 0.85rem 1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-misconception p { margin: 0; }\n.astrion-misconception-claim { margin-bottom: 0.35rem !important; font-weight: 700; }\n.astrion-sources ol { margin: 0; padding-left: 1.35rem; }\n.astrion-sources li { margin: 0.55em 0; font-size: 0.94rem; }\n.astrion-sources a, .astrion-related a { color: var(--a-accent); text-decoration: none; }\n.astrion-source-meta { display: block; color: var(--a-muted); font-size: 0.84rem; }\n.astrion-related ul { margin: 0; padding-left: 1.25rem; }\n.astrion-related li { margin: 0.4em 0; }\n.astrion-post-meta { margin: 2.4em 0 0; padding-top: 1rem; border-top: 1px solid var(--a-line); color: var(--a-muted); font-size: 0.84rem; }\n@media (max-width: 600px) {\n  .astrion-post { font-size: 1rem; }\n  .astrion-section h2 { font-size: 1.3rem; }\n  .astrion-table { min-width: 360px; }\n  .astrion-vars { grid-template-columns: 1fr; gap: 0.1rem; }\n  .astrion-vars dd { margin-bottom: 0.5rem; }\n}\n</style>\n\n<p class=\"astrion-kicker\">Chemistry</p>\n<p>Why does ice float on water? Drop an ice cube into a glass and the answer seems obvious, yet the everyday sight hides a genuine anomaly. For most substances, the solid is denser than the liquid and sinks in its own melt. Water does the opposite: at 0 °C, ice is about 8 to 9 percent less dense than liquid water. The question is not why ice feels light. It is why the arrangement of water molecules in a crystal takes up more space than the jumbled liquid, and why that arrangement has consequences for lakes, oceans, and life.</p>\n<p class=\"astrion-reading-time\">6 min read</p>\n\n<aside class=\"astrion-key-takeaways\">\n  <h2>Key takeaways</h2>\n  <ul>\n    <li>Ice floats because its crystal lattice is less dense than liquid water, not because its molecules are lighter.</li>\n    <li>The open tetrahedral arrangement of hydrogen bonds gives ice extra volume; order and directionality matter more than raw bond strength.</li>\n    <li>Liquid water reaches its maximum density near 4 °C, so cooling surface water sinks until the whole lake is near that temperature.</li>\n    <li>A floating ice layer insulates the water below and helps lakes and polar seas support life through winter.</li>\n  </ul>\n</aside>\n\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-1-the-observation-solid-water-is-less-dense\">The Observation: Solid Water Is Less Dense</h2>\n  <p>Density is mass per unit volume. A block of ice contains almost the same number of water molecules as the liquid that formed it, but those molecules occupy more space. At 0 °C the density of ice is about 0.917 grams per cubic centimeter, while liquid water at the same temperature is about 0.9998 grams per cubic centimeter. The difference is small in absolute terms and enormous in its effects.</p>\n<div class=\"astrion-equation\">\n  <div class=\"astrion-math\">\\[\\rho = \\frac{m}{V}\\]</div>\n  <dl class=\"astrion-vars\">\n      <dt>\\rho</dt>\n      <dd>density of the sample (grams per cubic centimeter)</dd>\n      <dt>m</dt>\n      <dd>mass of the sample (grams)</dd>\n      <dt>V</dt>\n      <dd>volume occupied by the sample (cubic centimeters)</dd>\n  </dl>\n  <figcaption class=\"astrion-equation-caption\">Density compares the mass of a sample with the volume it occupies.</figcaption>\n</div>\n<p>Archimedes&#x27; principle explains the floating part. A floating object displaces a weight of fluid equal to its own weight. Because ice is about 92 percent as dense as water, roughly 92 percent of a free-floating iceberg sits below the surface. The visible tip is the small remainder, not the bulk of the object.</p>\n<div class=\"astrion-table-wrap\" role=\"region\" tabindex=\"0\" aria-label=\"Ice is less dense than liquid water, and liquid water is densest near 4 °C.\">\n  <table class=\"astrion-table\">\n    <caption>Ice is less dense than liquid water, and liquid water is densest near 4 °C.</caption>\n    <thead><tr><th scope=\"col\">Temperature</th><th scope=\"col\">State</th><th scope=\"col\">Density (g/cm3)</th></tr></thead>\n    <tbody>\n      <tr><td>-10 °C</td><td>ice</td><td>0.9187</td></tr>\n      <tr><td>0 °C</td><td>ice</td><td>0.9168</td></tr>\n      <tr><td>0 °C</td><td>liquid water</td><td>0.9998</td></tr>\n      <tr><td>4 °C</td><td>liquid water</td><td>1.0000</td></tr>\n      <tr><td>20 °C</td><td>liquid water</td><td>0.9982</td></tr>\n    </tbody>\n  </table>\n</div>\n<p>The table also shows a second oddity. Liquid water becomes denser as it cools from room temperature to about 4 °C, then becomes less dense as it approaches freezing. Most liquids contract steadily until they solidify. Water reaches a density maximum near 4 °C and then expands on further cooling.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-2-the-molecular-reason-an-open-hydrogen-bonded-latti\">The Molecular Reason: An Open Hydrogen-Bonded Lattice</h2>\n  <p>A water molecule is bent rather than linear. Its oxygen atom pulls electron density away from the two hydrogen atoms, leaving the hydrogen side slightly positive and the oxygen side slightly negative. Neighboring molecules therefore attract one another through hydrogen bonds. Each water molecule can donate two hydrogen bonds and accept two more.</p>\n<p>In ordinary ice, those four bonds point toward the corners of a tetrahedron. The result is a hexagonal crystal built from open cages rather than a tightly packed stack. The molecules sit farther apart than they do in the liquid, even though the same molecules are present. The crystal is rigid, but it is not dense.</p>\n<p>Liquid water is different because its hydrogen bonds constantly break and re-form. Molecules slide past one another and can settle into the gaps that the rigid crystal leaves open. The liquid is disordered, and that disorder allows closer average packing. Freezing replaces a flexible network with a fixed, spacious one.</p>\n<aside class=\"astrion-callout astrion-callout--key\">\n  <p class=\"astrion-callout-title\">Order creates the space</p>\n<p>The density anomaly comes from geometry. A directed, tetrahedral network holds water molecules apart, while the liquid can rearrange around them.</p>\n</aside>\n<p>It is tempting to say that hydrogen bonds are simply stronger in ice. The more accurate statement is that ice has a more complete and ordered hydrogen-bond network. The key is not one bond pulling harder, but many bonds holding the molecules in an open pattern.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-3-why-the-density-maximum-at-4-c-matters\">Why the Density Maximum at 4 °C Matters</h2>\n  <p>Suppose water behaved like a typical liquid and kept contracting as it cooled. The coldest, densest water would sink to the bottom, and a lake would freeze from the bottom up. Instead, water below 4 °C expands as it cools, so the surface layer reaches the freezing point first while the denser water remains below.</p>\n<p>Ice then forms at the surface and floats. The ice layer is a poor conductor of heat, so it slows further cooling of the water underneath. This insulation is not perfect, but it is enough to keep many lakes and ponds from freezing solid. Fish, insects, and microorganisms can survive in the liquid water below.</p>\n<p>The same anomaly shapes polar oceans. Sea ice forms at the surface, reflects sunlight, and separates the cold atmosphere from the relatively warmer ocean. The seasonal growth and retreat of that ice influences ocean circulation, heat exchange, and the global climate system.</p>\n<p>The effect is also familiar in daily life. Water expands when it freezes inside a pipe or a rock crack. That expansion can split metal, crack stone, and damage roads. The floating ice cube and the burst pipe are two expressions of the same molecular arrangement.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-4-what-ice-floating-does-not-mean\">What Ice Floating Does Not Mean</h2>\n  <p>Floating does not mean that ice is made of lighter molecules. A water molecule has the same mass whether it is in ice or in liquid water. What changes is the volume that a given mass occupies. Ice floats because its density is lower, and density depends on both mass and volume.</p>\n<p>Floating also does not prove that hydrogen bonds vanish in the liquid. Liquid water is held together by an extensive hydrogen-bond network. The network is dynamic rather than fixed. On freezing, the molecules settle into the most stable local arrangement, and that arrangement happens to be unusually open.</p>\n<p>Finally, the rule is about density relative to the surrounding liquid. Ordinary ice floats in ordinary liquid water because its density is lower. The general statement is not that every solid floats in every liquid, but that an object floats when the displaced liquid weighs as much as the object.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-5-reading-the-anomaly-correctly\">Reading the Anomaly Correctly</h2>\n  <p>Most solids are denser than their liquids because their particles pack more closely. Water is a conspicuous exception because its particles are directional and form a stiff, open network when they freeze. The exception is a consequence of hydrogen bonding, not a violation of the rules of density.</p>\n<p>The anomaly also illustrates a broader lesson in chemistry. A material property cannot always be predicted from the mass of its particles alone. Geometry and intermolecular forces can dominate. Two samples with identical molecules can have different densities because those molecules are arranged differently.</p>\n<p>So the next time an ice cube bobs at the surface, the glass is showing a balance between thermal motion and hydrogen-bond geometry. The solid is less dense than the liquid, the lake freezes from the top, and a molecular detail becomes an ecological necessity.</p>\n</section>\n\n<section class=\"astrion-misconceptions\">\n  <h2>Common misconceptions</h2>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Ice floats because its molecules are lighter than liquid water molecules.</p>\n    <p>Ice and liquid water contain the same kind of molecule, with the same mass. The difference is volume. The crystal lattice holds the molecules farther apart, so a given mass of ice takes up more space and has a lower density than the liquid.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Hydrogen bonds are stronger in ice, so ice should be denser than water.</p>\n    <p>Stronger attraction would usually pull molecules closer, but the crucial feature of ice is the directed tetrahedral network. Each molecule is held in an open geometry that creates empty space. Ice has a more ordered hydrogen-bond network, not simply a stronger single bond.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Ice always floats in any liquid because freezing always makes water expand.</p>\n    <p>Floating depends on the density of the ice compared with the density of the surrounding liquid. Ordinary ice floats in fresh liquid water, but the rule is a density comparison, not a universal property of every solid in every liquid.</p>\n  </div>\n</section>\n\n<section class=\"astrion-sources\">\n  <h2>Sources</h2>\n  <ol>\n    <li>\n      <a href=\"https://www.usgs.gov/water-science-school/science/water-density\" target=\"_blank\" rel=\"noopener noreferrer\">Water Density</a>\n      <span class=\"astrion-source-meta\">U.S. Geological Survey, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://openstax.org/books/chemistry-2e/pages/10-1-intermolecular-forces\" target=\"_blank\" rel=\"noopener noreferrer\">Chemistry 2e, Intermolecular Forces</a>\n      <span class=\"astrion-source-meta\">OpenStax, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://iapws.org/technical-guidance/release/IAPWS-95\" target=\"_blank\" rel=\"noopener noreferrer\">Revised Release on the IAPWS Formulation 1995 for the Thermodynamic Properties of Ordinary Water Substance</a>\n      <span class=\"astrion-source-meta\">International Association for the Properties of Water and Steam, n.d.</span>\n    </li>\n  </ol>\n</section>\n\n\n\n<p class=\"astrion-post-meta\">Chemistry · Water · Physical Chemistry · Hydrogen Bonding · Reviewed November 2026</p>\n\n<script>\nwindow.MathJax = {\n  tex: { inlineMath: [['\\\\(', '\\\\)']], displayMath: [['\\\\[', '\\\\]']] },\n  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },\n  svg: { fontCache: 'global' }\n};\n</script>\n<script async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>\n</div>",
+    "html_sha256": "155fe45d49870d44dbf52e56b666fcfe4ddb22db3ba1d1a73d5d365a8359f453",
+    "meta_description": "Ice floats because its hydrogen-bonded crystal is less dense than liquid water, and the density maximum near 4 °C keeps lakes from freezing solid.",
+    "primary_keyword": "why does ice float on water",
+    "content_type": "science-explained",
+    "main_category": "Chemistry",
+    "slug": "why-does-ice-float-on-water"
+  },
+  "fingerprint": {
+    "signature": "Why is solid water less dense than liquid water, and what does that anomaly imply for natural bodies of water? The molecular geometry of the water molecule, the open hydrogen-bonded lattice of ice, the density maximum of liquid water near 4 °C, and the ecological consequences of ice floating instead of sinking. Water molecules can donate and accept hydrogen bonds in four directions, so freezing locks them into an open tetrahedral network that occupies more volume than the liquid; density, not molecular weight, decides whether ice floats.",
+    "sha256": "d327801f1f395fa0ae53129c0053bbafc62e6f324f4174f1dfa6a3504cd8c16d",
+    "topic_key": "chemistry.ice-floats-water",
+    "primary_keyword": "why does ice float on water",
+    "aliases": [
+      "why ice floats",
+      "ice density",
+      "density anomaly of water"
+    ]
+  },
+  "quality": {
+    "topic_id": "chemistry.ice-floats-water",
+    "score": 100.0,
+    "decision": "PUBLISH",
+    "breakdown": {
+      "accuracy_sources": 25.0,
+      "depth_explanation": 20.0,
+      "distinct_value": 20.0,
+      "readability": 15.0,
+      "notation": 10.0,
+      "blogger_html": 5.0,
+      "seo": 5.0
+    },
+    "fatal": [],
+    "warnings": [],
+    "metrics": {
+      "words": 1253,
+      "min_words": 700,
+      "sections": 5,
+      "paragraphs": 22,
+      "avg_paragraph_words": 50.5,
+      "avg_sentence_words": 14.7,
+      "words_per_section": 250.6,
+      "keyword_density": 0.0048,
+      "sources": 3,
+      "primary_sources": 2,
+      "labels": [
+        "Chemistry",
+        "Water",
+        "Physical Chemistry",
+        "Hydrogen Bonding"
+      ],
+      "reading_minutes": 6,
+      "html_bytes": 16383,
+      "has_math": true,
+      "tables": 1,
+      "scripts": 2,
+      "links": 3
+    },
+    "conflicts": []
+  },
+  "review": {
+    "reviewed_at": "2026-11-14",
+    "review_status": "approved",
+    "fact_basis": "textbook",
+    "authored_by": "Astrion editorial"
+  },
+  "sources": [
+    {
+      "id": "usgs-water-density",
+      "title": "Water Density",
+      "publisher": "U.S. Geological Survey",
+      "url": "https://www.usgs.gov/water-science-school/science/water-density",
+      "kind": "agency",
+      "published_at": null,
+      "accessed_at": "2026-11-14"
+    },
+    {
+      "id": "openstax-intermolecular-forces",
+      "title": "Chemistry 2e, Intermolecular Forces",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/chemistry-2e/pages/10-1-intermolecular-forces",
+      "kind": "textbook",
+      "published_at": null,
+      "accessed_at": "2026-11-14"
+    },
+    {
+      "id": "iapws-95",
+      "title": "Revised Release on the IAPWS Formulation 1995 for the Thermodynamic Properties of Ordinary Water Substance",
+      "publisher": "International Association for the Properties of Water and Steam",
+      "url": "https://iapws.org/technical-guidance/release/IAPWS-95",
+      "kind": "standard",
+      "published_at": null,
+      "accessed_at": "2026-11-14"
+    }
+  ],
+  "publication": {
+    "queue_id": "2026-11-15-s1-why-does-ice-float-on-water",
+    "topic_id": "chemistry.ice-floats-water",
+    "title": "Why Does Ice Float on Water?",
+    "main_category": "Chemistry",
+    "content_type": "science-explained",
+    "publish_date": "2026-11-15",
+    "slot": 0,
+    "blogger_post_id": "7954783153677680206",
+    "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/why-does-ice-float-on-water.html",
+    "blogger_status": "live",
+    "published_at": "2026-11-16T03:17:40.707Z",
+    "quality_score": 100.0,
+    "labels": [
+      "Chemistry",
+      "Water",
+      "Physical Chemistry",
+      "Hydrogen Bonding"
+    ],
+    "signature": "Why is solid water less dense than liquid water, and what does that anomaly imply for natural bodies of water? The molecular geometry of the water molecule, the open hydrogen-bonded lattice of ice, the density maximum of liquid water near 4 °C, and the ecological consequences of ice floating instead of sinking. Water molecules can donate and accept hydrogen bonds in four directions, so freezing locks them into an open tetrahedral network that occupies more volume than the liquid; density, not molecular weight, decides whether ice floats.",
+    "fingerprint": "d327801f1f395fa0ae53129c0053bbafc62e6f324f4174f1dfa6a3504cd8c16d",
+    "primary_keyword": "why does ice float on water",
+    "aliases": [
+      "why ice floats",
+      "ice density",
+      "density anomaly of water"
+    ]
+  }
+}
