@@ -2,7 +2,7 @@
   "schema": "astrion.queue/v1",
   "queue_id": "2026-11-16-s1-why-is-the-halting-problem-undecidable",
   "topic_id": "computing.halting-problem",
-  "status": "queued",
+  "status": "published",
   "created_at": "2026-11-16T03:45:14+00:00",
   "publish_date": "2026-11-16",
   "publish_after": "2026-11-16T08:30:00-05:00",
@@ -112,5 +112,33 @@
       "published_at": null,
       "accessed_at": "2026-11-15"
     }
-  ]
+  ],
+  "publication": {
+    "queue_id": "2026-11-16-s1-why-is-the-halting-problem-undecidable",
+    "topic_id": "computing.halting-problem",
+    "title": "Why Is the Halting Problem Undecidable?",
+    "main_category": "Computing & Formal Sciences",
+    "content_type": "mathematics-explained",
+    "publish_date": "2026-11-16",
+    "slot": 0,
+    "blogger_post_id": "1426387839220996693",
+    "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/1426387839220996693?hl=en",
+    "blogger_status": "live",
+    "published_at": "2026-11-16T20:20:57.640Z",
+    "quality_score": 100.0,
+    "labels": [
+      "Computing & Formal Sciences",
+      "Computability",
+      "Logic",
+      "Algorithms"
+    ],
+    "signature": "Why can no algorithm decide, for every possible program and input, whether that program eventually halts? The definition of a Turing machine, the assumption of a halting decider, the diagonal construction that derives a contradiction from that assumption, and what undecidability does and does not imply in practice. A universal halting decider would allow a program to ask what the decider says about itself and then do the opposite, producing a contradiction; since the construction is valid for any candidate decider, no such decider can exist.",
+    "fingerprint": "69a945684a54ca9e84e0cf635df9a0350ae7bfaeeb978641a648e1b8b13c8f8d",
+    "primary_keyword": "why is the halting problem undecidable",
+    "aliases": [
+      "halting problem proof",
+      "undecidability of halting",
+      "Turing halting theorem"
+    ]
+  }
 }
