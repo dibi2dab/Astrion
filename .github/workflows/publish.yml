@@ -109,7 +109,14 @@ jobs:
             exit 0
           fi
           git commit -m "chore(publish): $(date -u +%Y-%m-%dT%H:%MZ)"
-          git push
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; retrying in 10s." >&2
+            sleep 10
+          done
+          exit 1
 
       - name: Upload diagnostics
         if: always()
