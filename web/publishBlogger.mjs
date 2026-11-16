@@ -10,6 +10,7 @@
  *     "contentHtml": "<div class=\"astrion-post\">...</div>",
  *     "labels": ["Physics", "Optics"],
  *     "mode": "draft" | "publish",
+ *     "postId": "optional: publish this existing draft in place",
  *     "blogId": "...", "blogUrl": "...",
  *     "storageStatePath": ".state/blogger_storage_state.json",
  *     "headless": true, "timeoutMs": 45000,
@@ -525,6 +526,17 @@ async function saveDraft(page, config, title, warnings) {
 }
 
 async function publishLive(page, config, title, warnings) {
+  // A live post exposes "Update" instead of "Publish". Clicking Update would
+  // silently rewrite a public post, so refuse before touching the control.
+  const initialAction = await editorPrimaryAction(page);
+  if (/^update$/i.test(initialAction)) {
+    throw new WebError(
+      `"${title}" is already published (the editor offers "Update"). ` +
+        'Refusing to publish it a second time.',
+      'BLOGGER_ALREADY_LIVE'
+    );
+  }
+
   const publish = await resolveLocator(page, 'publishButton', { visible: true });
   if (!publish) {
     throw new WebError(
@@ -619,21 +631,66 @@ async function main() {
     if (!title) throw new WebError('payload.title is required', 'BLOGGER_BAD_PAYLOAD');
     if (!html) throw new WebError('payload.contentHtml is required', 'BLOGGER_BAD_PAYLOAD');
     const mode = payload.mode === 'publish' ? 'publish' : 'draft';
+    const existingPostId = String(payload.postId || '').trim();
+    if (existingPostId && mode !== 'publish') {
+      throw new WebError(
+        'payload.postId is only supported when publishing an existing draft live',
+        'BLOGGER_BAD_PAYLOAD'
+      );
+    }
 
     const launched = await launchContext(config);
     browser = launched.browser;
     page = launched.page;
 
-    await openEditor(page, config, { create: true });
-    const ready = await waitForEditorReady(page, config);
+    let titleSelector = '';
+    let body = { mode: 'existing', selector: '', length: 0 };
+    let labelResult = { added: 0, skipped: true };
 
-    const titleSelector = await setTitle(page, config, title);
-    const body = await setBody(page, config, html, warnings, ready);
-    await waitForEditorSync(page, Math.min(config.timeoutMs, 30000));
+    if (existingPostId) {
+      // Publish the draft the editor already holds. Do not create a second post
+      // and do not rewrite the reviewed text: the user approved this exact
+      // Blogger draft, so it is what should go live.
+      await openEditor(page, config, { postId: existingPostId });
+      const ready = await waitForEditorReady(page, config);
+      await page.waitForTimeout(1200);
 
-    const labelResult = await applyLabels(page, asArray(payload.labels));
-    if (labelResult.warning) warnings.push(labelResult.warning);
-    await waitForEditorSync(page, Math.min(config.timeoutMs, 30000));
+      const currentTitle = String(await readEditorValue(ready.title.locator))
+        .replace(/\s+/g, ' ')
+        .trim();
+      const wantedTitle = title.replace(/\s+/g, ' ').trim();
+      if (currentTitle && currentTitle !== wantedTitle) {
+        throw new WebError(
+          `the draft ${existingPostId} has title "${currentTitle}", not "${wantedTitle}". ` +
+            'Refusing to publish the wrong post.',
+          'BLOGGER_TITLE_NOT_SET'
+        );
+      }
+
+      const currentBody = String(await ready.body.locator.innerText().catch(() => ''))
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (currentBody.length < 40) {
+        throw new WebError(
+          `the draft ${existingPostId} has an empty body; refusing to publish it.`,
+          'BLOGGER_BODY_NOT_SET'
+        );
+      }
+
+      titleSelector = ready.title.selector;
+      body = { mode: 'existing', selector: ready.body.selector, length: currentBody.length };
+    } else {
+      await openEditor(page, config, { create: true });
+      const ready = await waitForEditorReady(page, config);
+
+      titleSelector = await setTitle(page, config, title);
+      body = await setBody(page, config, html, warnings, ready);
+      await waitForEditorSync(page, Math.min(config.timeoutMs, 30000));
+
+      labelResult = await applyLabels(page, asArray(payload.labels));
+      if (labelResult.warning) warnings.push(labelResult.warning);
+      await waitForEditorSync(page, Math.min(config.timeoutMs, 30000));
+    }
 
     const saved =
       mode === 'draft'
@@ -647,6 +704,7 @@ async function main() {
     const result = {
       ok: true,
       mode,
+      existingPostId,
       postId: saved.postId || '',
       url: saved.url || '',
       editUrl: saved.editUrl || (saved.postId ? editorUrlFor(config, saved.postId) : ''),

@@ -15,7 +15,14 @@ NOW = datetime(2029, 12, 31, 12, 0, tzinfo=timezone.utc)
 
 
 def test_plan_fills_the_daily_quota(loaded, settings, state):
-    result = build_plan(loaded, settings, state, publish_date=TARGET, now=NOW)
+    # Pin the two seed modules so the assertion stays valid as the content
+    # library grows. The quota behaviour is what this test covers.
+    seed = [
+        item
+        for item in loaded
+        if item.topic.id in {"math.division-by-zero", "physics.rayleigh-scattering-sky"}
+    ]
+    result = build_plan(seed, settings, state, publish_date=TARGET, now=NOW)
     assert result.error == ""
     assert result.existing == 0
     assert result.remaining == settings.site.posts_per_day

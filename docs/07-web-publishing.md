@@ -113,6 +113,32 @@ python -m astrion healthcheck --json
 11. 게시물 목록에서 제목을 최대 3회 확인하고, 저장된 초안을 다시 열어 제목/본문이 실제로 남았는지 검증합니다.
 12. Python이 상태 원장과 아카이브를 갱신합니다.
 
+### 기존 초안을 그대로 라이브로 올리기
+
+이미 Blogger에 초안으로 존재하는 글(사람이 검토를 마친 글)을 중복 생성 없이 그대로 공개할 때는 `postId`를 넘깁니다.
+
+```json
+{
+  "title": "Why Does Ice Float on Water?",
+  "contentHtml": "<div class=\"astrion-post\">...</div>",
+  "labels": ["Chemistry", "Water"],
+  "mode": "publish",
+  "postId": "7954783153677680206"
+}
+```
+
+동작 순서:
+
+1. `postId`가 있으면 **Create New Post를 누르지 않고** 해당 게시물 편집 URL을 엽니다.
+2. 에디터의 제목이 payload 제목과 일치하는지 확인합니다. 다르면 `BLOGGER_TITLE_NOT_SET`으로 실패합니다(다른 글을 잘못 공개하지 않기 위함).
+3. 본문이 비어 있으면 `BLOGGER_BODY_NOT_SET`으로 실패합니다.
+4. **제목/본문/라벨을 다시 쓰지 않습니다.** 사용자가 검토한 Blogger 초안 그대로 공개합니다.
+5. 발행 클릭 후 라이브 상태를 확인하고, 목록에서 상태를 다시 읽어 검증합니다.
+
+`postId`는 `mode: "publish"`에서만 허용됩니다. 초안 저장 모드와 함께 쓰면 `BLOGGER_BAD_PAYLOAD`로 거부합니다.
+
+Python 쪽은 `WebBloggerClient.insert_post(..., post_id="...")`로 전달하며, `post_id`를 생략하면 기존처럼 새 글을 만듭니다.
+
 ### 라벨 입력
 
 현재 Blogger 라벨 필드는 칩 위젯이 아니라 **쉼표로 구분하는 textarea**입니다.
@@ -136,6 +162,14 @@ python -m astrion healthcheck --json
 저장 후에는 "Changes saved" 표시만 믿지 않습니다. 목록 확인에 실패하거나, 다시 연 초안의 제목/본문이 비어 있으면 `BLOGGER_SAVE_UNCONFIRMED`로 실패합니다.
 
 **초안은 반드시 초안으로 남아야 합니다.** 저장 후 게시물 목록에서 상태를 다시 읽어 `draft`가 아니면 `BLOGGER_DRAFT_BECAME_LIVE`로 실패합니다. 다시 연 에디터가 `Update`를 보여 줘도 같은 오류로 실패합니다. 이 검사는 2026-11-14에 초안 5편 중 4편이 공개된 사고의 재발을 막기 위해 추가되었습니다.
+
+### 이미 공개된 글 재발행 방지
+
+라이브 발행(`mode: "publish"`)은 클릭 직전에 에디터의 기본 액션을 읽습니다. 초안은 `Publish`, 이미 공개된 글은 `Update`를 제공합니다.
+
+- 액션이 `Update`이면 **아무것도 클릭하지 않고** `BLOGGER_ALREADY_LIVE`로 실패합니다.
+- `Update`를 누르면 공개 글의 제목/본문이 조용히 덮어써지므로, 재발행은 항상 거부합니다.
+- 이미 공개된 글은 상태 원장을 재조정(`publisher`의 제목 기반 재조정 경로)해서 처리하고, 다시 발행하지 않습니다.
 
 ### 중복 방지
 
@@ -199,6 +233,7 @@ git diff web/selectors.json
 | `BLOGGER_SELECTOR_MISSING` | 필수 에디터 컨트롤을 찾지 못함 | `npm run selectors:fix` 또는 PR 검토 |
 | `BLOGGER_DRAFT_BUTTON_MISSING` | 초안 저장 버튼을 찾지 못함 | 선택자 복구, 필요 시 수동 초안 저장 |
 | `BLOGGER_DRAFT_BECAME_LIVE` | 초안 모드인데 게시물이 공개 상태로 저장됨 | 즉시 Blogger에서 **Revert to draft**, 원인 수정 후 재시도 |
+| `BLOGGER_ALREADY_LIVE` | 발행 대상이 이미 공개 상태(`Update` 노출) | 발행하지 않고 중단. 상태 원장 재조정 또는 새 주제 선택 |
 | `BLOGGER_SAVE_UNCONFIRMED` | 저장/발행 후 확인 실패 | 다음 실행이 제목으로 재조정 |
 | `BLOGGER_BODY_NOT_SET` | 본문 주입 실패 | 에디터 변경 여부 확인 |
 | `BLOGGER_TITLE_NOT_SET` | 제목 입력 후 값 불일치 | 에디터 변경 여부 확인 |

@@ -41,6 +41,7 @@ DRIFT_CODES = {
     "BLOGGER_SELECTOR_MISSING",
     "BLOGGER_DRAFT_BUTTON_MISSING",
     "BLOGGER_DRAFT_BECAME_LIVE",
+    "BLOGGER_ALREADY_LIVE",
     "BLOGGER_BODY_NOT_SET",
     "BLOGGER_TITLE_NOT_SET",
     "BLOGGER_NAVIGATION_TIMEOUT",
@@ -274,16 +275,19 @@ class WebBloggerClient:
         content: str,
         labels: list[str],
         is_draft: bool,
+        post_id: str = "",
     ) -> dict[str, Any]:
-        result = self._run(
-            "publishBlogger.mjs",
-            {
-                "title": title,
-                "contentHtml": content,
-                "labels": labels,
-                "mode": "draft" if is_draft else "publish",
-            },
-        )
+        payload: dict[str, Any] = {
+            "title": title,
+            "contentHtml": content,
+            "labels": labels,
+            "mode": "draft" if is_draft else "publish",
+        }
+        if post_id:
+            # Publish this existing Blogger draft in place instead of creating a
+            # new post. Used to take reviewed drafts live without duplicates.
+            payload["postId"] = str(post_id)
+        result = self._run("publishBlogger.mjs", payload)
         if is_draft and str(result.get("status") or "").upper() != "DRAFT":
             # Defense in depth: even if the browser engine mislabels a live post
             # as a draft save, never record it as a draft. This is the exact

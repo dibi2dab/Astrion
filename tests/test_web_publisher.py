@@ -99,6 +99,7 @@ def test_session_codes_map_to_auth_error(code):
         "BLOGGER_SELECTOR_MISSING",
         "BLOGGER_DRAFT_BUTTON_MISSING",
         "BLOGGER_DRAFT_BECAME_LIVE",
+        "BLOGGER_ALREADY_LIVE",
         "BLOGGER_BODY_NOT_SET",
         "BLOGGER_TITLE_NOT_SET",
         "BLOGGER_NAVIGATION_TIMEOUT",
@@ -230,6 +231,64 @@ def test_insert_post_sends_a_live_publish_payload(web_settings, monkeypatch):
     assert post["status"] == "live"
     assert post["published"] == "2026-11-13T10:00:00Z"
     assert post["url"].startswith("https://sciencew1thoutlimits")
+
+
+def test_insert_post_can_publish_an_existing_draft_in_place(web_settings, monkeypatch):
+    client = WebBloggerClient(web_settings)
+    write_session(client)
+    calls = []
+
+    def fake_run(command, **kwargs):
+        calls.append((command, kwargs, json.loads(Path(command[2]).read_text(encoding="utf-8"))))
+        return Completed(
+            {
+                "ok": True,
+                "mode": "publish",
+                "existingPostId": "7954783153677680206",
+                "postId": "7954783153677680206",
+                "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/ice.html",
+                "status": "LIVE",
+                "publishedAt": "2026-11-16T10:00:00Z",
+            }
+        )
+
+    monkeypatch.setattr("astrion.web_publisher.subprocess.run", fake_run)
+
+    post = client.insert_post(
+        title="Why Does Ice Float on Water?",
+        content="<div class=\"astrion-post\">body</div>",
+        labels=["Chemistry"],
+        is_draft=False,
+        post_id="7954783153677680206",
+    )
+
+    assert post["id"] == "7954783153677680206"
+    assert post["status"] == "live"
+    _, _, payload = calls[0]
+    assert payload["mode"] == "publish"
+    assert payload["postId"] == "7954783153677680206"
+
+
+def test_insert_post_omits_post_id_for_a_new_post(web_settings, monkeypatch):
+    client = WebBloggerClient(web_settings)
+    write_session(client)
+    captured = {}
+
+    def fake_run(command, **kwargs):
+        captured.update(json.loads(Path(command[2]).read_text(encoding="utf-8")))
+        return Completed(
+            {
+                "ok": True,
+                "mode": "publish",
+                "postId": "99",
+                "url": "https://sciencew1thoutlimits.blogspot.com/2026/11/post.html",
+                "status": "LIVE",
+            }
+        )
+
+    monkeypatch.setattr("astrion.web_publisher.subprocess.run", fake_run)
+    client.insert_post(title="T", content="<p>x</p>", labels=[], is_draft=False)
+    assert "postId" not in captured
 
 
 def test_insert_post_rejects_a_live_result_in_draft_mode(web_settings, monkeypatch):
@@ -435,3 +494,21 @@ def test_draft_selector_can_only_resolve_to_a_menu_save_control():
         assert "update" not in lowered, option
         # No generic top-level buttons: only menu items may match.
         assert 'role="menuitem"' in lowered or "menuitem" in lowered, option
+
+
+# ------------------------------------------------- publish-in-place regression
+def test_publisher_can_open_an_existing_post_by_id():
+    source = (WEB_DIR / "publishBlogger.mjs").read_text(encoding="utf-8")
+    assert "payload.postId" in source
+    assert "openEditor(page, config, { postId: existingPostId })" in source
+    # Reusing a post id must reject draft mode: it is a live-publish action.
+    assert "only supported when publishing an existing draft live" in source
+
+
+def test_publisher_refuses_to_republish_an_already_live_post():
+    source = (WEB_DIR / "publishBlogger.mjs").read_text(encoding="utf-8")
+    start = source.index("async function publishLive")
+    end = source.index("async function main")
+    body = source[start:end]
+    assert "BLOGGER_ALREADY_LIVE" in body
+    assert "editorPrimaryAction" in body

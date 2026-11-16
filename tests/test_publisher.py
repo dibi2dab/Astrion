@@ -62,9 +62,10 @@ def test_publish_inserts_drafts_and_archives(loaded, settings, state):
     assert result.published == 2
     assert [item.status for item in result.outcomes] == ["draft", "draft"]
     assert len(client.inserted) == 2
+    valid_categories = {item.topic.main_category.value for item in loaded}
     for call in client.inserted:
         assert call["is_draft"] is True
-        assert call["labels"][0] in {"Mathematics", "Physics"}
+        assert call["labels"][0] in valid_categories
         assert 'data-astrion-queue="' in call["content"]
 
     assert state.pending == []
