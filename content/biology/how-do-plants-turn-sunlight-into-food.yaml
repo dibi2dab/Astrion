@@ -1,0 +1,288 @@
+schema: astrion.topic/v1
+id: biology.photosynthesis
+status: active
+content_type: science-explained
+main_category: Biology & Life Sciences
+labels:
+  - Plant Biology
+  - Biochemistry
+  - Energy Conversion
+title: How Do Plants Turn Sunlight into Food?
+slug: how-do-plants-turn-sunlight-into-food
+meta_description: Photosynthesis uses sunlight to split water, release oxygen, and fix carbon dioxide into sugar inside chloroplasts through two linked stages.
+primary_keyword: how do plants turn sunlight into food
+secondary_keywords:
+  - photosynthesis
+  - light reactions
+  - calvin cycle
+  - chlorophyll
+  - chloroplast
+hook: >-
+  How do plants turn sunlight into food? A plant has no mouth and no stomach,
+  yet a tree can add tons of wood and leaves while sitting in the same patch of
+  soil for a century. The raw material does not come mainly from the ground. It
+  comes from the air, and the energy comes from sunlight. The process that
+  performs this conversion, photosynthesis, is the foundation of almost every
+  food chain on Earth.
+core_question: >-
+  How does a plant capture light energy and use it to build sugar from carbon
+  dioxide and water, and where does the oxygen come from?
+explanation_target: >-
+  The structure of the chloroplast, the light reactions that split water and
+  produce ATP and NADPH, the Calvin cycle that fixes carbon dioxide with
+  Rubisco, the overall equation and energy budget, and the reasons efficiency
+  is limited in real leaves.
+central_principle: >-
+  Light-driven electron transport in the thylakoid membrane splits water,
+  releases oxygen, and stores energy in ATP and NADPH, which the Calvin cycle
+  then uses to reduce carbon dioxide into sugar.
+unique_value: >-
+  This explanation links the two stages of photosynthesis to the anatomy of a
+  chloroplast, traces where each atom in the products comes from, quantifies
+  the energy stored per sugar molecule, and separates the ideal chemistry from
+  the losses that occur in a real leaf.
+key_takeaways:
+  - Photosynthesis converts light energy into chemical energy stored in sugar, using carbon dioxide and water.
+  - The oxygen released comes from water, not from carbon dioxide.
+  - The light reactions make ATP and NADPH; the Calvin cycle uses them to fix carbon dioxide.
+  - Most of a plant's dry mass comes from atmospheric carbon dioxide, not from soil.
+sections:
+  - heading: 'The Leaf as a Solar Factory'
+    blocks:
+      - type: paragraph
+        text: >-
+          A leaf is built for absorbing light and exchanging gases. Its upper
+          surface is transparent enough to let sunlight reach the cells below,
+          and its underside is dotted with pores called stomata that open to
+          admit carbon dioxide and release oxygen and water vapor. Inside the
+          leaf, tightly packed cells contain chloroplasts, the organelles where
+          photosynthesis takes place.
+      - type: paragraph
+        text: >-
+          A chloroplast has an outer membrane, an inner membrane, and a
+          fluid-filled interior called the stroma. Suspended in the stroma is a
+          network of flattened sacs, the thylakoids, often stacked into grana.
+          The thylakoid membrane holds the pigments and protein complexes that
+          capture light, while the stroma contains the enzymes that build sugar.
+          That division of labor runs through the entire process.
+      - type: paragraph
+        text: >-
+          The overall reaction is easy to state and easy to misread. Six
+          molecules of carbon dioxide and six of water are converted into one
+          molecule of glucose and six molecules of oxygen, using light energy.
+          The equation balances atoms, but it hides the machinery: two separate
+          stages, linked by energy-carrying molecules.
+      - type: equation
+        latex: '6\,CO_2 + 6\,H_2O + \text{light} \rightarrow C_6H_{12}O_6 + 6\,O_2'
+        variables:
+          - symbol: 'CO_2'
+            meaning: carbon dioxide taken in through stomata
+            unit: molecule
+          - symbol: 'H_2O'
+            meaning: water absorbed by roots and delivered to leaves
+            unit: molecule
+          - symbol: 'C_6H_{12}O_6'
+            meaning: glucose, the sugar that stores the captured energy
+            unit: molecule
+          - symbol: 'O_2'
+            meaning: oxygen released as a by-product
+            unit: molecule
+        caption: The balanced summary of photosynthesis, with light supplying the energy.
+      - type: callout
+        tone: note
+        title: Mass from air
+        text: >-
+          The carbon in a plant's body comes from carbon dioxide in the
+          atmosphere. Soil supplies water and minerals, but most of the dry
+          mass of a tree was once gas floating through the air.
+
+  - heading: 'Capturing Light with Pigments'
+    blocks:
+      - type: paragraph
+        text: >-
+          Chlorophyll is the best-known photosynthetic pigment, and its green
+          color is a clue to how it works. Chlorophyll absorbs red and blue
+          light strongly and reflects green wavelengths, which is why leaves
+          look green to us. The absorbed photons excite electrons in the
+          pigment to higher energy states, and that excitation is the first
+          step in converting light into chemistry.
+      - type: paragraph
+        text: >-
+          A single chlorophyll molecule would be a poor converter on its own.
+          In the thylakoid membrane, pigments are arranged in antenna complexes
+          that funnel excitation energy toward a reaction center. Carotenoids
+          and other accessory pigments absorb wavelengths that chlorophyll
+          misses, widening the range of usable light and protecting the
+          machinery from excess energy.
+      - type: paragraph
+        text: >-
+          When the excitation reaches the reaction center of photosystem II, it
+          drives an electron into a transport chain. The reaction center must
+          then replace that electron, and it does so by taking one from water.
+          This is the moment that connects light absorption to the splitting of
+          water and the release of oxygen.
+      - type: table
+        caption: The two stages of photosynthesis occur in different parts of the chloroplast.
+        headers:
+          - Stage
+          - Location
+          - Inputs
+          - Outputs
+        rows:
+          - ["Light reactions", "Thylakoid membrane", "Light, water, ADP, NADP+", "Oxygen, ATP, NADPH"]
+          - ["Calvin cycle", "Stroma", "Carbon dioxide, ATP, NADPH", "Sugar, ADP, NADP+"]
+
+  - heading: 'Splitting Water and Making Energy Carriers'
+    blocks:
+      - type: paragraph
+        text: >-
+          Photosystem II contains a cluster of manganese and calcium atoms
+          called the oxygen-evolving complex. It removes electrons from water
+          molecules, producing oxygen as a by-product. Four electrons must be
+          removed and four protons released to make one molecule of oxygen, so
+          the complex cycles through several states before it releases a full
+          O2 molecule.
+      - type: paragraph
+        text: >-
+          The electrons travel through a series of membrane proteins, losing
+          energy at each step. Some of that energy pumps protons from the
+          stroma into the thylakoid interior, building a concentration
+          difference across the membrane. The protons then flow back through
+          ATP synthase, a molecular turbine that uses the flow to attach a
+          phosphate to ADP and make ATP.
+      - type: paragraph
+        text: >-
+          A second photosystem, photosystem I, re-energizes the electrons and
+          passes them to a carrier called NADP+, forming NADPH. Both ATP and
+          NADPH are portable energy currencies. They are produced in the
+          thylakoid membrane but used in the stroma, which is why the two
+          stages of photosynthesis are physically separated but chemically
+          linked.
+      - type: paragraph
+        text: >-
+          The proton gradient is a striking example of energy conversion. Light
+          energy becomes electron excitation, electron transport becomes a
+          proton gradient, and the gradient becomes the phosphate bond in ATP.
+          Each step loses some energy as heat, which is why photosynthesis is
+          not perfectly efficient.
+
+  - heading: 'Fixing Carbon in the Calvin Cycle'
+    blocks:
+      - type: paragraph
+        text: >-
+          The Calvin cycle does not use light directly. It uses the ATP and
+          NADPH made by the light reactions to convert carbon dioxide into
+          sugar. The cycle begins when an enzyme called Rubisco attaches carbon
+          dioxide to a five-carbon sugar, ribulose bisphosphate. The resulting
+          six-carbon compound is unstable and immediately splits into two
+          three-carbon molecules.
+      - type: paragraph
+        text: >-
+          Those three-carbon molecules are reduced using ATP and NADPH, and
+          some of them leave the cycle to become the building blocks of
+          glucose, sucrose, and starch. The rest are rearranged to regenerate
+          ribulose bisphosphate so the cycle can continue. For every three
+          molecules of carbon dioxide fixed, the cycle consumes nine ATP and
+          six NADPH and produces one three-carbon sugar phosphate.
+      - type: paragraph
+        text: >-
+          Rubisco is thought to be the most abundant enzyme on Earth, and it is
+          also remarkably slow. It fixes only a few carbon dioxide molecules per
+          second, which is why plants need large amounts of it. Its active site
+          also accepts oxygen, triggering a wasteful process called
+          photorespiration that consumes energy and releases carbon dioxide.
+      - type: callout
+        tone: key
+        title: Two stages, one purpose
+        text: >-
+          The light reactions convert sunlight into ATP and NADPH. The Calvin
+          cycle spends those molecules to build sugar. Neither stage works for
+          long without the other.
+
+  - heading: 'Efficiency, Limits, and Adaptation'
+    blocks:
+      - type: paragraph
+        text: >-
+          The theoretical maximum efficiency of photosynthesis is often quoted
+          as around 30 percent of incident light under ideal conditions, but
+          real crops capture far less. Not every wavelength is absorbed, some
+          light is reflected or transmitted, and the biochemical steps lose
+          energy as heat. Field efficiency for major crops is typically a few
+          percent of the sunlight falling on a field over a season.
+      - type: paragraph
+        text: >-
+          Temperature, water availability, and carbon dioxide concentration all
+          shape the rate. On hot, dry days, plants close their stomata to
+          conserve water, which also cuts off the carbon dioxide supply and
+          slows the Calvin cycle. This trade-off between water loss and carbon
+          gain is one of the central problems of plant life on land.
+      - type: paragraph
+        text: >-
+          Some plants evolved workarounds. C4 plants such as maize and sugarcane
+          concentrate carbon dioxide around Rubisco, reducing photorespiration
+          and improving efficiency in hot climates. CAM plants such as cacti
+          open their stomata at night and store carbon dioxide for daytime use,
+          which saves water in deserts. These adaptations are variations on the
+          same chemistry.
+      - type: paragraph
+        text: >-
+          Photosynthesis also matters far beyond the plant. It supplies the
+          oxygen in the atmosphere, forms the base of most food webs, and pulls
+          carbon dioxide out of the air into living tissue. Fossil fuels are
+          stored photosynthetic energy from ancient organisms. Understanding
+          the process is central to agriculture, climate science, and the
+          search for better ways to capture energy from sunlight.
+misconceptions:
+  - claim: Plants get most of their mass from the soil.
+    correction: >-
+      Soil supplies water and mineral nutrients, but the carbon that makes up
+      most of a plant's dry mass comes from atmospheric carbon dioxide, which is
+      fixed into sugar during the Calvin cycle. A tree gains most of its bulk
+      from the air, not from the dirt beneath it.
+  - claim: The oxygen released by photosynthesis comes from carbon dioxide.
+    correction: >-
+      The oxygen comes from water. The oxygen-evolving complex of photosystem
+      II removes electrons from water molecules and releases O2 as a by-product.
+      Carbon dioxide supplies the carbon that becomes sugar, not the oxygen
+      that is released.
+  - claim: Plants photosynthesize during the day and respire only at night.
+    correction: >-
+      Plants respire continuously, day and night, using sugar and oxygen to
+      release energy. Photosynthesis happens only in the light, so during the
+      day a plant both produces and consumes sugar and oxygen. At night,
+      respiration continues without photosynthesis.
+sources:
+  - id: openstax-photosynthesis-overview
+    title: Overview of Photosynthesis
+    publisher: OpenStax, Biology 2e
+    url: https://openstax.org/books/biology-2e/pages/8-1-overview-of-photosynthesis
+    kind: textbook
+    accessed_at: 2026-11-15
+  - id: openstax-calvin-cycle
+    title: Using Light Energy to Make Organic Molecules
+    publisher: OpenStax, Biology 2e
+    url: https://openstax.org/books/biology-2e/pages/8-3-using-light-energy-to-make-organic-molecules
+    kind: textbook
+    accessed_at: 2026-11-15
+  - id: britannica-photosynthesis
+    title: Photosynthesis
+    publisher: Encyclopaedia Britannica
+    url: https://www.britannica.com/science/photosynthesis
+    kind: reference
+    accessed_at: 2026-11-15
+related:
+  - chemistry.ice-floats-water
+aliases:
+  - photosynthesis explained
+  - how plants make food
+  - light reactions and calvin cycle
+distinct_from: []
+provenance:
+  authored_by: Astrion editorial
+  fact_basis: textbook
+  reviewed_at: 2026-11-15
+  review_status: approved
+  notes: Based on OpenStax Biology 2e photosynthesis chapters and Britannica.
+priority: 4
+evergreen: true
+notes: ""

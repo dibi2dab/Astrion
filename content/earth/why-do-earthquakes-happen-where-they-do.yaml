@@ -1,0 +1,268 @@
+schema: astrion.topic/v1
+id: earth.earthquakes-plate-boundaries
+status: active
+content_type: science-explained
+main_category: Earth & Natural Sciences
+labels:
+  - Seismology
+  - Plate Tectonics
+  - Geophysics
+title: Why Do Earthquakes Happen Where They Do?
+slug: why-do-earthquakes-happen-where-they-do
+meta_description: Earthquakes cluster along plate boundaries because brittle rock snaps where plates lock, storing and then releasing elastic strain as seismic waves.
+primary_keyword: why do earthquakes happen
+secondary_keywords:
+  - plate boundaries
+  - elastic rebound
+  - seismic waves
+  - subduction zones
+hook: >-
+  Why do earthquakes happen where they do? The answer is written into the outer
+  shell of the planet. Most earthquakes do not strike at random. They line up
+  along narrow belts that trace the edges of tectonic plates, and those belts
+  explain why California, Japan, Chile, and the Himalaya are shaken far more
+  often than the middle of a continent. The pattern is not a coincidence of
+  geography. It is where rock is being pushed, pulled, and bent until it breaks.
+core_question: >-
+  Why are earthquakes concentrated along plate boundaries rather than spread
+  evenly across the planet, and what makes the rock there fail?
+explanation_target: >-
+  The geometry of tectonic plates, the difference between divergent,
+  convergent, and transform boundaries, the elastic rebound cycle that stores
+  and releases strain, and the reasons subduction zones produce the largest
+  earthquakes and tsunamis.
+central_principle: >-
+  Earthquakes occur where moving plates lock against one another and elastic
+  strain accumulates in brittle rock; when the stress exceeds friction and
+  strength, the rock slips suddenly and radiates seismic waves.
+unique_value: >-
+  This explanation ties the global map of earthquakes to the mechanics of plate
+  boundaries, separates the three main boundary types by motion and typical
+  earthquake behavior, and shows why the same elastic rebound process produces
+  both small local tremors and the largest tsunamigenic ruptures.
+key_takeaways:
+  - Most earthquakes occur in narrow belts along tectonic plate boundaries, not evenly across continents.
+  - Rock at a locked boundary bends elastically and stores energy until friction fails, then snaps back and radiates seismic waves.
+  - Convergent boundaries, especially subduction zones, host the largest earthquakes because long, shallow faults can rupture over hundreds of kilometers.
+  - A seismic hazard map is a statement about where strain accumulates, not a schedule of when a particular fault will break.
+sections:
+  - heading: Earthquakes Are Not Spread Evenly
+    blocks:
+      - type: paragraph
+        text: >-
+          A world map of earthquakes looks like a set of dark seams stitched
+          across the globe. One belt runs around the Pacific Ocean, another
+          runs through the Mediterranean and the Himalaya, and a third follows
+          the ridge system beneath the Atlantic. Large stretches of continental
+          interior are comparatively quiet. The first clue to the pattern is
+          that the seams match the edges of tectonic plates.
+      - type: paragraph
+        text: >-
+          A tectonic plate is a rigid slab of lithosphere, the crust plus the
+          uppermost mantle, that moves over the softer asthenosphere below. The
+          plates move at rates comparable to the growth of a fingernail, a few
+          centimeters per year. That sounds slow, and it is, but the motions
+          accumulate over millions of years and the edges absorb the
+          difference.
+      - type: paragraph
+        text: >-
+          The interior of a plate mostly rides along without deforming much.
+          Deformation concentrates at the boundaries, where one plate interacts
+          with another. That is why the earthquake map is a boundary map in
+          disguise. The question of why earthquakes happen becomes a question
+          of what happens when two plates meet.
+      - type: table
+        caption: The three main plate boundaries produce earthquakes through different motions.
+        headers:
+          - Boundary
+          - Plate motion
+          - Typical earthquakes
+          - Example
+        rows:
+          - ["Divergent", "Plates move apart", "Shallow, moderate", "Mid-Atlantic Ridge"]
+          - ["Convergent", "Plates move together", "Shallow to very deep, largest", "Japan Trench"]
+          - ["Transform", "Plates slide past", "Shallow, strong", "San Andreas Fault"]
+
+  - heading: 'The Engine: Moving Plates and Stuck Edges'
+    blocks:
+      - type: paragraph
+        text: >-
+          Plates are driven by a combination of slab pull, ridge push, and
+          mantle convection. Slab pull is the sinking of cold, dense oceanic
+          lithosphere at subduction zones. Ridge push is the gravitational
+          sliding of newly formed lithosphere away from an elevated ridge. The
+          details are still studied, but the consequence is not in doubt: the
+          plates are in constant, slow motion.
+      - type: paragraph
+        text: >-
+          A boundary does not slide freely. Rock surfaces are rough, and the
+          pressure across a fault is enormous. The two sides can become locked
+          for decades or centuries while the plates continue to move. The rock
+          near the locked patch bends, storing elastic energy in the same way a
+          stretched spring does.
+      - type: paragraph
+        text: >-
+          Friction is not a simple constant. It depends on pressure, temperature,
+          mineral composition, and the presence of fluids. Some faults creep
+          slowly and release energy without a violent rupture. Others remain
+          stuck and then fail suddenly. A single boundary can contain patches of
+          both behavior, which is one reason earthquakes are difficult to
+          forecast in detail.
+      - type: callout
+        tone: key
+        title: A fault is a loaded spring
+        text: >-
+          The plates keep moving whether or not the fault slips. Strain builds
+          in the rock around a locked patch until the patch can no longer hold,
+          and then the stored energy is released as motion and seismic waves.
+
+  - heading: 'Elastic Rebound: How Rock Stores and Releases Energy'
+    blocks:
+      - type: paragraph
+        text: >-
+          The elastic rebound model describes the cycle. Before an earthquake,
+          the rock on either side of a fault is deformed. Survey markers on
+          opposite sides of a fault can move closer together or farther apart
+          over years, even though the fault itself appears stationary. The rock
+          is behaving elastically, not permanently flowing.
+      - type: paragraph
+        text: >-
+          When the fault finally slips, the deformed rock springs back toward a
+          less strained shape. The sudden motion radiates energy through the
+          surrounding rock as seismic waves. P waves compress and expand the
+          material, S waves shake it side to side, and surface waves travel
+          along the ground and often cause the most damage to buildings.
+      - type: paragraph
+        text: >-
+          The rupture does not happen everywhere at once. It starts at a
+          hypocenter and propagates along the fault at kilometers per second.
+          The size of the earthquake depends on the area that ruptures, the
+          amount of slip, and the rigidity of the rock. A long fault that
+          ruptures all at once can release far more energy than a short one.
+      - type: paragraph
+        text: >-
+          Aftershocks follow because the main rupture changes the stress field
+          around it. Some nearby patches are pushed closer to failure, and they
+          may break hours, days, or years later. The sequence is not a sign that
+          the main earthquake failed to release everything. It is the crust
+          adjusting to a new balance of stress.
+
+  - heading: 'Depth, Subduction, and Tsunamis'
+    blocks:
+      - type: paragraph
+        text: >-
+          Earthquake depth is a fingerprint of the boundary type. At a
+          divergent boundary, the lithosphere is thin and warm, so earthquakes
+          are shallow. At a transform boundary, the faults also cut mostly
+          through the shallow crust. At a subduction zone, a cold slab descends
+          into the mantle and can generate earthquakes hundreds of kilometers
+          below the surface.
+      - type: paragraph
+        text: >-
+          Subduction zones produce the largest earthquakes for a geometric
+          reason. The interface between the descending slab and the overriding
+          plate is a long, shallow fault that can lock across a huge area. When
+          it ruptures, the seafloor can move vertically by meters. That sudden
+          displacement lifts or drops the ocean above it.
+      - type: paragraph
+        text: >-
+          A tsunami is generated when a large volume of water is displaced.
+          The wave travels across the open ocean with a long wavelength and
+          small height, then slows and steepens as it enters shallow water near
+          a coast. The danger is not the wave in deep water. It is the run-up
+          when the wave reaches the shore.
+      - type: paragraph
+        text: >-
+          Not every large earthquake produces a tsunami. The fault must move
+          the seafloor vertically, and the rupture must extend into deep water
+          or displace enough water to matter. Strike-slip earthquakes, which
+          slide horizontally, are much less efficient at generating tsunamis.
+          This is why the fault mechanism matters as much as the magnitude.
+
+  - heading: 'Prediction, Hazard, and What the Pattern Means'
+    blocks:
+      - type: paragraph
+        text: >-
+          The boundary map tells us where earthquakes are likely, not when a
+          particular fault will break. Long-term hazard maps combine the rate of
+          plate motion, the geometry of faults, and the history of past
+          earthquakes to estimate the probability of shaking over decades. They
+          are statistical statements about a region, not predictions of a
+          specific event.
+      - type: paragraph
+        text: >-
+          Short-term prediction remains out of reach. There is no reliable
+          precursor that tells scientists an earthquake will happen tomorrow.
+          Changes in groundwater, animal behavior, and small tremors have been
+          proposed, but none has survived careful testing as a general warning
+          signal. The absence of a prediction method is not a failure of effort.
+          It reflects the complexity of a system with millions of interacting
+          faults.
+      - type: paragraph
+        text: >-
+          The practical response is preparation rather than prophecy. Building
+          codes, early-warning systems that detect the fast P wave before the
+          damaging S wave arrives, and public education all reduce harm. The
+          same logic applies to tsunamis: detection networks and evacuation
+          planning buy time even when the earthquake itself cannot be
+          anticipated.
+      - type: paragraph
+        text: >-
+          The next time a map shows a red band along a coastline, think of it as
+          a record of motion. Earthquakes happen where plates interact because
+          that is where the planet's outer shell is being deformed. The belt is
+          not random. It is the price of a restless, moving surface.
+misconceptions:
+  - claim: Earthquakes can happen anywhere with equal probability.
+    correction: >-
+      Earthquakes can occur in many places, but the probability is far higher
+      near plate boundaries because that is where strain accumulates fastest.
+      Intraplate earthquakes exist, but they are much rarer and usually
+      associated with ancient fault zones or localized stress.
+  - claim: A bigger earthquake is always caused by a deeper fault.
+    correction: >-
+      Magnitude depends mainly on the ruptured area, the slip, and rock
+      rigidity, not simply on depth. Subduction zones host the largest events
+      because they contain long, shallow megathrust faults, while very deep
+      earthquakes are usually smaller because the rock is hot and deforms
+      differently.
+  - claim: Animals can reliably predict earthquakes days in advance.
+    correction: >-
+      Some animals may react to subtle ground motion or other changes just
+      before shaking arrives, but no reproducible method has been shown to
+      predict a specific earthquake days ahead. Claims of animal prediction
+      often fail when tested against random chance and false alarms.
+sources:
+  - id: usgs-this-dynamic-earth
+    title: 'This Dynamic Earth: The Story of Plate Tectonics'
+    publisher: U.S. Geological Survey
+    url: https://pubs.usgs.gov/gip/dynamic/dynamic.html
+    kind: agency
+    accessed_at: 2026-11-15
+  - id: usgs-earthquake-faq
+    title: What is an earthquake and what causes them to happen?
+    publisher: U.S. Geological Survey
+    url: https://www.usgs.gov/faqs/what-earthquake-and-what-causes-them-happen
+    kind: agency
+    accessed_at: 2026-11-15
+  - id: usgs-understanding-plate-motions
+    title: Understanding plate motions
+    publisher: U.S. Geological Survey
+    url: https://pubs.usgs.gov/gip/dynamic/understanding.html
+    kind: agency
+    accessed_at: 2026-11-15
+related: []
+aliases:
+  - why earthquakes happen
+  - earthquake locations
+  - plate boundary earthquakes
+distinct_from: []
+provenance:
+  authored_by: Astrion editorial
+  fact_basis: agency_data
+  reviewed_at: 2026-11-15
+  review_status: approved
+  notes: Written from USGS plate tectonics and earthquake-hazard material.
+priority: 4
+evergreen: true
+notes: ""

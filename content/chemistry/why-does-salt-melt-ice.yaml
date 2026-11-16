@@ -1,0 +1,272 @@
+schema: astrion.topic/v1
+id: chemistry.salt-melts-ice
+status: active
+content_type: science-explained
+main_category: Chemistry
+labels:
+  - Solutions
+  - Colligative Properties
+  - Phase Changes
+title: Why Does Salt Melt Ice?
+slug: why-does-salt-melt-ice
+meta_description: Salt melts ice by lowering the freezing point of water, so the ice turns to liquid at temperatures where pure water would stay frozen.
+primary_keyword: why does salt melt ice
+secondary_keywords:
+  - freezing point depression
+  - colligative properties
+  - brine
+  - road salt
+hook: >-
+  Why does salt melt ice? Sprinkling salt on a winter sidewalk appears to make
+  the ice disappear, as if salt were producing heat. It is not. Salt changes
+  the temperature at which water freezes, allowing ice to melt into a salty
+  liquid even when the air is below the normal freezing point of pure water.
+core_question: >-
+  How does dissolving salt lower the freezing point of water, and why does the
+  effect stop working at very low temperatures?
+explanation_target: >-
+  The phase equilibrium between ice and liquid water, the colligative nature
+  of freezing-point depression, the role of dissolved ions and entropy, the
+  practical limits of road salt, and why salt does not melt ice by adding heat.
+central_principle: >-
+  Dissolved salt lowers the chemical potential of liquid water, so the
+  equilibrium between ice and liquid shifts to a lower temperature; ice melts
+  into the brine until the solution reaches its new freezing point or the salt
+  is exhausted.
+unique_value: >-
+  This explanation separates freezing-point depression from heat release,
+  shows why the number of dissolved particles matters, quantifies the effect
+  with a simple formula, and connects the chemistry to the practical limits of
+  road salting.
+key_takeaways:
+  - Salt does not melt ice by being warm; it lowers the freezing point of water.
+  - Freezing-point depression depends on the number of dissolved particles, not on their identity.
+  - Salt works best near and slightly below 0 °C and becomes ineffective at very low temperatures.
+  - The melted ice becomes brine, which can refreeze or dilute until the salt is used up.
+sections:
+  - heading: The Observation and the Wrong Explanation
+    blocks:
+      - type: paragraph
+        text: >-
+          Pure water freezes at 0 °C under ordinary pressure. Ice and liquid
+          water can coexist at that temperature, and the balance between them
+          depends on temperature and on what is dissolved in the liquid. When
+          salt is added to ice, the ice begins to melt even though the
+          surroundings are cold.
+      - type: paragraph
+        text: >-
+          The melting can feel cold because it absorbs heat. Breaking the ice
+          lattice and mixing the resulting water with salt requires energy, and
+          that energy comes from the surroundings. A salt-and-ice mixture can
+          become colder than the air, which is why it is used in old-fashioned
+          ice-cream makers. Salt is not a heat source.
+      - type: paragraph
+        text: >-
+          The reason salt works is that the dissolved ions interfere with the
+          ability of water molecules to join the ice crystal. The liquid phase
+          becomes more stable relative to the solid, so the freezing point
+          drops. Ice that is already present can melt into the salty liquid.
+      - type: callout
+        tone: key
+        title: Lower freezing point, not added heat
+        text: >-
+          Salt changes the temperature at which ice and liquid water are in
+          balance. The melting itself absorbs heat and cools the mixture.
+
+  - heading: 'Freezing-Point Depression'
+    blocks:
+      - type: paragraph
+        text: >-
+          A property that depends on the number of dissolved particles rather
+          than their chemical identity is called a colligative property.
+          Freezing-point depression is one of them. The more particles in
+          solution, the lower the freezing point, at least for dilute
+          solutions.
+      - type: equation
+        latex: '\Delta T_f = -K_f \, i \, m'
+        variables:
+          - symbol: '\Delta T_f'
+            meaning: change in freezing point
+            unit: degrees Celsius
+          - symbol: K_f
+            meaning: freezing-point depression constant of the solvent
+            unit: degrees Celsius kilograms per mole
+          - symbol: i
+            meaning: van't Hoff factor, the number of particles per formula unit
+            unit: dimensionless
+          - symbol: m
+            meaning: molality of the solute
+            unit: moles per kilogram
+        caption: The freezing point falls in proportion to the number of dissolved particles.
+      - type: paragraph
+        text: >-
+          For water, the freezing-point depression constant is about 1.86
+          degrees Celsius kilograms per mole. Sodium chloride dissociates into
+          two ions, sodium and chloride, so its van't Hoff factor is close to
+          two in dilute solution. One mole of salt per kilogram of water
+          therefore produces a freezing-point drop of roughly 3.7 °C, though
+          real concentrated brines deviate from the ideal formula.
+      - type: paragraph
+        text: >-
+          The effect is not unlimited. As the solution becomes more
+          concentrated, ions interact, the van't Hoff factor falls, and the
+          simple formula becomes inaccurate. At the eutectic point, the
+          solution is saturated and the freezing point reaches its lowest value
+          for that salt. Beyond that concentration, adding more salt does not
+          lower the freezing point further.
+      - type: table
+        caption: Different salts produce different freezing-point limits.
+        headers:
+          - Salt
+          - Ions per formula unit
+          - Approximate eutectic temperature
+        rows:
+          - ["Sodium chloride", "2", "about -21 °C"]
+          - ["Calcium chloride", "3", "about -51 °C"]
+          - ["Magnesium chloride", "3", "about -33 °C"]
+          - ["Potassium chloride", "2", "about -11 °C"]
+
+  - heading: 'Why the Ions Matter'
+    blocks:
+      - type: paragraph
+        text: >-
+          In ice, water molecules sit in an ordered hydrogen-bonded lattice.
+          Adding a solute disrupts the liquid's structure and lowers its
+          chemical potential. The solid phase does not incorporate the ions
+          easily, so the equilibrium shifts. The liquid can remain stable at a
+          temperature where pure water would freeze.
+      - type: paragraph
+        text: >-
+          Entropy is part of the story. A solution has more ways to arrange its
+          particles than pure liquid water, and the added disorder favors the
+          liquid phase. The ions also interact with water molecules, disrupting
+          the network that would otherwise organize into ice.
+      - type: paragraph
+        text: >-
+          The identity of the ion matters less than the number of particles for
+          the ideal colligative effect. Calcium chloride produces more particles
+          per formula unit than sodium chloride, which is why it can melt ice at
+          lower temperatures. It is also more corrosive and more expensive,
+          which is why road crews choose salts based on conditions and cost.
+      - type: paragraph
+        text: >-
+          Impurities in real salt matter too. Rock salt contains clay, sand,
+          and other minerals that do not dissolve and can leave residue. Some
+          impurities can affect the eutectic behavior, and the practical
+          performance of a road-salt blend depends on particle size, moisture,
+          and how quickly it dissolves.
+
+  - heading: 'Why Salt Stops Working When It Gets Very Cold'
+    blocks:
+      - type: paragraph
+        text: >-
+          Road salt is most effective near 0 °C. As the temperature falls, the
+          amount of salt needed to keep the liquid phase stable rises. At some
+          point the brine becomes saturated and the eutectic temperature is
+          reached. Below that temperature, salt cannot melt the ice no matter
+          how much is spread.
+      - type: paragraph
+        text: >-
+          For sodium chloride, the practical limit is around minus 21 °C under
+          ideal conditions, and real roads often become difficult well before
+          that. Spreading more salt below the limit is wasteful because it
+          simply sits on the ice or dissolves into a brine that freezes.
+      - type: paragraph
+        text: >-
+          The melted ice also dilutes the brine. As ice turns to water, the
+          salt concentration falls, and the freezing point rises. That is why a
+          single application can lose effectiveness and why repeated
+          applications are sometimes needed. The salt is consumed by dilution,
+          not by a chemical reaction.
+      - type: paragraph
+        text: >-
+          Refreezing is a practical hazard. If the brine dilutes or the
+          temperature drops further, the melted water can freeze again, often
+          as a smooth sheet. Road crews therefore combine salt with sand for
+          traction, or use brines and other salts that remain effective at
+          lower temperatures.
+
+  - heading: 'Costs, Benefits, and Alternatives'
+    blocks:
+      - type: paragraph
+        text: >-
+          Salt is cheap and effective, which is why it is used on a massive
+          scale. It also has environmental costs. Runoff increases the salinity
+          of streams and lakes, can harm freshwater organisms, and corrodes
+          vehicles, bridges, and pipes. The benefits for safety and mobility are
+          real, but they come with a maintenance bill.
+      - type: paragraph
+        text: >-
+          Alternatives include sand for traction, calcium magnesium acetate and
+          other less corrosive deicers, and heated pavement systems. Each has
+          trade-offs in cost, performance, and environmental impact. Some cities
+          pre-wet salt with brine to help it stick and act faster, reducing the
+          total amount needed.
+      - type: paragraph
+        text: >-
+          The chemistry also appears in everyday cooking. Salting icy sidewalks
+          and salting pasta water both involve dissolving ions in water, though
+          the concentrations and goals differ. In cooking, the salt changes
+          flavor and raises the boiling point slightly; on a road, the important
+          effect is the lowered freezing point.
+      - type: paragraph
+        text: >-
+          Salt melts ice because it changes the equilibrium between solid and
+          liquid water, not because it generates heat. The effect is powerful
+          near freezing, limited at low temperatures, and inseparable from the
+          environmental cost of keeping roads clear.
+misconceptions:
+  - claim: Salt melts ice by releasing heat.
+    correction: >-
+      Dissolving salt can absorb heat, which is why a salt-ice mixture feels
+      cold. The melting comes from freezing-point depression: the dissolved
+      ions shift the equilibrium so that ice can melt at a lower temperature.
+      Salt is not a heat source.
+  - claim: More salt always melts more ice, even in extreme cold.
+    correction: >-
+      Each salt has a eutectic temperature, below which adding more salt cannot
+      melt ice. For sodium chloride the practical limit is around minus 21 °C
+      under ideal conditions. Below that, salt may sit on the ice or form a
+      brine that freezes.
+  - claim: Salt turns ice directly into water without any other effect.
+    correction: >-
+      The melted ice becomes a salt solution, or brine. As the brine dilutes,
+      its freezing point rises, and it can refreeze. The process is an
+      equilibrium between ice, water, and dissolved ions, not a one-way
+      conversion.
+sources:
+  - id: openstax-colligative-properties
+    title: Colligative Properties
+    publisher: OpenStax, Chemistry 2e
+    url: https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties
+    kind: textbook
+    accessed_at: 2026-11-15
+  - id: britannica-freezing-point-depression
+    title: Freezing-Point Depression
+    publisher: Encyclopaedia Britannica
+    url: https://www.britannica.com/science/freezing-point-depression
+    kind: reference
+    accessed_at: 2026-11-15
+  - id: usgs-road-salt
+    title: Why do we salt roads when it snows?
+    publisher: U.S. Geological Survey
+    url: https://www.usgs.gov/faqs/why-do-we-salt-roads-when-it-snows
+    kind: agency
+    accessed_at: 2026-11-15
+related:
+  - chemistry.ice-floats-water
+  - earth.ocean-salinity
+aliases:
+  - salt and ice
+  - freezing point depression of water
+  - road salt chemistry
+distinct_from: []
+provenance:
+  authored_by: Astrion editorial
+  fact_basis: textbook
+  reviewed_at: 2026-11-15
+  review_status: approved
+  notes: Colligative-property values from OpenStax Chemistry and standard references.
+priority: 3
+evergreen: true
+notes: ""

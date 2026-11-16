@@ -1,0 +1,252 @@
+schema: astrion.topic/v1
+id: engineering.bridge-expansion-joints
+status: active
+content_type: science-explained
+main_category: Engineering & Applied Sciences
+labels:
+  - Structural Engineering
+  - Thermal Expansion
+  - Civil Engineering
+title: Why Do Bridges Have Expansion Joints?
+slug: why-do-bridges-have-expansion-joints
+meta_description: Bridges expand and contract with temperature, so engineers build gaps and bearings into the structure to keep thermal movement from cracking steel and concrete.
+primary_keyword: why do bridges have expansion joints
+secondary_keywords:
+  - thermal expansion
+  - bridge bearings
+  - structural movement
+  - expansion joint
+hook: >-
+  Why do bridges have expansion joints? A bridge looks rigid, but its length
+  changes with the weather. On a hot afternoon a long steel span can be
+  centimeters longer than it was on a cold night, and a concrete deck expands
+  as the sun heats it. Without a place for that movement to go, the structure
+  would push against its supports and crack.
+core_question: >-
+  How much does a bridge change length with temperature, and how do expansion
+  joints and bearings accommodate that movement without weakening the structure?
+explanation_target: >-
+  The physics of thermal expansion, a numerical estimate for a long steel or
+  concrete span, the difference between joints and bearings, the consequences
+  of restrained movement, and the other sources of bridge movement that joints
+  must handle.
+central_principle: >-
+  Materials change length when their temperature changes, and a long bridge
+  accumulates enough movement that the structure must be allowed to slide or
+  flex at designed locations instead of being rigidly restrained.
+unique_value: >-
+  This explanation quantifies thermal movement with a simple formula, shows why
+  a few millimeters per meter becomes centimeters over a long span, and
+  distinguishes the roles of expansion joints, bearings, and fixed supports in
+  a real bridge.
+key_takeaways:
+  - A material expands when heated and contracts when cooled; the change is proportional to length and temperature change.
+  - A 200-meter steel bridge can change length by several centimeters over a typical annual temperature range.
+  - Expansion joints create a controlled gap, and bearings allow the deck to slide or rotate while carrying load.
+  - Restrained thermal movement produces large forces, which is why the movement is designed for rather than blocked.
+sections:
+  - heading: A Bridge Is Never the Same Length Twice
+    blocks:
+      - type: paragraph
+        text: >-
+          Most materials expand when heated. The atoms vibrate with greater
+          amplitude and settle into a slightly larger average spacing. The
+          effect is small for a short object and significant for a long one. A
+          meter of steel grows by about 12 micrometers per degree Celsius, which
+          sounds negligible until it is multiplied by a long span.
+      - type: equation
+        latex: '\Delta L = \alpha L_0 \Delta T'
+        variables:
+          - symbol: '\Delta L'
+            meaning: change in length
+            unit: meters
+          - symbol: '\alpha'
+            meaning: coefficient of linear thermal expansion
+            unit: per degree Celsius
+          - symbol: L_0
+            meaning: original length
+            unit: meters
+          - symbol: '\Delta T'
+            meaning: change in temperature
+            unit: degrees Celsius
+        caption: Thermal expansion is proportional to the original length and the temperature change.
+      - type: paragraph
+        text: >-
+          Plug in a 200-meter steel bridge and a 40 degree Celsius swing
+          between a cold night and a hot day. With a coefficient near 12 times
+          10 to the minus 6 per degree Celsius, the change is about 9.6
+          centimeters. That is not a rounding error. It is a movement that must
+          be accommodated somewhere.
+      - type: table
+        caption: Typical linear expansion coefficients for common bridge materials.
+        headers:
+          - Material
+          - Coefficient (per degree Celsius)
+          - Relative movement
+        rows:
+          - ["Steel", "about 12 x 10^-6", "Moderate"]
+          - ["Concrete", "about 10 x 10-6", "Moderate"]
+          - ["Aluminum", "about 23 x 10^-6", "High"]
+          - ["Timber", "about 3 to 5 x 10^-6", "Low"]
+
+  - heading: 'Joints, Bearings, and Fixed Supports'
+    blocks:
+      - type: paragraph
+        text: >-
+          An expansion joint is a gap or a sliding assembly that lets two parts
+          of the structure move relative to each other. On a road bridge, the
+          joint must also carry traffic smoothly, keep water out, and resist
+          debris. The visible metal comb or rubber strip at the deck end is only
+          the surface expression of a designed movement path.
+      - type: paragraph
+        text: >-
+          Bearings are the components that transfer load from the deck to the
+          piers while allowing movement. A fixed bearing resists translation
+          and rotation, while an expansion bearing permits sliding or rotation.
+          A typical bridge combines fixed and expansion bearings so that the
+          deck can move in a controlled direction without drifting sideways.
+      - type: paragraph
+        text: >-
+          The design question is not whether the bridge moves. It is where the
+          movement is allowed and how the forces are routed. A bridge with no
+          expansion provision would push against its abutments, bend its piers,
+          or crack its deck. The resulting forces can be far larger than the
+          loads the structure was designed to carry.
+      - type: callout
+        tone: key
+        title: Movement must go somewhere
+        text: >-
+          Restraining thermal expansion does not make it disappear. It converts
+          the movement into stress, and the structure must resist that stress
+          somewhere else.
+
+  - heading: What Happens When Joints Fail
+    blocks:
+      - type: paragraph
+        text: >-
+          Expansion joints are exposed to traffic, salt, water, and debris, so
+          they are among the most maintenance-intensive parts of a bridge. A
+          failed joint can let water reach the bearings and the deck edges,
+          accelerating corrosion. Debris can jam the gap and prevent movement,
+          which transfers force into parts of the structure that were not
+          designed for it.
+      - type: paragraph
+        text: >-
+          A jammed joint can also create a rough ride and concentrated impact
+          loads. The repeated pounding damages the concrete around the joint,
+          and the damage spreads. Maintenance crews inspect joints regularly
+          because a small failure can grow into a structural problem.
+      - type: paragraph
+        text: >-
+          Modern designs use modular joints, finger joints, and sliding plates
+          to accommodate larger movements while keeping the road surface
+          continuous. The choice depends on the expected movement, traffic
+          volume, water exposure, and maintenance budget. No single joint type
+          is best for every bridge.
+
+  - heading: Movement Beyond Temperature
+    blocks:
+      - type: paragraph
+        text: >-
+          Temperature is the most familiar cause of movement, but it is not the
+          only one. Concrete shrinks as it cures, and long-term creep changes
+          the shape of the structure under sustained load. Traffic adds dynamic
+          deflection, and wind can cause vibration. Earthquakes introduce
+          sudden, large displacements.
+      - type: paragraph
+        text: >-
+          Bridges also move because of moisture and soil settlement. A pier can
+          settle slightly, changing the alignment of the deck. Bearings and
+          joints must tolerate small misalignments without binding. Designers
+          combine the expected movements from all sources rather than treating
+          temperature in isolation.
+      - type: paragraph
+        text: >-
+          Seismic design adds a different requirement. A bridge may need to
+          absorb or dissipate energy during an earthquake, and some bearings
+          are designed to act as fuses or dampers. The goal is to protect the
+          structure by controlling where movement and damage occur.
+
+  - heading: 'Why the Gap Looks Simple but Is Not'
+    blocks:
+      - type: paragraph
+        text: >-
+          The visible gap is a compromise between structural needs and the
+          driver's experience. A large gap accommodates movement but can feel
+          like a bump. A small gap rides smoothly but may not provide enough
+          travel. Engineers balance the two by estimating the range of
+          movement and choosing a joint with margin.
+      - type: paragraph
+        text: >-
+          The calculation uses the full temperature range the bridge will see,
+          not just the weather on opening day. It also accounts for the
+          temperature of the material, which can differ from air temperature.
+          Dark asphalt in summer sun can become much hotter than the
+          surrounding air, and steel can cool rapidly on a clear winter night.
+      - type: paragraph
+        text: >-
+          Construction sequencing matters too. A bridge assembled at one
+          temperature has a built-in length. The joint must be set so that the
+          structure can move in both directions from that starting point,
+          rather than using up all its travel in one direction at the first
+          heat wave.
+      - type: paragraph
+        text: >-
+          The next time a car thumps over a bridge joint, the sound is a sign
+          of a structure making room for the seasons. The gap is not a defect.
+          It is a deliberate allowance for a material property that cannot be
+          argued away.
+misconceptions:
+  - claim: Concrete does not expand with heat, so only steel bridges need joints.
+    correction: >-
+      Concrete also expands when heated, though its coefficient is somewhat
+      lower than steel's. Joints and bearings are used in concrete bridges as
+      well, and the required movement depends on the span and the temperature
+      range rather than on the material alone.
+  - claim: Expansion joints are only needed on very long bridges.
+    correction: >-
+      Any structure with a significant length or temperature exposure needs a
+      plan for movement. Even moderate spans can develop enough thermal
+      movement to crack if the ends are rigidly restrained. The amount of
+      movement scales with length and temperature change.
+  - claim: A bridge with a visible gap is structurally weak.
+    correction: >-
+      The gap is a designed feature that protects the structure from restrained
+      thermal movement. A bridge without a movement path can develop much
+      larger forces and more serious cracking. The joint must be maintained,
+      but its presence is not a sign of weakness.
+sources:
+  - id: openstax-thermal-expansion
+    title: Thermal Expansion of Solids and Liquids
+    publisher: OpenStax, Physics
+    url: https://openstax.org/books/physics/pages/13-2-thermal-expansion-of-solids-and-liquids
+    kind: textbook
+    accessed_at: 2026-11-15
+  - id: engineering-toolbox-expansion
+    title: Linear Thermal Expansion Coefficients
+    publisher: The Engineering ToolBox
+    url: https://www.engineeringtoolbox.com/linear-expansion-coefficients-d_95.html
+    kind: reference
+    accessed_at: 2026-11-15
+  - id: fhwa-bridge-preservation
+    title: Bridge Preservation
+    publisher: Federal Highway Administration
+    url: https://www.fhwa.dot.gov/bridge/
+    kind: agency
+    accessed_at: 2026-11-15
+related:
+  - chemistry.ice-floats-water
+aliases:
+  - bridge thermal expansion
+  - bridge joints
+  - why bridges have gaps
+distinct_from: []
+provenance:
+  authored_by: Astrion editorial
+  fact_basis: textbook
+  reviewed_at: 2026-11-15
+  review_status: approved
+  notes: Thermal expansion values from OpenStax and standard engineering references.
+priority: 3
+evergreen: true
+notes: ""

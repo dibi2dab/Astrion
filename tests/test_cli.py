@@ -49,8 +49,9 @@ def test_list_command(tmp_path, capsys):
 
     assert main(["--root", str(project), "list", "--category", "Physics", "--json"]) == 0
     payload = json.loads(capsys.readouterr().out)
-    assert len(payload) == 1
-    assert payload[0]["id"] == TOPIC_ID
+    assert payload
+    assert all(item["category"] == "Physics" for item in payload)
+    assert any(item["id"] == TOPIC_ID for item in payload)
 
 
 def test_check_duplicates_command(tmp_path, capsys):
