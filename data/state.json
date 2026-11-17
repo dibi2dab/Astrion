@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-17T14:17:32+00:00",
+  "updated_at": "2026-11-17T22:12:55+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -252,9 +252,7 @@
         "earthquake locations",
         "plate boundary earthquakes"
       ]
-    }
-  ],
-  "pending": [
+    },
     {
       "queue_id": "2026-11-17-s1-how-do-scientists-recover-dna-from-ancient-bones",
       "topic_id": "emerging.ancient-dna",
@@ -262,12 +260,18 @@
       "main_category": "Emerging & Interdisciplinary Science",
       "content_type": "science-explained",
       "publish_date": "2026-11-17",
-      "publish_after": "2026-11-17T09:20:00-05:00",
       "slot": 0,
-      "status": "queued",
-      "built_at": "2026-11-17T14:17:32+00:00",
+      "blogger_post_id": "1763297936600359186",
+      "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/1763297936600359186?hl=en",
+      "blogger_status": "live",
+      "published_at": "2026-11-17T22:12:55.169Z",
       "quality_score": 100.0,
-      "attempts": 0,
+      "labels": [
+        "Emerging & Interdisciplinary Science",
+        "Ancient DNA",
+        "Genomics",
+        "Archaeology"
+      ],
       "signature": "What happens to DNA after an organism dies, and how do researchers separate authentic ancient fragments from contamination and assemble them into a genome? The chemical decay of DNA after death, the structure of ancient fragments, the clean-room and contamination controls, the role of molecular baits and high-throughput sequencing, and the limits and ethics of ancient-genome research. Ancient DNA survives only as short, damaged fragments, so authenticity depends on chemical signatures of decay, sterile handling, and computational mapping that distinguishes endogenous fragments from contamination.",
       "fingerprint": "51f150bd6bca1a005bddb726a6dd7ef4b787fcf9629069cb12d5d2eeb3424d42",
       "primary_keyword": "how do scientists recover dna from ancient bones",
@@ -275,14 +279,10 @@
         "ancient dna recovery",
         "fossil dna",
         "paleogenomics"
-      ],
-      "labels": [
-        "Emerging & Interdisciplinary Science",
-        "Ancient DNA",
-        "Genomics",
-        "Archaeology"
       ]
-    },
+    }
+  ],
+  "pending": [
     {
       "queue_id": "2026-11-17-s2-why-is-there-no-largest-prime-number",
       "topic_id": "math.no-largest-prime",
