@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-16T20:20:57+00:00",
+  "updated_at": "2026-11-17T03:44:03+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -224,9 +224,7 @@
         "undecidability of halting",
         "Turing halting theorem"
       ]
-    }
-  ],
-  "pending": [
+    },
     {
       "queue_id": "2026-11-16-s2-why-do-earthquakes-happen-where-they-do",
       "topic_id": "earth.earthquakes-plate-boundaries",
@@ -234,12 +232,18 @@
       "main_category": "Earth & Natural Sciences",
       "content_type": "science-explained",
       "publish_date": "2026-11-16",
-      "publish_after": "2026-11-16T15:30:00-05:00",
       "slot": 1,
-      "status": "queued",
-      "built_at": "2026-11-16T03:45:14+00:00",
+      "blogger_post_id": "1785070780060855111",
+      "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/1785070780060855111?hl=en",
+      "blogger_status": "live",
+      "published_at": "2026-11-17T03:44:03.690Z",
       "quality_score": 100.0,
-      "attempts": 0,
+      "labels": [
+        "Earth & Natural Sciences",
+        "Seismology",
+        "Plate Tectonics",
+        "Geophysics"
+      ],
       "signature": "Why are earthquakes concentrated along plate boundaries rather than spread evenly across the planet, and what makes the rock there fail? The geometry of tectonic plates, the difference between divergent, convergent, and transform boundaries, the elastic rebound cycle that stores and releases strain, and the reasons subduction zones produce the largest earthquakes and tsunamis. Earthquakes occur where moving plates lock against one another and elastic strain accumulates in brittle rock; when the stress exceeds friction and strength, the rock slips suddenly and radiates seismic waves.",
       "fingerprint": "bdd07d604d0614add485e947c590602b90b22953b7be5771ee88a6346ce970b4",
       "primary_keyword": "why do earthquakes happen",
@@ -247,15 +251,10 @@
         "why earthquakes happen",
         "earthquake locations",
         "plate boundary earthquakes"
-      ],
-      "labels": [
-        "Earth & Natural Sciences",
-        "Seismology",
-        "Plate Tectonics",
-        "Geophysics"
       ]
     }
   ],
+  "pending": [],
   "failed": [],
   "builds": [
     {
