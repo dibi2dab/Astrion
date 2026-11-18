@@ -1,0 +1,116 @@
+{
+  "schema": "astrion.queue/v1",
+  "queue_id": "2026-11-18-s1-how-do-plants-turn-sunlight-into-food",
+  "topic_id": "biology.photosynthesis",
+  "status": "queued",
+  "created_at": "2026-11-18T13:53:30+00:00",
+  "publish_date": "2026-11-18",
+  "publish_after": "2026-11-18T08:56:00-05:00",
+  "slot": 0,
+  "blogger": {
+    "is_draft": false,
+    "labels": [
+      "Biology & Life Sciences",
+      "Plant Biology",
+      "Biochemistry",
+      "Energy Conversion"
+    ]
+  },
+  "post": {
+    "title": "How Do Plants Turn Sunlight into Food?",
+    "html": "<div class=\"astrion-post\" data-astrion-topic=\"biology.photosynthesis\" data-astrion-queue=\"2026-11-18-s1-how-do-plants-turn-sunlight-into-food\">\n<style>\n.astrion-post {\n  --a-ink: #16202b;\n  --a-muted: #5b6875;\n  --a-line: #dfe5ec;\n  --a-accent: #1f6feb;\n  --a-bg: #f6f9fd;\n  max-width: 760px;\n  margin: 0 auto;\n  color: var(--a-ink);\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n  font-size: 1.06rem;\n  line-height: 1.75;\n  overflow-wrap: break-word;\n}\n.astrion-post p { margin: 0 0 1.15em; }\n.astrion-kicker { margin: 0 0 0.6em; color: var(--a-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }\n.astrion-lead { color: #25313d; font-size: 1.17rem; line-height: 1.7; }\n.astrion-reading-time { margin: 0 0 1.9em; color: var(--a-muted); font-size: 0.86rem; }\n.astrion-key-takeaways { margin: 1.9em 0; padding: 1.1rem 1.25rem; background: var(--a-bg); border-left: 4px solid var(--a-accent); border-radius: 0 8px 8px 0; }\n.astrion-key-takeaways h2 { margin: 0 0 0.45rem; font-size: 1rem; letter-spacing: 0.02em; }\n.astrion-key-takeaways ul { margin: 0; padding-left: 1.25rem; }\n.astrion-key-takeaways li { margin: 0.3rem 0; }\n.astrion-section h2 { margin: 2.1em 0 0.7em; font-size: 1.45rem; line-height: 1.3; }\n.astrion-section h3 { margin: 1.6em 0 0.5em; font-size: 1.14rem; line-height: 1.4; }\n.astrion-math { padding: 0.35rem 0; overflow-x: auto; overflow-y: hidden; text-align: center; }\n.astrion-math-inline { text-align: left; }\n.astrion-figure { margin: 1.5em 0; }\n.astrion-figure figcaption, .astrion-equation-caption { margin-top: 0.45rem; color: var(--a-muted); font-size: 0.86rem; text-align: center; }\n.astrion-equation { margin: 1.5em 0; padding: 1rem 1.1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-equation .astrion-math { font-size: 1.08rem; }\n.astrion-vars { display: grid; grid-template-columns: minmax(2.5rem, auto) 1fr; gap: 0.35rem 0.8rem; margin: 0.85rem 0 0; font-size: 0.93rem; }\n.astrion-vars dt { font-family: ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", monospace; font-weight: 700; }\n.astrion-vars dd { margin: 0; color: var(--a-muted); }\n.astrion-table-wrap { margin: 1.5em 0; overflow-x: auto; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 0.95rem; }\n.astrion-table caption { padding: 0.75rem 0.9rem; color: var(--a-ink); font-size: 0.88rem; font-weight: 700; text-align: left; }\n.astrion-table th, .astrion-table td { padding: 0.6rem 0.85rem; border-top: 1px solid var(--a-line); text-align: left; vertical-align: top; }\n.astrion-table thead th { background: #f7f9fc; font-size: 0.8rem; letter-spacing: 0.03em; text-transform: uppercase; }\n.astrion-list { margin: 0 0 1.25em; padding-left: 1.35rem; }\n.astrion-list li { margin: 0.35rem 0; }\n.astrion-callout { margin: 1.5em 0; padding: 0.9rem 1.1rem; background: #f8fafc; border-left: 4px solid #8a94a6; border-radius: 0 6px 6px 0; }\n.astrion-callout--key { background: #f2f7ff; border-color: var(--a-accent); }\n.astrion-callout--warning { background: #fff9ec; border-color: #c47f17; }\n.astrion-callout-title { margin: 0 0 0.35rem; font-weight: 700; }\n.astrion-callout p:last-child { margin-bottom: 0; }\n.astrion-example { margin: 1.5em 0; padding: 1rem 1.1rem; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-example h3 { margin-top: 0; }\n.astrion-example ol { margin-bottom: 0; padding-left: 1.35rem; }\n.astrion-misconceptions, .astrion-sources, .astrion-related { margin-top: 2.3em; }\n.astrion-misconceptions h2, .astrion-sources h2, .astrion-related h2 { margin: 0 0 0.7em; font-size: 1.3rem; line-height: 1.35; }\n.astrion-misconception { margin: 0 0 1.1em; padding: 0.85rem 1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-misconception p { margin: 0; }\n.astrion-misconception-claim { margin-bottom: 0.35rem !important; font-weight: 700; }\n.astrion-sources ol { margin: 0; padding-left: 1.35rem; }\n.astrion-sources li { margin: 0.55em 0; font-size: 0.94rem; }\n.astrion-sources a, .astrion-related a { color: var(--a-accent); text-decoration: none; }\n.astrion-source-meta { display: block; color: var(--a-muted); font-size: 0.84rem; }\n.astrion-related ul { margin: 0; padding-left: 1.25rem; }\n.astrion-related li { margin: 0.4em 0; }\n.astrion-post-meta { margin: 2.4em 0 0; padding-top: 1rem; border-top: 1px solid var(--a-line); color: var(--a-muted); font-size: 0.84rem; }\n@media (max-width: 600px) {\n  .astrion-post { font-size: 1rem; }\n  .astrion-section h2 { font-size: 1.3rem; }\n  .astrion-table { min-width: 360px; }\n  .astrion-vars { grid-template-columns: 1fr; gap: 0.1rem; }\n  .astrion-vars dd { margin-bottom: 0.5rem; }\n}\n</style>\n\n<p class=\"astrion-kicker\">Biology & Life Sciences</p>\n<p>How do plants turn sunlight into food? A plant has no mouth and no stomach, yet a tree can add tons of wood and leaves while sitting in the same patch of soil for a century. The raw material does not come mainly from the ground. It comes from the air, and the energy comes from sunlight. The process that performs this conversion, photosynthesis, is the foundation of almost every food chain on Earth.</p>\n<p class=\"astrion-reading-time\">7 min read</p>\n\n<aside class=\"astrion-key-takeaways\">\n  <h2>Key takeaways</h2>\n  <ul>\n    <li>Photosynthesis converts light energy into chemical energy stored in sugar, using carbon dioxide and water.</li>\n    <li>The oxygen released comes from water, not from carbon dioxide.</li>\n    <li>The light reactions make ATP and NADPH; the Calvin cycle uses them to fix carbon dioxide.</li>\n    <li>Most of a plant's dry mass comes from atmospheric carbon dioxide, not from soil.</li>\n  </ul>\n</aside>\n\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-1-the-leaf-as-a-solar-factory\">The Leaf as a Solar Factory</h2>\n  <p>A leaf is built for absorbing light and exchanging gases. Its upper surface is transparent enough to let sunlight reach the cells below, and its underside is dotted with pores called stomata that open to admit carbon dioxide and release oxygen and water vapor. Inside the leaf, tightly packed cells contain chloroplasts, the organelles where photosynthesis takes place.</p>\n<p>A chloroplast has an outer membrane, an inner membrane, and a fluid-filled interior called the stroma. Suspended in the stroma is a network of flattened sacs, the thylakoids, often stacked into grana. The thylakoid membrane holds the pigments and protein complexes that capture light, while the stroma contains the enzymes that build sugar. That division of labor runs through the entire process.</p>\n<p>The overall reaction is easy to state and easy to misread. Six molecules of carbon dioxide and six of water are converted into one molecule of glucose and six molecules of oxygen, using light energy. The equation balances atoms, but it hides the machinery: two separate stages, linked by energy-carrying molecules.</p>\n<div class=\"astrion-equation\">\n  <div class=\"astrion-math\">\\[6\\,CO_2 + 6\\,H_2O + \\text{light} \\rightarrow C_6H_{12}O_6 + 6\\,O_2\\]</div>\n  <dl class=\"astrion-vars\">\n      <dt>CO_2</dt>\n      <dd>carbon dioxide taken in through stomata (molecule)</dd>\n      <dt>H_2O</dt>\n      <dd>water absorbed by roots and delivered to leaves (molecule)</dd>\n      <dt>C_6H_{12}O_6</dt>\n      <dd>glucose, the sugar that stores the captured energy (molecule)</dd>\n      <dt>O_2</dt>\n      <dd>oxygen released as a by-product (molecule)</dd>\n  </dl>\n  <figcaption class=\"astrion-equation-caption\">The balanced summary of photosynthesis, with light supplying the energy.</figcaption>\n</div>\n<aside class=\"astrion-callout astrion-callout--note\">\n  <p class=\"astrion-callout-title\">Mass from air</p>\n<p>The carbon in a plant&#x27;s body comes from carbon dioxide in the atmosphere. Soil supplies water and minerals, but most of the dry mass of a tree was once gas floating through the air.</p>\n</aside>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-2-capturing-light-with-pigments\">Capturing Light with Pigments</h2>\n  <p>Chlorophyll is the best-known photosynthetic pigment, and its green color is a clue to how it works. Chlorophyll absorbs red and blue light strongly and reflects green wavelengths, which is why leaves look green to us. The absorbed photons excite electrons in the pigment to higher energy states, and that excitation is the first step in converting light into chemistry.</p>\n<p>A single chlorophyll molecule would be a poor converter on its own. In the thylakoid membrane, pigments are arranged in antenna complexes that funnel excitation energy toward a reaction center. Carotenoids and other accessory pigments absorb wavelengths that chlorophyll misses, widening the range of usable light and protecting the machinery from excess energy.</p>\n<p>When the excitation reaches the reaction center of photosystem II, it drives an electron into a transport chain. The reaction center must then replace that electron, and it does so by taking one from water. This is the moment that connects light absorption to the splitting of water and the release of oxygen.</p>\n<div class=\"astrion-table-wrap\" role=\"region\" tabindex=\"0\" aria-label=\"The two stages of photosynthesis occur in different parts of the chloroplast.\">\n  <table class=\"astrion-table\">\n    <caption>The two stages of photosynthesis occur in different parts of the chloroplast.</caption>\n    <thead><tr><th scope=\"col\">Stage</th><th scope=\"col\">Location</th><th scope=\"col\">Inputs</th><th scope=\"col\">Outputs</th></tr></thead>\n    <tbody>\n      <tr><td>Light reactions</td><td>Thylakoid membrane</td><td>Light, water, ADP, NADP+</td><td>Oxygen, ATP, NADPH</td></tr>\n      <tr><td>Calvin cycle</td><td>Stroma</td><td>Carbon dioxide, ATP, NADPH</td><td>Sugar, ADP, NADP+</td></tr>\n    </tbody>\n  </table>\n</div>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-3-splitting-water-and-making-energy-carriers\">Splitting Water and Making Energy Carriers</h2>\n  <p>Photosystem II contains a cluster of manganese and calcium atoms called the oxygen-evolving complex. It removes electrons from water molecules, producing oxygen as a by-product. Four electrons must be removed and four protons released to make one molecule of oxygen, so the complex cycles through several states before it releases a full O2 molecule.</p>\n<p>The electrons travel through a series of membrane proteins, losing energy at each step. Some of that energy pumps protons from the stroma into the thylakoid interior, building a concentration difference across the membrane. The protons then flow back through ATP synthase, a molecular turbine that uses the flow to attach a phosphate to ADP and make ATP.</p>\n<p>A second photosystem, photosystem I, re-energizes the electrons and passes them to a carrier called NADP+, forming NADPH. Both ATP and NADPH are portable energy currencies. They are produced in the thylakoid membrane but used in the stroma, which is why the two stages of photosynthesis are physically separated but chemically linked.</p>\n<p>The proton gradient is a striking example of energy conversion. Light energy becomes electron excitation, electron transport becomes a proton gradient, and the gradient becomes the phosphate bond in ATP. Each step loses some energy as heat, which is why photosynthesis is not perfectly efficient.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-4-fixing-carbon-in-the-calvin-cycle\">Fixing Carbon in the Calvin Cycle</h2>\n  <p>The Calvin cycle does not use light directly. It uses the ATP and NADPH made by the light reactions to convert carbon dioxide into sugar. The cycle begins when an enzyme called Rubisco attaches carbon dioxide to a five-carbon sugar, ribulose bisphosphate. The resulting six-carbon compound is unstable and immediately splits into two three-carbon molecules.</p>\n<p>Those three-carbon molecules are reduced using ATP and NADPH, and some of them leave the cycle to become the building blocks of glucose, sucrose, and starch. The rest are rearranged to regenerate ribulose bisphosphate so the cycle can continue. For every three molecules of carbon dioxide fixed, the cycle consumes nine ATP and six NADPH and produces one three-carbon sugar phosphate.</p>\n<p>Rubisco is thought to be the most abundant enzyme on Earth, and it is also remarkably slow. It fixes only a few carbon dioxide molecules per second, which is why plants need large amounts of it. Its active site also accepts oxygen, triggering a wasteful process called photorespiration that consumes energy and releases carbon dioxide.</p>\n<aside class=\"astrion-callout astrion-callout--key\">\n  <p class=\"astrion-callout-title\">Two stages, one purpose</p>\n<p>The light reactions convert sunlight into ATP and NADPH. The Calvin cycle spends those molecules to build sugar. Neither stage works for long without the other.</p>\n</aside>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-5-efficiency-limits-and-adaptation\">Efficiency, Limits, and Adaptation</h2>\n  <p>The theoretical maximum efficiency of photosynthesis is often quoted as around 30 percent of incident light under ideal conditions, but real crops capture far less. Not every wavelength is absorbed, some light is reflected or transmitted, and the biochemical steps lose energy as heat. Field efficiency for major crops is typically a few percent of the sunlight falling on a field over a season.</p>\n<p>Temperature, water availability, and carbon dioxide concentration all shape the rate. On hot, dry days, plants close their stomata to conserve water, which also cuts off the carbon dioxide supply and slows the Calvin cycle. This trade-off between water loss and carbon gain is one of the central problems of plant life on land.</p>\n<p>Some plants evolved workarounds. C4 plants such as maize and sugarcane concentrate carbon dioxide around Rubisco, reducing photorespiration and improving efficiency in hot climates. CAM plants such as cacti open their stomata at night and store carbon dioxide for daytime use, which saves water in deserts. These adaptations are variations on the same chemistry.</p>\n<p>Photosynthesis also matters far beyond the plant. It supplies the oxygen in the atmosphere, forms the base of most food webs, and pulls carbon dioxide out of the air into living tissue. Fossil fuels are stored photosynthetic energy from ancient organisms. Understanding the process is central to agriculture, climate science, and the search for better ways to capture energy from sunlight.</p>\n</section>\n\n<section class=\"astrion-misconceptions\">\n  <h2>Common misconceptions</h2>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Plants get most of their mass from the soil.</p>\n    <p>Soil supplies water and mineral nutrients, but the carbon that makes up most of a plant's dry mass comes from atmospheric carbon dioxide, which is fixed into sugar during the Calvin cycle. A tree gains most of its bulk from the air, not from the dirt beneath it.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">The oxygen released by photosynthesis comes from carbon dioxide.</p>\n    <p>The oxygen comes from water. The oxygen-evolving complex of photosystem II removes electrons from water molecules and releases O2 as a by-product. Carbon dioxide supplies the carbon that becomes sugar, not the oxygen that is released.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Plants photosynthesize during the day and respire only at night.</p>\n    <p>Plants respire continuously, day and night, using sugar and oxygen to release energy. Photosynthesis happens only in the light, so during the day a plant both produces and consumes sugar and oxygen. At night, respiration continues without photosynthesis.</p>\n  </div>\n</section>\n\n<section class=\"astrion-sources\">\n  <h2>Sources</h2>\n  <ol>\n    <li>\n      <a href=\"https://openstax.org/books/biology-2e/pages/8-1-overview-of-photosynthesis\" target=\"_blank\" rel=\"noopener noreferrer\">Overview of Photosynthesis</a>\n      <span class=\"astrion-source-meta\">OpenStax, Biology 2e, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://openstax.org/books/biology-2e/pages/8-3-using-light-energy-to-make-organic-molecules\" target=\"_blank\" rel=\"noopener noreferrer\">Using Light Energy to Make Organic Molecules</a>\n      <span class=\"astrion-source-meta\">OpenStax, Biology 2e, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://www.britannica.com/science/photosynthesis\" target=\"_blank\" rel=\"noopener noreferrer\">Photosynthesis</a>\n      <span class=\"astrion-source-meta\">Encyclopaedia Britannica, n.d.</span>\n    </li>\n  </ol>\n</section>\n\n\n<section class=\"astrion-related\">\n  <h2>Related reading</h2>\n  <ul>\n    <li><a href=\"https://sciencew1thoutlimits.blogspot.com/2026/11/why-does-ice-float-on-water.html\">Why Does Ice Float on Water?</a></li>\n  </ul>\n</section>\n\n<p class=\"astrion-post-meta\">Biology & Life Sciences · Plant Biology · Biochemistry · Energy Conversion · Reviewed November 2026</p>\n\n<script>\nwindow.MathJax = {\n  tex: { inlineMath: [['\\\\(', '\\\\)']], displayMath: [['\\\\[', '\\\\]']] },\n  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },\n  svg: { fontCache: 'global' }\n};\n</script>\n<script async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>\n</div>",
+    "html_sha256": "05fd5cebc38a6983588578b4e6c81788ffe6fb417a4bc26d534c2f0f3d951c85",
+    "meta_description": "Photosynthesis uses sunlight to split water, release oxygen, and fix carbon dioxide into sugar inside chloroplasts through two linked stages.",
+    "primary_keyword": "how do plants turn sunlight into food",
+    "content_type": "science-explained",
+    "main_category": "Biology & Life Sciences",
+    "slug": "how-do-plants-turn-sunlight-into-food"
+  },
+  "fingerprint": {
+    "signature": "How does a plant capture light energy and use it to build sugar from carbon dioxide and water, and where does the oxygen come from? The structure of the chloroplast, the light reactions that split water and produce ATP and NADPH, the Calvin cycle that fixes carbon dioxide with Rubisco, the overall equation and energy budget, and the reasons efficiency is limited in real leaves. Light-driven electron transport in the thylakoid membrane splits water, releases oxygen, and stores energy in ATP and NADPH, which the Calvin cycle then uses to reduce carbon dioxide into sugar.",
+    "sha256": "706b34b3944ddd693f339c77f528c10a0034851a08b228b1fd47bd4af00582ac",
+    "topic_key": "biology.photosynthesis",
+    "primary_keyword": "how do plants turn sunlight into food",
+    "aliases": [
+      "photosynthesis explained",
+      "how plants make food",
+      "light reactions and calvin cycle"
+    ]
+  },
+  "quality": {
+    "topic_id": "biology.photosynthesis",
+    "score": 98.0,
+    "decision": "PUBLISH",
+    "breakdown": {
+      "accuracy_sources": 23.0,
+      "depth_explanation": 20.0,
+      "distinct_value": 20.0,
+      "readability": 15.0,
+      "notation": 10.0,
+      "blogger_html": 5.0,
+      "seo": 5.0
+    },
+    "fatal": [],
+    "warnings": [],
+    "metrics": {
+      "words": 1352,
+      "min_words": 700,
+      "sections": 5,
+      "paragraphs": 23,
+      "avg_paragraph_words": 52.4,
+      "avg_sentence_words": 17.3,
+      "words_per_section": 270.4,
+      "keyword_density": 0.0052,
+      "sources": 3,
+      "primary_sources": 0,
+      "labels": [
+        "Biology & Life Sciences",
+        "Plant Biology",
+        "Biochemistry",
+        "Energy Conversion"
+      ],
+      "reading_minutes": 6,
+      "html_bytes": 17497,
+      "has_math": true,
+      "tables": 1,
+      "scripts": 2,
+      "links": 4
+    },
+    "conflicts": []
+  },
+  "review": {
+    "reviewed_at": "2026-11-15",
+    "review_status": "approved",
+    "fact_basis": "textbook",
+    "authored_by": "Astrion editorial"
+  },
+  "sources": [
+    {
+      "id": "openstax-photosynthesis-overview",
+      "title": "Overview of Photosynthesis",
+      "publisher": "OpenStax, Biology 2e",
+      "url": "https://openstax.org/books/biology-2e/pages/8-1-overview-of-photosynthesis",
+      "kind": "textbook",
+      "published_at": null,
+      "accessed_at": "2026-11-15"
+    },
+    {
+      "id": "openstax-calvin-cycle",
+      "title": "Using Light Energy to Make Organic Molecules",
+      "publisher": "OpenStax, Biology 2e",
+      "url": "https://openstax.org/books/biology-2e/pages/8-3-using-light-energy-to-make-organic-molecules",
+      "kind": "textbook",
+      "published_at": null,
+      "accessed_at": "2026-11-15"
+    },
+    {
+      "id": "britannica-photosynthesis",
+      "title": "Photosynthesis",
+      "publisher": "Encyclopaedia Britannica",
+      "url": "https://www.britannica.com/science/photosynthesis",
+      "kind": "reference",
+      "published_at": null,
+      "accessed_at": "2026-11-15"
+    }
+  ]
+}

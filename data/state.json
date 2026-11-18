@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-18T04:11:04+00:00",
+  "updated_at": "2026-11-18T13:53:30+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -310,7 +310,64 @@
       ]
     }
   ],
-  "pending": [],
+  "pending": [
+    {
+      "queue_id": "2026-11-18-s1-how-do-plants-turn-sunlight-into-food",
+      "topic_id": "biology.photosynthesis",
+      "title": "How Do Plants Turn Sunlight into Food?",
+      "main_category": "Biology & Life Sciences",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-18",
+      "publish_after": "2026-11-18T08:56:00-05:00",
+      "slot": 0,
+      "status": "queued",
+      "built_at": "2026-11-18T13:53:30+00:00",
+      "quality_score": 98.0,
+      "attempts": 0,
+      "signature": "How does a plant capture light energy and use it to build sugar from carbon dioxide and water, and where does the oxygen come from? The structure of the chloroplast, the light reactions that split water and produce ATP and NADPH, the Calvin cycle that fixes carbon dioxide with Rubisco, the overall equation and energy budget, and the reasons efficiency is limited in real leaves. Light-driven electron transport in the thylakoid membrane splits water, releases oxygen, and stores energy in ATP and NADPH, which the Calvin cycle then uses to reduce carbon dioxide into sugar.",
+      "fingerprint": "706b34b3944ddd693f339c77f528c10a0034851a08b228b1fd47bd4af00582ac",
+      "primary_keyword": "how do plants turn sunlight into food",
+      "aliases": [
+        "photosynthesis explained",
+        "how plants make food",
+        "light reactions and calvin cycle"
+      ],
+      "labels": [
+        "Biology & Life Sciences",
+        "Plant Biology",
+        "Biochemistry",
+        "Energy Conversion"
+      ]
+    },
+    {
+      "queue_id": "2026-11-18-s2-why-cant-computers-generate-truly-random-numbers",
+      "topic_id": "computing.pseudorandomness",
+      "title": "Why Can't Computers Generate Truly Random Numbers?",
+      "main_category": "Computing & Formal Sciences",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-18",
+      "publish_after": "2026-11-18T15:30:00-05:00",
+      "slot": 1,
+      "status": "queued",
+      "built_at": "2026-11-18T13:53:30+00:00",
+      "quality_score": 100.0,
+      "attempts": 0,
+      "signature": "How can a deterministic machine produce numbers that look random, and what does it take to make those numbers genuinely unpredictable? The difference between pseudorandom, cryptographically secure, and true random numbers, how seeds and deterministic algorithms generate sequences, where physical entropy comes from, and why statistical tests alone cannot prove unpredictability. A deterministic program can stretch a short random seed into a long sequence that passes statistical tests, but true unpredictability requires an unpredictable physical source that an observer cannot reproduce.",
+      "fingerprint": "607afb7bfbc34c1832b7a827d92ea2282e81dce996771e76571491643f394d00",
+      "primary_keyword": "why can't computers generate truly random numbers",
+      "aliases": [
+        "computer randomness",
+        "pseudorandom numbers",
+        "true random numbers"
+      ],
+      "labels": [
+        "Computing & Formal Sciences",
+        "Algorithms",
+        "Cryptography",
+        "Probability"
+      ]
+    }
+  ],
   "failed": [],
   "builds": [
     {
@@ -338,6 +395,15 @@
       "queue_ids": [
         "2026-11-17-s1-how-do-scientists-recover-dna-from-ancient-bones",
         "2026-11-17-s2-why-is-there-no-largest-prime-number"
+      ]
+    },
+    {
+      "build_id": "2026-11-18-20261118T135330+0000",
+      "created_at": "2026-11-18T13:53:30+00:00",
+      "publish_date": "2026-11-18",
+      "queue_ids": [
+        "2026-11-18-s1-how-do-plants-turn-sunlight-into-food",
+        "2026-11-18-s2-why-cant-computers-generate-truly-random-numbers"
       ]
     }
   ]
