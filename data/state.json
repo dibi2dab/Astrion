@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-18T13:53:30+00:00",
+  "updated_at": "2026-11-18T21:50:58+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -308,9 +308,7 @@
         "euclid prime proof",
         "infinitely many primes"
       ]
-    }
-  ],
-  "pending": [
+    },
     {
       "queue_id": "2026-11-18-s1-how-do-plants-turn-sunlight-into-food",
       "topic_id": "biology.photosynthesis",
@@ -318,12 +316,18 @@
       "main_category": "Biology & Life Sciences",
       "content_type": "science-explained",
       "publish_date": "2026-11-18",
-      "publish_after": "2026-11-18T08:56:00-05:00",
       "slot": 0,
-      "status": "queued",
-      "built_at": "2026-11-18T13:53:30+00:00",
+      "blogger_post_id": "8575311574069522520",
+      "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/8575311574069522520?hl=en",
+      "blogger_status": "live",
+      "published_at": "2026-11-18T21:50:58.821Z",
       "quality_score": 98.0,
-      "attempts": 0,
+      "labels": [
+        "Biology & Life Sciences",
+        "Plant Biology",
+        "Biochemistry",
+        "Energy Conversion"
+      ],
       "signature": "How does a plant capture light energy and use it to build sugar from carbon dioxide and water, and where does the oxygen come from? The structure of the chloroplast, the light reactions that split water and produce ATP and NADPH, the Calvin cycle that fixes carbon dioxide with Rubisco, the overall equation and energy budget, and the reasons efficiency is limited in real leaves. Light-driven electron transport in the thylakoid membrane splits water, releases oxygen, and stores energy in ATP and NADPH, which the Calvin cycle then uses to reduce carbon dioxide into sugar.",
       "fingerprint": "706b34b3944ddd693f339c77f528c10a0034851a08b228b1fd47bd4af00582ac",
       "primary_keyword": "how do plants turn sunlight into food",
@@ -331,14 +335,10 @@
         "photosynthesis explained",
         "how plants make food",
         "light reactions and calvin cycle"
-      ],
-      "labels": [
-        "Biology & Life Sciences",
-        "Plant Biology",
-        "Biochemistry",
-        "Energy Conversion"
       ]
-    },
+    }
+  ],
+  "pending": [
     {
       "queue_id": "2026-11-18-s2-why-cant-computers-generate-truly-random-numbers",
       "topic_id": "computing.pseudorandomness",
