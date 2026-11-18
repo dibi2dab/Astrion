@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-17T22:12:55+00:00",
+  "updated_at": "2026-11-18T04:11:04+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -280,9 +280,7 @@
         "fossil dna",
         "paleogenomics"
       ]
-    }
-  ],
-  "pending": [
+    },
     {
       "queue_id": "2026-11-17-s2-why-is-there-no-largest-prime-number",
       "topic_id": "math.no-largest-prime",
@@ -290,12 +288,18 @@
       "main_category": "Mathematics",
       "content_type": "mathematics-explained",
       "publish_date": "2026-11-17",
-      "publish_after": "2026-11-17T15:30:00-05:00",
       "slot": 1,
-      "status": "queued",
-      "built_at": "2026-11-17T14:17:32+00:00",
+      "blogger_post_id": "8448399856281799549",
+      "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/8448399856281799549?hl=en",
+      "blogger_status": "live",
+      "published_at": "2026-11-18T04:11:04.431Z",
       "quality_score": 98.0,
-      "attempts": 0,
+      "labels": [
+        "Mathematics",
+        "Number Theory",
+        "Proof",
+        "Primes"
+      ],
       "signature": "How can we prove that the sequence of prime numbers never ends, without finding an explicit formula for the next prime? The definition of a prime, the structure of Euclid's proof by contradiction, the distinction between the constructed number and a new prime, an example, and why the argument does not produce a practical formula for generating primes. Given any finite list of primes, multiplying them and adding one produces a number that is not divisible by any prime on the list, so some prime outside the list must exist; therefore no finite list can contain all primes.",
       "fingerprint": "f18a8859ffa875723ee2d4704d17d43c298324fa2adf9cbcbeabf1f95934a94b",
       "primary_keyword": "why is there no largest prime number",
@@ -303,15 +307,10 @@
         "infinitude of primes",
         "euclid prime proof",
         "infinitely many primes"
-      ],
-      "labels": [
-        "Mathematics",
-        "Number Theory",
-        "Proof",
-        "Primes"
       ]
     }
   ],
+  "pending": [],
   "failed": [],
   "builds": [
     {
