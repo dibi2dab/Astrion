@@ -2,7 +2,7 @@
   "schema": "astrion.queue/v1",
   "queue_id": "2026-11-19-s1-why-is-the-ocean-salty",
   "topic_id": "earth.ocean-salinity",
-  "status": "queued",
+  "status": "published",
   "created_at": "2026-11-19T14:20:09+00:00",
   "publish_date": "2026-11-19",
   "publish_after": "2026-11-19T09:23:00-05:00",
@@ -112,5 +112,33 @@
       "published_at": null,
       "accessed_at": "2026-11-15"
     }
-  ]
+  ],
+  "publication": {
+    "queue_id": "2026-11-19-s1-why-is-the-ocean-salty",
+    "topic_id": "earth.ocean-salinity",
+    "title": "Why Is the Ocean Salty?",
+    "main_category": "Earth & Natural Sciences",
+    "content_type": "science-explained",
+    "publish_date": "2026-11-19",
+    "slot": 0,
+    "blogger_post_id": "8202209737622795096",
+    "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/8202209737622795096?hl=en",
+    "blogger_status": "live",
+    "published_at": "2026-11-19T21:24:47.851Z",
+    "quality_score": 100.0,
+    "labels": [
+      "Earth & Natural Sciences",
+      "Oceanography",
+      "Geochemistry",
+      "Water Cycle"
+    ],
+    "signature": "Where do the dissolved ions in seawater come from, and why has the ocean not simply become saltier and saltier over geological time? The weathering of continental rock, hydrothermal exchange at mid-ocean ridges, the composition of seawater, the ocean's salt budget over millions of years, and why salinity varies between seas and with depth. Seawater is salty because rock-derived ions accumulate in a reservoir with a long mixing time, while removal by sedimentation, sea spray, and hydrothermal circulation keeps the total concentration roughly steady over geological time.",
+    "fingerprint": "27bf73684896bf7fbec69bb62858bb883324b596fe6a7e0cdd1ab9556c77e69c",
+    "primary_keyword": "why is the ocean salty",
+    "aliases": [
+      "ocean salinity explained",
+      "why seawater is salty",
+      "salt in the ocean"
+    ]
+  }
 }

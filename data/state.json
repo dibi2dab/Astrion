@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-19T14:20:09+00:00",
+  "updated_at": "2026-11-19T21:24:47+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -364,9 +364,7 @@
         "pseudorandom numbers",
         "true random numbers"
       ]
-    }
-  ],
-  "pending": [
+    },
     {
       "queue_id": "2026-11-19-s1-why-is-the-ocean-salty",
       "topic_id": "earth.ocean-salinity",
@@ -374,12 +372,18 @@
       "main_category": "Earth & Natural Sciences",
       "content_type": "science-explained",
       "publish_date": "2026-11-19",
-      "publish_after": "2026-11-19T09:23:00-05:00",
       "slot": 0,
-      "status": "queued",
-      "built_at": "2026-11-19T14:20:09+00:00",
+      "blogger_post_id": "8202209737622795096",
+      "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/8202209737622795096?hl=en",
+      "blogger_status": "live",
+      "published_at": "2026-11-19T21:24:47.851Z",
       "quality_score": 100.0,
-      "attempts": 0,
+      "labels": [
+        "Earth & Natural Sciences",
+        "Oceanography",
+        "Geochemistry",
+        "Water Cycle"
+      ],
       "signature": "Where do the dissolved ions in seawater come from, and why has the ocean not simply become saltier and saltier over geological time? The weathering of continental rock, hydrothermal exchange at mid-ocean ridges, the composition of seawater, the ocean's salt budget over millions of years, and why salinity varies between seas and with depth. Seawater is salty because rock-derived ions accumulate in a reservoir with a long mixing time, while removal by sedimentation, sea spray, and hydrothermal circulation keeps the total concentration roughly steady over geological time.",
       "fingerprint": "27bf73684896bf7fbec69bb62858bb883324b596fe6a7e0cdd1ab9556c77e69c",
       "primary_keyword": "why is the ocean salty",
@@ -387,14 +391,10 @@
         "ocean salinity explained",
         "why seawater is salty",
         "salt in the ocean"
-      ],
-      "labels": [
-        "Earth & Natural Sciences",
-        "Oceanography",
-        "Geochemistry",
-        "Water Cycle"
       ]
-    },
+    }
+  ],
+  "pending": [
     {
       "queue_id": "2026-11-19-s2-how-does-quantum-sensing-beat-classical-limits",
       "topic_id": "emerging.quantum-sensing",
