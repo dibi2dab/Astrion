@@ -2,7 +2,7 @@
   "schema": "astrion.queue/v1",
   "queue_id": "2026-11-18-s2-why-cant-computers-generate-truly-random-numbers",
   "topic_id": "computing.pseudorandomness",
-  "status": "queued",
+  "status": "published",
   "created_at": "2026-11-18T13:53:30+00:00",
   "publish_date": "2026-11-18",
   "publish_after": "2026-11-18T15:30:00-05:00",
@@ -112,5 +112,33 @@
       "published_at": null,
       "accessed_at": "2026-11-15"
     }
-  ]
+  ],
+  "publication": {
+    "queue_id": "2026-11-18-s2-why-cant-computers-generate-truly-random-numbers",
+    "topic_id": "computing.pseudorandomness",
+    "title": "Why Can't Computers Generate Truly Random Numbers?",
+    "main_category": "Computing & Formal Sciences",
+    "content_type": "science-explained",
+    "publish_date": "2026-11-18",
+    "slot": 1,
+    "blogger_post_id": "4051977191820973933",
+    "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/4051977191820973933?hl=en",
+    "blogger_status": "live",
+    "published_at": "2026-11-19T03:14:46.560Z",
+    "quality_score": 100.0,
+    "labels": [
+      "Computing & Formal Sciences",
+      "Algorithms",
+      "Cryptography",
+      "Probability"
+    ],
+    "signature": "How can a deterministic machine produce numbers that look random, and what does it take to make those numbers genuinely unpredictable? The difference between pseudorandom, cryptographically secure, and true random numbers, how seeds and deterministic algorithms generate sequences, where physical entropy comes from, and why statistical tests alone cannot prove unpredictability. A deterministic program can stretch a short random seed into a long sequence that passes statistical tests, but true unpredictability requires an unpredictable physical source that an observer cannot reproduce.",
+    "fingerprint": "607afb7bfbc34c1832b7a827d92ea2282e81dce996771e76571491643f394d00",
+    "primary_keyword": "why can't computers generate truly random numbers",
+    "aliases": [
+      "computer randomness",
+      "pseudorandom numbers",
+      "true random numbers"
+    ]
+  }
 }

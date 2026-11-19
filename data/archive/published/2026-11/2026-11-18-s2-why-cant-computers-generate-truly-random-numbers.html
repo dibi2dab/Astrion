@@ -1,0 +1,201 @@
+<div class="astrion-post" data-astrion-topic="computing.pseudorandomness" data-astrion-queue="2026-11-18-s2-why-cant-computers-generate-truly-random-numbers">
+<style>
+.astrion-post {
+  --a-ink: #16202b;
+  --a-muted: #5b6875;
+  --a-line: #dfe5ec;
+  --a-accent: #1f6feb;
+  --a-bg: #f6f9fd;
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--a-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.06rem;
+  line-height: 1.75;
+  overflow-wrap: break-word;
+}
+.astrion-post p { margin: 0 0 1.15em; }
+.astrion-kicker { margin: 0 0 0.6em; color: var(--a-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.astrion-lead { color: #25313d; font-size: 1.17rem; line-height: 1.7; }
+.astrion-reading-time { margin: 0 0 1.9em; color: var(--a-muted); font-size: 0.86rem; }
+.astrion-key-takeaways { margin: 1.9em 0; padding: 1.1rem 1.25rem; background: var(--a-bg); border-left: 4px solid var(--a-accent); border-radius: 0 8px 8px 0; }
+.astrion-key-takeaways h2 { margin: 0 0 0.45rem; font-size: 1rem; letter-spacing: 0.02em; }
+.astrion-key-takeaways ul { margin: 0; padding-left: 1.25rem; }
+.astrion-key-takeaways li { margin: 0.3rem 0; }
+.astrion-section h2 { margin: 2.1em 0 0.7em; font-size: 1.45rem; line-height: 1.3; }
+.astrion-section h3 { margin: 1.6em 0 0.5em; font-size: 1.14rem; line-height: 1.4; }
+.astrion-math { padding: 0.35rem 0; overflow-x: auto; overflow-y: hidden; text-align: center; }
+.astrion-math-inline { text-align: left; }
+.astrion-figure { margin: 1.5em 0; }
+.astrion-figure figcaption, .astrion-equation-caption { margin-top: 0.45rem; color: var(--a-muted); font-size: 0.86rem; text-align: center; }
+.astrion-equation { margin: 1.5em 0; padding: 1rem 1.1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-equation .astrion-math { font-size: 1.08rem; }
+.astrion-vars { display: grid; grid-template-columns: minmax(2.5rem, auto) 1fr; gap: 0.35rem 0.8rem; margin: 0.85rem 0 0; font-size: 0.93rem; }
+.astrion-vars dt { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; font-weight: 700; }
+.astrion-vars dd { margin: 0; color: var(--a-muted); }
+.astrion-table-wrap { margin: 1.5em 0; overflow-x: auto; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 0.95rem; }
+.astrion-table caption { padding: 0.75rem 0.9rem; color: var(--a-ink); font-size: 0.88rem; font-weight: 700; text-align: left; }
+.astrion-table th, .astrion-table td { padding: 0.6rem 0.85rem; border-top: 1px solid var(--a-line); text-align: left; vertical-align: top; }
+.astrion-table thead th { background: #f7f9fc; font-size: 0.8rem; letter-spacing: 0.03em; text-transform: uppercase; }
+.astrion-list { margin: 0 0 1.25em; padding-left: 1.35rem; }
+.astrion-list li { margin: 0.35rem 0; }
+.astrion-callout { margin: 1.5em 0; padding: 0.9rem 1.1rem; background: #f8fafc; border-left: 4px solid #8a94a6; border-radius: 0 6px 6px 0; }
+.astrion-callout--key { background: #f2f7ff; border-color: var(--a-accent); }
+.astrion-callout--warning { background: #fff9ec; border-color: #c47f17; }
+.astrion-callout-title { margin: 0 0 0.35rem; font-weight: 700; }
+.astrion-callout p:last-child { margin-bottom: 0; }
+.astrion-example { margin: 1.5em 0; padding: 1rem 1.1rem; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-example h3 { margin-top: 0; }
+.astrion-example ol { margin-bottom: 0; padding-left: 1.35rem; }
+.astrion-misconceptions, .astrion-sources, .astrion-related { margin-top: 2.3em; }
+.astrion-misconceptions h2, .astrion-sources h2, .astrion-related h2 { margin: 0 0 0.7em; font-size: 1.3rem; line-height: 1.35; }
+.astrion-misconception { margin: 0 0 1.1em; padding: 0.85rem 1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }
+.astrion-misconception p { margin: 0; }
+.astrion-misconception-claim { margin-bottom: 0.35rem !important; font-weight: 700; }
+.astrion-sources ol { margin: 0; padding-left: 1.35rem; }
+.astrion-sources li { margin: 0.55em 0; font-size: 0.94rem; }
+.astrion-sources a, .astrion-related a { color: var(--a-accent); text-decoration: none; }
+.astrion-source-meta { display: block; color: var(--a-muted); font-size: 0.84rem; }
+.astrion-related ul { margin: 0; padding-left: 1.25rem; }
+.astrion-related li { margin: 0.4em 0; }
+.astrion-post-meta { margin: 2.4em 0 0; padding-top: 1rem; border-top: 1px solid var(--a-line); color: var(--a-muted); font-size: 0.84rem; }
+@media (max-width: 600px) {
+  .astrion-post { font-size: 1rem; }
+  .astrion-section h2 { font-size: 1.3rem; }
+  .astrion-table { min-width: 360px; }
+  .astrion-vars { grid-template-columns: 1fr; gap: 0.1rem; }
+  .astrion-vars dd { margin-bottom: 0.5rem; }
+}
+</style>
+
+<p class="astrion-kicker">Computing & Formal Sciences</p>
+<p>Why can&#x27;t computers generate truly random numbers? A computer is a machine built to follow rules, and a rule that produces the same output from the same input cannot, by itself, produce an unpredictable result. Yet computers shuffle playlists, encrypt messages, and simulate molecular motion. They do it by combining deterministic algorithms with a small amount of genuine physical unpredictability.</p>
+<p class="astrion-reading-time">6 min read</p>
+
+<aside class="astrion-key-takeaways">
+  <h2>Key takeaways</h2>
+  <ul>
+    <li>A pseudorandom generator is a deterministic algorithm; the same seed always produces the same sequence.</li>
+    <li>Pseudorandom output can be excellent for simulations and games but unsafe for cryptography if the seed or algorithm is predictable.</li>
+    <li>Cryptographic generators mix in entropy from hardware events and are designed so that observing past output does not reveal future output.</li>
+    <li>Statistical randomness tests can catch bad generators, but passing them does not prove that a sequence is unpredictable.</li>
+  </ul>
+</aside>
+
+<section class="astrion-section">
+  <h2 id="astrion-section-1-determinism-is-the-point">Determinism Is the Point</h2>
+  <p>A computer executes instructions. Given the same program, the same inputs, and the same internal state, it produces the same result. That reproducibility is a feature. Debugging, encryption, and scientific simulation all depend on being able to rerun a calculation and get the same answer.</p>
+<p>Randomness conflicts with that design. A truly random event has no reproducible cause that the program can inspect. If the program could derive the next number from its current state, an observer who knows the state could derive it too. So a program that only follows deterministic rules cannot create unpredictability out of nothing.</p>
+<p>The way out is to change the question. Instead of asking the program to invent randomness internally, feed it a small unpredictable input and let it expand that input into a long sequence. That input is the seed, and the expansion is the pseudorandom generator.</p>
+<aside class="astrion-callout astrion-callout--key">
+  <p class="astrion-callout-title">Deterministic does not mean useless</p>
+<p>A seeded generator is repeatable by design. That is exactly what a simulation needs when it must reproduce a run, and exactly what a password system must avoid when an attacker can guess the seed.</p>
+</aside>
+</section>
+<section class="astrion-section">
+  <h2 id="astrion-section-2-how-a-pseudorandom-generator-works">How a Pseudorandom Generator Works</h2>
+  <p>A simple example is the linear congruential generator. It keeps a state value and updates it with a multiply, an add, and a modulus. The arithmetic is exact, so the sequence is fully determined by the starting value and the constants. Change the constants and you get a different sequence with different statistical properties.</p>
+<div class="astrion-equation">
+  <div class="astrion-math">\[x_{n+1} = (a x_n + c) \bmod m\]</div>
+  <dl class="astrion-vars">
+      <dt>x_n</dt>
+      <dd>current state value (integer)</dd>
+      <dt>a</dt>
+      <dd>multiplier constant (integer)</dd>
+      <dt>c</dt>
+      <dd>increment constant (integer)</dd>
+      <dt>m</dt>
+      <dd>modulus that bounds the state (integer)</dd>
+  </dl>
+  <figcaption class="astrion-equation-caption">A linear congruential generator turns a state into the next state with deterministic arithmetic.</figcaption>
+</div>
+<p>Modern generators are more sophisticated. The Mersenne Twister, a widely used generator, has a very long period and good statistical properties for simulation. Its internal state is large, and its output is designed to avoid short cycles. But it is still deterministic, and its state can be reconstructed from enough output.</p>
+<p>The seed is the weak point. If an attacker knows the algorithm and can guess the seed, the entire sequence is predictable. Using the current time as a seed, a practice in older software, is especially weak because the time is often guessable to within a small window.</p>
+<div class="astrion-table-wrap" role="region" tabindex="0" aria-label="Three families of random number sources serve different purposes.">
+  <table class="astrion-table">
+    <caption>Three families of random number sources serve different purposes.</caption>
+    <thead><tr><th scope="col">Type</th><th scope="col">Source</th><th scope="col">Reproducible</th><th scope="col">Typical use</th></tr></thead>
+    <tbody>
+      <tr><td>Pseudorandom</td><td>Seeded algorithm</td><td>Yes</td><td>Simulations, games</td></tr>
+      <tr><td>Cryptographic</td><td>Entropy plus secure algorithm</td><td>No</td><td>Keys, tokens</td></tr>
+      <tr><td>True random</td><td>Physical process</td><td>No</td><td>Seeding, lotteries</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+<section class="astrion-section">
+  <h2 id="astrion-section-3-where-genuine-entropy-comes-from">Where Genuine Entropy Comes From</h2>
+  <p>A true random source measures a physical process that is difficult to predict. Thermal noise in an electronic circuit, the timing of interrupts, radioactive decay, and atmospheric noise have all been used. The key property is not that the process is mysterious. It is that an observer cannot reproduce or anticipate the measurement well enough to predict the output.</p>
+<p>Operating systems collect entropy into a pool. Linux exposes it through devices and system calls, and modern hardware often includes a random-number instruction backed by a dedicated circuit. The pool is mixed and stretched so that even a modest amount of physical unpredictability can seed a large amount of output.</p>
+<p>A cryptographic generator is designed so that seeing past output does not help predict future output. That property is called forward secrecy or backtracking resistance, depending on the direction. Even if an attacker learns the internal state at one moment, the generator can re-key itself so that earlier or later output remains protected.</p>
+<p>Entropy is a resource, not an infinite well. A system that consumes randomness faster than it collects entropy can block, reuse state, or fall back to weaker sources. The engineering problem is to collect enough unpredictability, mix it safely, and never expose the raw state to an attacker.</p>
+</section>
+<section class="astrion-section">
+  <h2 id="astrion-section-4-why-passing-tests-is-not-enough">Why Passing Tests Is Not Enough</h2>
+  <p>Randomness tests look for patterns: bias in bits, repeated subsequences, correlations, and deviations from expected distributions. A bad generator often fails such tests, which makes them useful for quality control. But a test suite is finite, and a cleverly constructed sequence can pass every test while remaining fully predictable.</p>
+<p>The distinction matters most in security. A sequence that looks random to a statistician may be trivially reproducible to an attacker who knows the algorithm and the seed. For encryption keys and authentication tokens, the requirement is not cosmetic randomness. It is unpredictability against an adversary.</p>
+<p>This is why cryptographic libraries separate concerns. They use a secure generator for secrets, a fast generator for simulations, and a clearly documented entropy source for seeding. Mixing them up can turn a harmless simulation tool into a security hole.</p>
+<p>There is also a philosophical point. True randomness may be unavailable or unprovable even in principle. Quantum measurement appears to produce outcomes that are not determined by hidden variables in any locally causal way, and some systems use quantum devices as entropy sources. But for practical computing, the goal is not metaphysical randomness. It is unpredictability that an attacker cannot exploit.</p>
+</section>
+<section class="astrion-section">
+  <h2 id="astrion-section-5-randomness-in-science-and-everyday-software">Randomness in Science and Everyday Software</h2>
+  <p>Monte Carlo simulations rely on pseudorandom numbers to sample complicated probability distributions. Reproducibility is valuable there: a researcher can publish a seed and let others recreate the same experiment. The randomness is a computational tool, not a security claim.</p>
+<p>Games and procedural graphics use pseudorandom generators to create variation without storing every detail. A seed can regenerate an entire world, which is efficient and convenient. The same property that makes a seed useful for a game makes it dangerous for a password.</p>
+<p>Machine learning adds another twist. Random initialization, dropout, and data shuffling all use pseudorandom numbers. Reproducibility depends on controlling seeds and library versions, because different implementations may consume the stream differently. A result that cannot be reproduced is harder to trust.</p>
+<p>The practical rule is simple. Use a cryptographic generator when the number protects a secret, and use a seeded generator when you need reproducibility. The computer cannot create randomness from pure logic, but it can stretch a little physical unpredictability into enough numbers for almost any purpose.</p>
+</section>
+
+<section class="astrion-misconceptions">
+  <h2>Common misconceptions</h2>
+  <div class="astrion-misconception">
+    <p class="astrion-misconception-claim">A computer can generate truly random numbers with the right algorithm.</p>
+    <p>An algorithm alone is deterministic. It can transform a seed into a long sequence that looks random, but the unpredictability must come from somewhere outside the algorithm, such as a hardware entropy source. The algorithm stretches randomness; it does not create it.</p>
+  </div>
+  <div class="astrion-misconception">
+    <p class="astrion-misconception-claim">If a sequence passes statistical randomness tests, it is safe for encryption.</p>
+    <p>Statistical tests check for visible patterns, not for unpredictability against an adversary. A deterministic generator with a guessable seed can pass many tests and still be completely predictable. Cryptographic security requires a generator designed for that threat model.</p>
+  </div>
+  <div class="astrion-misconception">
+    <p class="astrion-misconception-claim">Using the current time as a seed is random enough.</p>
+    <p>The current time is often predictable to within seconds or less, so an attacker can try a small range of seeds. Time-based seeding was a common source of real vulnerabilities. Secure systems gather entropy from hardware events and mix it carefully.</p>
+  </div>
+</section>
+
+<section class="astrion-sources">
+  <h2>Sources</h2>
+  <ol>
+    <li>
+      <a href="https://csrc.nist.gov/pubs/sp/800/90/a/r1/final" target="_blank" rel="noopener noreferrer">Recommendation for Random Number Generation Using Deterministic Random Bit Generators</a>
+      <span class="astrion-source-meta">National Institute of Standards and Technology, n.d.</span>
+    </li>
+    <li>
+      <a href="https://csrc.nist.gov/pubs/sp/800/90/b/final" target="_blank" rel="noopener noreferrer">Recommendation for the Entropy Sources Used for Random Bit Generation</a>
+      <span class="astrion-source-meta">National Institute of Standards and Technology, n.d.</span>
+    </li>
+    <li>
+      <a href="https://csrc.nist.gov/pubs/sp/800/22/r1/upd1/final" target="_blank" rel="noopener noreferrer">A Statistical Test Suite for Random and Pseudorandom Number Generators for Cryptographic Applications</a>
+      <span class="astrion-source-meta">National Institute of Standards and Technology, n.d.</span>
+    </li>
+  </ol>
+</section>
+
+
+<section class="astrion-related">
+  <h2>Related reading</h2>
+  <ul>
+    <li><a href="https://www.blogger.com/blog/post/edit/7103426249941439830/1426387839220996693?hl=en">Why Is the Halting Problem Undecidable?</a></li>
+  </ul>
+</section>
+
+<p class="astrion-post-meta">Computing & Formal Sciences · Algorithms · Cryptography · Probability · Reviewed November 2026</p>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</div>
