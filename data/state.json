@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-19T21:24:47+00:00",
+  "updated_at": "2026-11-20T03:02:50+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -392,9 +392,7 @@
         "why seawater is salty",
         "salt in the ocean"
       ]
-    }
-  ],
-  "pending": [
+    },
     {
       "queue_id": "2026-11-19-s2-how-does-quantum-sensing-beat-classical-limits",
       "topic_id": "emerging.quantum-sensing",
@@ -402,12 +400,18 @@
       "main_category": "Emerging & Interdisciplinary Science",
       "content_type": "science-explained",
       "publish_date": "2026-11-19",
-      "publish_after": "2026-11-19T15:30:00-05:00",
       "slot": 1,
-      "status": "queued",
-      "built_at": "2026-11-19T14:20:09+00:00",
+      "blogger_post_id": "4518765364140282824",
+      "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/4518765364140282824?hl=en",
+      "blogger_status": "live",
+      "published_at": "2026-11-20T03:02:50.677Z",
       "quality_score": 100.0,
-      "attempts": 0,
+      "labels": [
+        "Emerging & Interdisciplinary Science",
+        "Quantum Physics",
+        "Metrology",
+        "Sensors"
+      ],
       "signature": "What limits a classical measurement, and how do quantum states allow sensors to surpass the standard quantum limit? The standard quantum limit and shot noise, the role of superposition in atomic clocks and interferometers, entanglement and squeezing as resources, and the practical applications of quantum sensors in navigation, geology, and fundamental physics. Quantum sensors use a quantum probe whose phase or state accumulates information about an external field, and they manipulate uncertainty so that the measurement noise falls below the standard quantum limit set by independent particles.",
       "fingerprint": "c383c23fdf8b7a7577ce4c9ff8152fc1ab555be23c3027d29ee248a00e48a6ac",
       "primary_keyword": "how does quantum sensing beat classical limits",
@@ -415,15 +419,10 @@
         "quantum sensors",
         "quantum metrology",
         "atomic sensors"
-      ],
-      "labels": [
-        "Emerging & Interdisciplinary Science",
-        "Quantum Physics",
-        "Metrology",
-        "Sensors"
       ]
     }
   ],
+  "pending": [],
   "failed": [],
   "builds": [
     {
