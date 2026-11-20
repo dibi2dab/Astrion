@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-20T13:57:01+00:00",
+  "updated_at": "2026-11-20T20:00:44+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -420,9 +420,7 @@
         "quantum metrology",
         "atomic sensors"
       ]
-    }
-  ],
-  "pending": [
+    },
     {
       "queue_id": "2026-11-20-s1-why-do-bridges-have-expansion-joints",
       "topic_id": "engineering.bridge-expansion-joints",
@@ -430,12 +428,18 @@
       "main_category": "Engineering & Applied Sciences",
       "content_type": "science-explained",
       "publish_date": "2026-11-20",
-      "publish_after": "2026-11-20T09:00:00-05:00",
       "slot": 0,
-      "status": "queued",
-      "built_at": "2026-11-20T13:57:01+00:00",
+      "blogger_post_id": "9164229569536611371",
+      "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/9164229569536611371?hl=en",
+      "blogger_status": "live",
+      "published_at": "2026-11-20T20:00:44.708Z",
       "quality_score": 100.0,
-      "attempts": 0,
+      "labels": [
+        "Engineering & Applied Sciences",
+        "Structural Engineering",
+        "Thermal Expansion",
+        "Civil Engineering"
+      ],
       "signature": "How much does a bridge change length with temperature, and how do expansion joints and bearings accommodate that movement without weakening the structure? The physics of thermal expansion, a numerical estimate for a long steel or concrete span, the difference between joints and bearings, the consequences of restrained movement, and the other sources of bridge movement that joints must handle. Materials change length when their temperature changes, and a long bridge accumulates enough movement that the structure must be allowed to slide or flex at designed locations instead of being rigidly restrained.",
       "fingerprint": "98d5d7dd0f4790a9fccf7ca1c58bd8318d6e5231ff55c8163d9999a298909f47",
       "primary_keyword": "why do bridges have expansion joints",
@@ -443,14 +447,10 @@
         "bridge thermal expansion",
         "bridge joints",
         "why bridges have gaps"
-      ],
-      "labels": [
-        "Engineering & Applied Sciences",
-        "Structural Engineering",
-        "Thermal Expansion",
-        "Civil Engineering"
       ]
-    },
+    }
+  ],
+  "pending": [
     {
       "queue_id": "2026-11-20-s2-why-does-a-spinning-top-stay-upright",
       "topic_id": "physics.spinning-top-stability",
