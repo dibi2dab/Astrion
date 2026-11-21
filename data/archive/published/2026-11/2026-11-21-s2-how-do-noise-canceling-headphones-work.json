@@ -2,7 +2,7 @@
   "schema": "astrion.queue/v1",
   "queue_id": "2026-11-21-s2-how-do-noise-canceling-headphones-work",
   "topic_id": "engineering.noise-cancelling-headphones",
-  "status": "queued",
+  "status": "published",
   "created_at": "2026-11-21T13:23:49+00:00",
   "publish_date": "2026-11-21",
   "publish_after": "2026-11-21T15:30:00-05:00",
@@ -112,5 +112,33 @@
       "published_at": null,
       "accessed_at": "2026-11-15"
     }
-  ]
+  ],
+  "publication": {
+    "queue_id": "2026-11-21-s2-how-do-noise-canceling-headphones-work",
+    "topic_id": "engineering.noise-cancelling-headphones",
+    "title": "How Do Noise-Canceling Headphones Work?",
+    "main_category": "Engineering & Applied Sciences",
+    "content_type": "science-explained",
+    "publish_date": "2026-11-21",
+    "slot": 1,
+    "blogger_post_id": "4146877220648039904",
+    "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/4146877220648039904?hl=en",
+    "blogger_status": "live",
+    "published_at": "2026-11-21T23:05:15.485Z",
+    "quality_score": 100.0,
+    "labels": [
+      "Engineering & Applied Sciences",
+      "Acoustics",
+      "Signal Processing",
+      "Consumer Technology"
+    ],
+    "signature": "How can a headphone reduce unwanted sound by adding more sound, and why does the effect work much better for low, steady noise than for speech? The difference between passive isolation and active noise control, the physics of destructive interference, the feedforward and feedback microphone arrangements, the latency and wavelength limits that favor low frequencies, and the practical side effects of active canceling. Active noise canceling measures the incoming pressure wave and emits an inverted copy so that compression meets rarefaction; the two waves add to nearly zero at the ear, but only when their timing and phase stay aligned.",
+    "fingerprint": "d972890a48c52b098774ee34e574a4e40694e7dbe4dc584a3a14cbe637fa738b",
+    "primary_keyword": "how do noise-canceling headphones work",
+    "aliases": [
+      "active noise cancellation",
+      "ANC headphones",
+      "anti-noise"
+    ]
+  }
 }
