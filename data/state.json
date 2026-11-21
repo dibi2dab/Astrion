@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-21T01:25:00+00:00",
+  "updated_at": "2026-11-21T13:23:49+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -478,7 +478,64 @@
       ]
     }
   ],
-  "pending": [],
+  "pending": [
+    {
+      "queue_id": "2026-11-21-s1-why-does-salt-melt-ice",
+      "topic_id": "chemistry.salt-melts-ice",
+      "title": "Why Does Salt Melt Ice?",
+      "main_category": "Chemistry",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-21",
+      "publish_after": "2026-11-21T08:30:00-05:00",
+      "slot": 0,
+      "status": "queued",
+      "built_at": "2026-11-21T13:23:49+00:00",
+      "quality_score": 100.0,
+      "attempts": 0,
+      "signature": "How does dissolving salt lower the freezing point of water, and why does the effect stop working at very low temperatures? The phase equilibrium between ice and liquid water, the colligative nature of freezing-point depression, the role of dissolved ions and entropy, the practical limits of road salt, and why salt does not melt ice by adding heat. Dissolved salt lowers the chemical potential of liquid water, so the equilibrium between ice and liquid shifts to a lower temperature; ice melts into the brine until the solution reaches its new freezing point or the salt is exhausted.",
+      "fingerprint": "68dd5914f064a7e64b81c2a1605a49f1de20df5089bbc3ca36fa4645d330b4ca",
+      "primary_keyword": "why does salt melt ice",
+      "aliases": [
+        "salt and ice",
+        "freezing point depression of water",
+        "road salt chemistry"
+      ],
+      "labels": [
+        "Chemistry",
+        "Solutions",
+        "Colligative Properties",
+        "Phase Changes"
+      ]
+    },
+    {
+      "queue_id": "2026-11-21-s2-how-do-noise-canceling-headphones-work",
+      "topic_id": "engineering.noise-cancelling-headphones",
+      "title": "How Do Noise-Canceling Headphones Work?",
+      "main_category": "Engineering & Applied Sciences",
+      "content_type": "science-explained",
+      "publish_date": "2026-11-21",
+      "publish_after": "2026-11-21T15:30:00-05:00",
+      "slot": 1,
+      "status": "queued",
+      "built_at": "2026-11-21T13:23:49+00:00",
+      "quality_score": 100.0,
+      "attempts": 0,
+      "signature": "How can a headphone reduce unwanted sound by adding more sound, and why does the effect work much better for low, steady noise than for speech? The difference between passive isolation and active noise control, the physics of destructive interference, the feedforward and feedback microphone arrangements, the latency and wavelength limits that favor low frequencies, and the practical side effects of active canceling. Active noise canceling measures the incoming pressure wave and emits an inverted copy so that compression meets rarefaction; the two waves add to nearly zero at the ear, but only when their timing and phase stay aligned.",
+      "fingerprint": "d972890a48c52b098774ee34e574a4e40694e7dbe4dc584a3a14cbe637fa738b",
+      "primary_keyword": "how do noise-canceling headphones work",
+      "aliases": [
+        "active noise cancellation",
+        "ANC headphones",
+        "anti-noise"
+      ],
+      "labels": [
+        "Engineering & Applied Sciences",
+        "Acoustics",
+        "Signal Processing",
+        "Consumer Technology"
+      ]
+    }
+  ],
   "failed": [],
   "builds": [
     {
@@ -533,6 +590,15 @@
       "queue_ids": [
         "2026-11-20-s1-why-do-bridges-have-expansion-joints",
         "2026-11-20-s2-why-does-a-spinning-top-stay-upright"
+      ]
+    },
+    {
+      "build_id": "2026-11-21-20261121T132349+0000",
+      "created_at": "2026-11-21T13:23:49+00:00",
+      "publish_date": "2026-11-21",
+      "queue_ids": [
+        "2026-11-21-s1-why-does-salt-melt-ice",
+        "2026-11-21-s2-how-do-noise-canceling-headphones-work"
       ]
     }
   ]

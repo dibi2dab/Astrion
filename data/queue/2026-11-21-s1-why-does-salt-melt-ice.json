@@ -1,0 +1,116 @@
+{
+  "schema": "astrion.queue/v1",
+  "queue_id": "2026-11-21-s1-why-does-salt-melt-ice",
+  "topic_id": "chemistry.salt-melts-ice",
+  "status": "queued",
+  "created_at": "2026-11-21T13:23:49+00:00",
+  "publish_date": "2026-11-21",
+  "publish_after": "2026-11-21T08:30:00-05:00",
+  "slot": 0,
+  "blogger": {
+    "is_draft": false,
+    "labels": [
+      "Chemistry",
+      "Solutions",
+      "Colligative Properties",
+      "Phase Changes"
+    ]
+  },
+  "post": {
+    "title": "Why Does Salt Melt Ice?",
+    "html": "<div class=\"astrion-post\" data-astrion-topic=\"chemistry.salt-melts-ice\" data-astrion-queue=\"2026-11-21-s1-why-does-salt-melt-ice\">\n<style>\n.astrion-post {\n  --a-ink: #16202b;\n  --a-muted: #5b6875;\n  --a-line: #dfe5ec;\n  --a-accent: #1f6feb;\n  --a-bg: #f6f9fd;\n  max-width: 760px;\n  margin: 0 auto;\n  color: var(--a-ink);\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n  font-size: 1.06rem;\n  line-height: 1.75;\n  overflow-wrap: break-word;\n}\n.astrion-post p { margin: 0 0 1.15em; }\n.astrion-kicker { margin: 0 0 0.6em; color: var(--a-accent); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }\n.astrion-lead { color: #25313d; font-size: 1.17rem; line-height: 1.7; }\n.astrion-reading-time { margin: 0 0 1.9em; color: var(--a-muted); font-size: 0.86rem; }\n.astrion-key-takeaways { margin: 1.9em 0; padding: 1.1rem 1.25rem; background: var(--a-bg); border-left: 4px solid var(--a-accent); border-radius: 0 8px 8px 0; }\n.astrion-key-takeaways h2 { margin: 0 0 0.45rem; font-size: 1rem; letter-spacing: 0.02em; }\n.astrion-key-takeaways ul { margin: 0; padding-left: 1.25rem; }\n.astrion-key-takeaways li { margin: 0.3rem 0; }\n.astrion-section h2 { margin: 2.1em 0 0.7em; font-size: 1.45rem; line-height: 1.3; }\n.astrion-section h3 { margin: 1.6em 0 0.5em; font-size: 1.14rem; line-height: 1.4; }\n.astrion-math { padding: 0.35rem 0; overflow-x: auto; overflow-y: hidden; text-align: center; }\n.astrion-math-inline { text-align: left; }\n.astrion-figure { margin: 1.5em 0; }\n.astrion-figure figcaption, .astrion-equation-caption { margin-top: 0.45rem; color: var(--a-muted); font-size: 0.86rem; text-align: center; }\n.astrion-equation { margin: 1.5em 0; padding: 1rem 1.1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-equation .astrion-math { font-size: 1.08rem; }\n.astrion-vars { display: grid; grid-template-columns: minmax(2.5rem, auto) 1fr; gap: 0.35rem 0.8rem; margin: 0.85rem 0 0; font-size: 0.93rem; }\n.astrion-vars dt { font-family: ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", monospace; font-weight: 700; }\n.astrion-vars dd { margin: 0; color: var(--a-muted); }\n.astrion-table-wrap { margin: 1.5em 0; overflow-x: auto; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 0.95rem; }\n.astrion-table caption { padding: 0.75rem 0.9rem; color: var(--a-ink); font-size: 0.88rem; font-weight: 700; text-align: left; }\n.astrion-table th, .astrion-table td { padding: 0.6rem 0.85rem; border-top: 1px solid var(--a-line); text-align: left; vertical-align: top; }\n.astrion-table thead th { background: #f7f9fc; font-size: 0.8rem; letter-spacing: 0.03em; text-transform: uppercase; }\n.astrion-list { margin: 0 0 1.25em; padding-left: 1.35rem; }\n.astrion-list li { margin: 0.35rem 0; }\n.astrion-callout { margin: 1.5em 0; padding: 0.9rem 1.1rem; background: #f8fafc; border-left: 4px solid #8a94a6; border-radius: 0 6px 6px 0; }\n.astrion-callout--key { background: #f2f7ff; border-color: var(--a-accent); }\n.astrion-callout--warning { background: #fff9ec; border-color: #c47f17; }\n.astrion-callout-title { margin: 0 0 0.35rem; font-weight: 700; }\n.astrion-callout p:last-child { margin-bottom: 0; }\n.astrion-example { margin: 1.5em 0; padding: 1rem 1.1rem; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-example h3 { margin-top: 0; }\n.astrion-example ol { margin-bottom: 0; padding-left: 1.35rem; }\n.astrion-misconceptions, .astrion-sources, .astrion-related { margin-top: 2.3em; }\n.astrion-misconceptions h2, .astrion-sources h2, .astrion-related h2 { margin: 0 0 0.7em; font-size: 1.3rem; line-height: 1.35; }\n.astrion-misconception { margin: 0 0 1.1em; padding: 0.85rem 1rem; background: #fbfcfe; border: 1px solid var(--a-line); border-radius: 8px; }\n.astrion-misconception p { margin: 0; }\n.astrion-misconception-claim { margin-bottom: 0.35rem !important; font-weight: 700; }\n.astrion-sources ol { margin: 0; padding-left: 1.35rem; }\n.astrion-sources li { margin: 0.55em 0; font-size: 0.94rem; }\n.astrion-sources a, .astrion-related a { color: var(--a-accent); text-decoration: none; }\n.astrion-source-meta { display: block; color: var(--a-muted); font-size: 0.84rem; }\n.astrion-related ul { margin: 0; padding-left: 1.25rem; }\n.astrion-related li { margin: 0.4em 0; }\n.astrion-post-meta { margin: 2.4em 0 0; padding-top: 1rem; border-top: 1px solid var(--a-line); color: var(--a-muted); font-size: 0.84rem; }\n@media (max-width: 600px) {\n  .astrion-post { font-size: 1rem; }\n  .astrion-section h2 { font-size: 1.3rem; }\n  .astrion-table { min-width: 360px; }\n  .astrion-vars { grid-template-columns: 1fr; gap: 0.1rem; }\n  .astrion-vars dd { margin-bottom: 0.5rem; }\n}\n</style>\n\n<p class=\"astrion-kicker\">Chemistry</p>\n<p>Why does salt melt ice? Sprinkling salt on a winter sidewalk appears to make the ice disappear, as if salt were producing heat. It is not. Salt changes the temperature at which water freezes, allowing ice to melt into a salty liquid even when the air is below the normal freezing point of pure water.</p>\n<p class=\"astrion-reading-time\">6 min read</p>\n\n<aside class=\"astrion-key-takeaways\">\n  <h2>Key takeaways</h2>\n  <ul>\n    <li>Salt does not melt ice by being warm; it lowers the freezing point of water.</li>\n    <li>Freezing-point depression depends on the number of dissolved particles, not on their identity.</li>\n    <li>Salt works best near and slightly below 0 °C and becomes ineffective at very low temperatures.</li>\n    <li>The melted ice becomes brine, which can refreeze or dilute until the salt is used up.</li>\n  </ul>\n</aside>\n\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-1-the-observation-and-the-wrong-explanation\">The Observation and the Wrong Explanation</h2>\n  <p>Pure water freezes at 0 °C under ordinary pressure. Ice and liquid water can coexist at that temperature, and the balance between them depends on temperature and on what is dissolved in the liquid. When salt is added to ice, the ice begins to melt even though the surroundings are cold.</p>\n<p>The melting can feel cold because it absorbs heat. Breaking the ice lattice and mixing the resulting water with salt requires energy, and that energy comes from the surroundings. A salt-and-ice mixture can become colder than the air, which is why it is used in old-fashioned ice-cream makers. Salt is not a heat source.</p>\n<p>The reason salt works is that the dissolved ions interfere with the ability of water molecules to join the ice crystal. The liquid phase becomes more stable relative to the solid, so the freezing point drops. Ice that is already present can melt into the salty liquid.</p>\n<aside class=\"astrion-callout astrion-callout--key\">\n  <p class=\"astrion-callout-title\">Lower freezing point, not added heat</p>\n<p>Salt changes the temperature at which ice and liquid water are in balance. The melting itself absorbs heat and cools the mixture.</p>\n</aside>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-2-freezing-point-depression\">Freezing-Point Depression</h2>\n  <p>A property that depends on the number of dissolved particles rather than their chemical identity is called a colligative property. Freezing-point depression is one of them. The more particles in solution, the lower the freezing point, at least for dilute solutions.</p>\n<div class=\"astrion-equation\">\n  <div class=\"astrion-math\">\\[\\Delta T_f = -K_f \\, i \\, m\\]</div>\n  <dl class=\"astrion-vars\">\n      <dt>\\Delta T_f</dt>\n      <dd>change in freezing point (degrees Celsius)</dd>\n      <dt>K_f</dt>\n      <dd>freezing-point depression constant of the solvent (degrees Celsius kilograms per mole)</dd>\n      <dt>i</dt>\n      <dd>van&#x27;t Hoff factor, the number of particles per formula unit (dimensionless)</dd>\n      <dt>m</dt>\n      <dd>molality of the solute (moles per kilogram)</dd>\n  </dl>\n  <figcaption class=\"astrion-equation-caption\">The freezing point falls in proportion to the number of dissolved particles.</figcaption>\n</div>\n<p>For water, the freezing-point depression constant is about 1.86 degrees Celsius kilograms per mole. Sodium chloride dissociates into two ions, sodium and chloride, so its van&#x27;t Hoff factor is close to two in dilute solution. One mole of salt per kilogram of water therefore produces a freezing-point drop of roughly 3.7 °C, though real concentrated brines deviate from the ideal formula.</p>\n<p>The effect is not unlimited. As the solution becomes more concentrated, ions interact, the van&#x27;t Hoff factor falls, and the simple formula becomes inaccurate. At the eutectic point, the solution is saturated and the freezing point reaches its lowest value for that salt. Beyond that concentration, adding more salt does not lower the freezing point further.</p>\n<div class=\"astrion-table-wrap\" role=\"region\" tabindex=\"0\" aria-label=\"Different salts produce different freezing-point limits.\">\n  <table class=\"astrion-table\">\n    <caption>Different salts produce different freezing-point limits.</caption>\n    <thead><tr><th scope=\"col\">Salt</th><th scope=\"col\">Ions per formula unit</th><th scope=\"col\">Approximate eutectic temperature</th></tr></thead>\n    <tbody>\n      <tr><td>Sodium chloride</td><td>2</td><td>about -21 °C</td></tr>\n      <tr><td>Calcium chloride</td><td>3</td><td>about -51 °C</td></tr>\n      <tr><td>Magnesium chloride</td><td>3</td><td>about -33 °C</td></tr>\n      <tr><td>Potassium chloride</td><td>2</td><td>about -11 °C</td></tr>\n    </tbody>\n  </table>\n</div>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-3-why-the-ions-matter\">Why the Ions Matter</h2>\n  <p>In ice, water molecules sit in an ordered hydrogen-bonded lattice. Adding a solute disrupts the liquid&#x27;s structure and lowers its chemical potential. The solid phase does not incorporate the ions easily, so the equilibrium shifts. The liquid can remain stable at a temperature where pure water would freeze.</p>\n<p>Entropy is part of the story. A solution has more ways to arrange its particles than pure liquid water, and the added disorder favors the liquid phase. The ions also interact with water molecules, disrupting the network that would otherwise organize into ice.</p>\n<p>The identity of the ion matters less than the number of particles for the ideal colligative effect. Calcium chloride produces more particles per formula unit than sodium chloride, which is why it can melt ice at lower temperatures. It is also more corrosive and more expensive, which is why road crews choose salts based on conditions and cost.</p>\n<p>Impurities in real salt matter too. Rock salt contains clay, sand, and other minerals that do not dissolve and can leave residue. Some impurities can affect the eutectic behavior, and the practical performance of a road-salt blend depends on particle size, moisture, and how quickly it dissolves.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-4-why-salt-stops-working-when-it-gets-very-cold\">Why Salt Stops Working When It Gets Very Cold</h2>\n  <p>Road salt is most effective near 0 °C. As the temperature falls, the amount of salt needed to keep the liquid phase stable rises. At some point the brine becomes saturated and the eutectic temperature is reached. Below that temperature, salt cannot melt the ice no matter how much is spread.</p>\n<p>For sodium chloride, the practical limit is around minus 21 °C under ideal conditions, and real roads often become difficult well before that. Spreading more salt below the limit is wasteful because it simply sits on the ice or dissolves into a brine that freezes.</p>\n<p>The melted ice also dilutes the brine. As ice turns to water, the salt concentration falls, and the freezing point rises. That is why a single application can lose effectiveness and why repeated applications are sometimes needed. The salt is consumed by dilution, not by a chemical reaction.</p>\n<p>Refreezing is a practical hazard. If the brine dilutes or the temperature drops further, the melted water can freeze again, often as a smooth sheet. Road crews therefore combine salt with sand for traction, or use brines and other salts that remain effective at lower temperatures.</p>\n</section>\n<section class=\"astrion-section\">\n  <h2 id=\"astrion-section-5-costs-benefits-and-alternatives\">Costs, Benefits, and Alternatives</h2>\n  <p>Salt is cheap and effective, which is why it is used on a massive scale. It also has environmental costs. Runoff increases the salinity of streams and lakes, can harm freshwater organisms, and corrodes vehicles, bridges, and pipes. The benefits for safety and mobility are real, but they come with a maintenance bill.</p>\n<p>Alternatives include sand for traction, calcium magnesium acetate and other less corrosive deicers, and heated pavement systems. Each has trade-offs in cost, performance, and environmental impact. Some cities pre-wet salt with brine to help it stick and act faster, reducing the total amount needed.</p>\n<p>The chemistry also appears in everyday cooking. Salting icy sidewalks and salting pasta water both involve dissolving ions in water, though the concentrations and goals differ. In cooking, the salt changes flavor and raises the boiling point slightly; on a road, the important effect is the lowered freezing point.</p>\n<p>Salt melts ice because it changes the equilibrium between solid and liquid water, not because it generates heat. The effect is powerful near freezing, limited at low temperatures, and inseparable from the environmental cost of keeping roads clear.</p>\n</section>\n\n<section class=\"astrion-misconceptions\">\n  <h2>Common misconceptions</h2>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Salt melts ice by releasing heat.</p>\n    <p>Dissolving salt can absorb heat, which is why a salt-ice mixture feels cold. The melting comes from freezing-point depression: the dissolved ions shift the equilibrium so that ice can melt at a lower temperature. Salt is not a heat source.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">More salt always melts more ice, even in extreme cold.</p>\n    <p>Each salt has a eutectic temperature, below which adding more salt cannot melt ice. For sodium chloride the practical limit is around minus 21 °C under ideal conditions. Below that, salt may sit on the ice or form a brine that freezes.</p>\n  </div>\n  <div class=\"astrion-misconception\">\n    <p class=\"astrion-misconception-claim\">Salt turns ice directly into water without any other effect.</p>\n    <p>The melted ice becomes a salt solution, or brine. As the brine dilutes, its freezing point rises, and it can refreeze. The process is an equilibrium between ice, water, and dissolved ions, not a one-way conversion.</p>\n  </div>\n</section>\n\n<section class=\"astrion-sources\">\n  <h2>Sources</h2>\n  <ol>\n    <li>\n      <a href=\"https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties\" target=\"_blank\" rel=\"noopener noreferrer\">Colligative Properties</a>\n      <span class=\"astrion-source-meta\">OpenStax, Chemistry 2e, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://www.britannica.com/science/freezing-point-depression\" target=\"_blank\" rel=\"noopener noreferrer\">Freezing-Point Depression</a>\n      <span class=\"astrion-source-meta\">Encyclopaedia Britannica, n.d.</span>\n    </li>\n    <li>\n      <a href=\"https://www.usgs.gov/faqs/why-do-we-salt-roads-when-it-snows\" target=\"_blank\" rel=\"noopener noreferrer\">Why do we salt roads when it snows?</a>\n      <span class=\"astrion-source-meta\">U.S. Geological Survey, n.d.</span>\n    </li>\n  </ol>\n</section>\n\n\n<section class=\"astrion-related\">\n  <h2>Related reading</h2>\n  <ul>\n    <li><a href=\"https://sciencew1thoutlimits.blogspot.com/2026/11/why-does-ice-float-on-water.html\">Why Does Ice Float on Water?</a></li>\n    <li><a href=\"https://www.blogger.com/blog/post/edit/7103426249941439830/8202209737622795096?hl=en\">Why Is the Ocean Salty?</a></li>\n  </ul>\n</section>\n\n<p class=\"astrion-post-meta\">Chemistry · Solutions · Colligative Properties · Phase Changes · Reviewed November 2026</p>\n\n<script>\nwindow.MathJax = {\n  tex: { inlineMath: [['\\\\(', '\\\\)']], displayMath: [['\\\\[', '\\\\]']] },\n  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },\n  svg: { fontCache: 'global' }\n};\n</script>\n<script async src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>\n</div>",
+    "html_sha256": "dc90e7c0c7b79a3d4c6f76d64ee529985bf32d9492363b3584171ace1b05daf9",
+    "meta_description": "Salt melts ice by lowering the freezing point of water, so the ice turns to liquid at temperatures where pure water would stay frozen.",
+    "primary_keyword": "why does salt melt ice",
+    "content_type": "science-explained",
+    "main_category": "Chemistry",
+    "slug": "why-does-salt-melt-ice"
+  },
+  "fingerprint": {
+    "signature": "How does dissolving salt lower the freezing point of water, and why does the effect stop working at very low temperatures? The phase equilibrium between ice and liquid water, the colligative nature of freezing-point depression, the role of dissolved ions and entropy, the practical limits of road salt, and why salt does not melt ice by adding heat. Dissolved salt lowers the chemical potential of liquid water, so the equilibrium between ice and liquid shifts to a lower temperature; ice melts into the brine until the solution reaches its new freezing point or the salt is exhausted.",
+    "sha256": "68dd5914f064a7e64b81c2a1605a49f1de20df5089bbc3ca36fa4645d330b4ca",
+    "topic_key": "chemistry.salt-melts-ice",
+    "primary_keyword": "why does salt melt ice",
+    "aliases": [
+      "salt and ice",
+      "freezing point depression of water",
+      "road salt chemistry"
+    ]
+  },
+  "quality": {
+    "topic_id": "chemistry.salt-melts-ice",
+    "score": 100.0,
+    "decision": "PUBLISH",
+    "breakdown": {
+      "accuracy_sources": 25.0,
+      "depth_explanation": 20.0,
+      "distinct_value": 20.0,
+      "readability": 15.0,
+      "notation": 10.0,
+      "blogger_html": 5.0,
+      "seo": 5.0
+    },
+    "fatal": [],
+    "warnings": [],
+    "metrics": {
+      "words": 1213,
+      "min_words": 700,
+      "sections": 5,
+      "paragraphs": 23,
+      "avg_paragraph_words": 46.7,
+      "avg_sentence_words": 14.9,
+      "words_per_section": 242.6,
+      "keyword_density": 0.0041,
+      "sources": 3,
+      "primary_sources": 1,
+      "labels": [
+        "Chemistry",
+        "Solutions",
+        "Colligative Properties",
+        "Phase Changes"
+      ],
+      "reading_minutes": 6,
+      "html_bytes": 16519,
+      "has_math": true,
+      "tables": 1,
+      "scripts": 2,
+      "links": 5
+    },
+    "conflicts": []
+  },
+  "review": {
+    "reviewed_at": "2026-11-15",
+    "review_status": "approved",
+    "fact_basis": "textbook",
+    "authored_by": "Astrion editorial"
+  },
+  "sources": [
+    {
+      "id": "openstax-colligative-properties",
+      "title": "Colligative Properties",
+      "publisher": "OpenStax, Chemistry 2e",
+      "url": "https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties",
+      "kind": "textbook",
+      "published_at": null,
+      "accessed_at": "2026-11-15"
+    },
+    {
+      "id": "britannica-freezing-point-depression",
+      "title": "Freezing-Point Depression",
+      "publisher": "Encyclopaedia Britannica",
+      "url": "https://www.britannica.com/science/freezing-point-depression",
+      "kind": "reference",
+      "published_at": null,
+      "accessed_at": "2026-11-15"
+    },
+    {
+      "id": "usgs-road-salt",
+      "title": "Why do we salt roads when it snows?",
+      "publisher": "U.S. Geological Survey",
+      "url": "https://www.usgs.gov/faqs/why-do-we-salt-roads-when-it-snows",
+      "kind": "agency",
+      "published_at": null,
+      "accessed_at": "2026-11-15"
+    }
+  ]
+}
