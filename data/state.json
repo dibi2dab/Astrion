@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-21T13:23:49+00:00",
+  "updated_at": "2026-11-21T17:23:24+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -476,9 +476,7 @@
         "gyroscopic stability",
         "top precession"
       ]
-    }
-  ],
-  "pending": [
+    },
     {
       "queue_id": "2026-11-21-s1-why-does-salt-melt-ice",
       "topic_id": "chemistry.salt-melts-ice",
@@ -486,12 +484,18 @@
       "main_category": "Chemistry",
       "content_type": "science-explained",
       "publish_date": "2026-11-21",
-      "publish_after": "2026-11-21T08:30:00-05:00",
       "slot": 0,
-      "status": "queued",
-      "built_at": "2026-11-21T13:23:49+00:00",
+      "blogger_post_id": "1051978195449646747",
+      "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/1051978195449646747?hl=en",
+      "blogger_status": "live",
+      "published_at": "2026-11-21T17:23:24.352Z",
       "quality_score": 100.0,
-      "attempts": 0,
+      "labels": [
+        "Chemistry",
+        "Solutions",
+        "Colligative Properties",
+        "Phase Changes"
+      ],
       "signature": "How does dissolving salt lower the freezing point of water, and why does the effect stop working at very low temperatures? The phase equilibrium between ice and liquid water, the colligative nature of freezing-point depression, the role of dissolved ions and entropy, the practical limits of road salt, and why salt does not melt ice by adding heat. Dissolved salt lowers the chemical potential of liquid water, so the equilibrium between ice and liquid shifts to a lower temperature; ice melts into the brine until the solution reaches its new freezing point or the salt is exhausted.",
       "fingerprint": "68dd5914f064a7e64b81c2a1605a49f1de20df5089bbc3ca36fa4645d330b4ca",
       "primary_keyword": "why does salt melt ice",
@@ -499,14 +503,10 @@
         "salt and ice",
         "freezing point depression of water",
         "road salt chemistry"
-      ],
-      "labels": [
-        "Chemistry",
-        "Solutions",
-        "Colligative Properties",
-        "Phase Changes"
       ]
-    },
+    }
+  ],
+  "pending": [
     {
       "queue_id": "2026-11-21-s2-how-do-noise-canceling-headphones-work",
       "topic_id": "engineering.noise-cancelling-headphones",
