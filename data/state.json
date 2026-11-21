@@ -1,6 +1,6 @@
 {
   "schema": "astrion.state/v1",
-  "updated_at": "2026-11-20T20:00:44+00:00",
+  "updated_at": "2026-11-21T01:25:00+00:00",
   "published": [
     {
       "queue_id": "2026-11-10-s1-why-dividing-by-zero-is-undefined",
@@ -448,9 +448,7 @@
         "bridge joints",
         "why bridges have gaps"
       ]
-    }
-  ],
-  "pending": [
+    },
     {
       "queue_id": "2026-11-20-s2-why-does-a-spinning-top-stay-upright",
       "topic_id": "physics.spinning-top-stability",
@@ -458,12 +456,18 @@
       "main_category": "Physics",
       "content_type": "science-explained",
       "publish_date": "2026-11-20",
-      "publish_after": "2026-11-20T15:30:00-05:00",
       "slot": 1,
-      "status": "queued",
-      "built_at": "2026-11-20T13:57:01+00:00",
+      "blogger_post_id": "116731653594730897",
+      "url": "https://www.blogger.com/blog/post/edit/7103426249941439830/116731653594730897?hl=en",
+      "blogger_status": "live",
+      "published_at": "2026-11-21T01:25:00.526Z",
       "quality_score": 100.0,
-      "attempts": 0,
+      "labels": [
+        "Physics",
+        "Mechanics",
+        "Angular Momentum",
+        "Rotation"
+      ],
       "signature": "Why does rotation stabilize a top against gravity, and why does the axis precess instead of simply falling? The definition of angular momentum and torque, the vector relationship between them, why a torque perpendicular to angular momentum changes its direction rather than its magnitude, the resulting precession, and why friction eventually brings the top down. Gravity exerts a torque that is perpendicular to the top's angular momentum, and a perpendicular torque rotates the angular momentum vector instead of reducing it, so the axis sweeps around in precession while the spin keeps the top from falling quickly.",
       "fingerprint": "324a3ba2f30cd41c5264413c569e3620b7cce89d6e3a3c0b2ddd86a24f841ab8",
       "primary_keyword": "why does a spinning top stay upright",
@@ -471,15 +475,10 @@
         "why spinning tops stay up",
         "gyroscopic stability",
         "top precession"
-      ],
-      "labels": [
-        "Physics",
-        "Mechanics",
-        "Angular Momentum",
-        "Rotation"
       ]
     }
   ],
+  "pending": [],
   "failed": [],
   "builds": [
     {
