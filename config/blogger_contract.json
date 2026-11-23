@@ -1,7 +1,7 @@
 {
   "schema": "astrion.blogger-contract/v1",
-  "fetched_at": "2026-11-10T04:45:37+00:00",
-  "revision": "20261108",
+  "fetched_at": "2026-11-23T18:06:02+00:00",
+  "revision": "20261119",
   "title": "Blogger API",
   "methods": {
     "delete": [
@@ -77,5 +77,5 @@
       "revert"
     ]
   },
-  "sha256": "1d7285e6ac1f01acafcbd5e7d85b154241d39245e5782ff3c8128a52bb46caf5"
+  "sha256": "c0806b8984c58ac72050b94fc913eeea3846ad93948328a87b3fae2e7f047e55"
 }
